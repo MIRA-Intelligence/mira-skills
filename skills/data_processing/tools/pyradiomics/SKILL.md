@@ -90,6 +90,16 @@ df = pd.DataFrame(results_list)
 df.to_csv("radiomics_features.csv", index=False)
 ```
 
+### 4. Advanced Batch Extraction (Preprocessing + Matching)
+Use the included `advanced_extract.py` for cohorts requiring N4 correction, CLAHE, or folder-based matching.
+```bash
+python scripts/advanced_extract.py --root_dir ./data/raw --img_key "LGE" --msk_key "mask" --out_csv features.csv --params pyradiomics_params.yaml --n4 --clahe
+```
+
+## Automation Scripts
+- `scripts/batch_extract.py`: Simple batch extraction for NIfTI image-mask pairs in a single directory.
+- `scripts/advanced_extract.py`: Feature extraction with built-in N4 bias correction, CLAHE, and patient-folder string matching.
+
 ## Integration with machine learning
 Radiomics features extracted directly map to downstream analysis libraries.
 - The output from pyradiomics can often be directly injected into a `pandas.DataFrame`.

@@ -17,6 +17,7 @@ When the user provides a data path, perform the following steps:
 - **Scan & Audit**: Recursively scan the data folder to determine the total number of cases and the data modalities present. If the modality is MRI, identify and list the specific sequences available.
 - **Reorganize**: Reorganize the required data into a new, cleanly structured target directory based on the user's needs.
 - **Format Conversion**: If the raw data is in DICOM format, invoke the `tools/dicom2nifti` skill to convert it to NIfTI.
+- **Metadata Extraction**: During the conversion step, extract and save relevant metadata (e.g., modality, sequence, acquisition parameters, window level, window center, orientation, e.g.) into a JSON file for each case. This metadata will be crucial for downstream processing and analysis.
 - **MRI Preprocessing**: Consider performing N4 bias field correction on MRI data during the conversion step to improve image quality for downstream tasks.
 - **Naming Conventions**:
   - Single Modality: Name the converted file `image.nii.gz`.
@@ -148,54 +149,32 @@ The choice depends primarily on **inter-slice resolution** (层间分辨率) and
 - **3D extraction** (default): Use when the image is **isotropic** (层内分辨率 ≈ 层间分辨率, e.g., spacing `[1, 1, 1]`). Enables shape, first-order, and 3D texture features (GLCM, GLRLM, NGTDM, SGLDM) across all voxels.
 - **2D extraction**: Use when the **inter-slice spacing is significantly larger** than in-plane spacing (e.g., spacing `[0.5, 0.5, 5]`). Set `dimensionality: 2`. Also use 2D when the **mask has only one slice** or **all masks have the same number of slices** (slice-level ROI). Note: 3D texture features (NGTDM, SGLDM) will be unavailable.
 
-## 6. Batch Extraction Script (批量提取脚本)
+## 6. Batch Extraction (批量提取)
 
-```python
-import json
-import csv
-import pyradiomics
-import SimpleITK as sitk
+For batch processing over cohorts, you SHOULD delegate to the high-performance scripts provided in the `tools/pyradiomics` skill. These scripts handle logging, error recovery, and data consolidation automatically.
 
-def extract_features(dataset_json, config, output_csv="features.csv"):
-    pyradiomics.setVerbosity(2)  # WARN level only
+### Option A: Basic Batch Extraction
+Use `tools/pyradiomics/scripts/batch_extract.py` when images and masks are stored in two matching directories.
 
-    extractor = pyradiomics.featureextractor.OriginalFeatureExtractor()
-    extractor.enableAllImageTypes(True)
-    extractor.settings['verbose'] = False
-    extractor.settings['interpolator'] = sitk.sitkBSpline
+```bash
+python tools/pyradiomics/scripts/batch_extract.py \
+  --image_dir ./data/images \
+  --mask_dir ./data/masks \
+  --out_csv features.csv \
+  --params pyradiomics_params.yaml
+```
 
-    ext_config = config.get('extraction', {})
-    if 'resample_spacing' in ext_config:
-        extractor.settings['resamplePixelSpacing'] = ext_config['resample_spacing']
-    if 'bin_width' in ext_config:
-        extractor.settings['binWidth'] = ext_config['bin_width']
+### Option B: Advanced Extraction (Preprocessing)
+Use `tools/pyradiomics/scripts/advanced_extract.py` when data is organized in patient-specific folders or requires advanced preprocessing (N4 correction, CLAHE).
 
-    with open(dataset_json) as f:
-        dataset = json.load(f)
-
-    results = []
-    errors = []
-
-    for sample in dataset:
-        try:
-            result = extractor.execute(sample['image'], sample['mask'])
-            row = {'label': sample.get('label', '')}
-            row.update(result)
-            results.append(row)
-        except Exception as e:
-            errors.append(f"{sample.get('label', 'unknown')}: {e}")
-
-    if results:
-        with open(output_csv, 'w', newline='') as f:
-            writer = csv.DictWriter(f, fieldnames=results[0].keys())
-            writer.writeheader()
-            writer.writerows(results)
-
-    if errors:
-        with open('extraction_errors.log', 'w') as f:
-            f.write('\n'.join(errors))
-
-    return results, errors
+```bash
+python tools/pyradiomics/scripts/advanced_extract.py \
+  --root_dir ./data/patients \
+  --img_key "T1" \
+  --msk_key "mask" \
+  --out_csv features_advanced.csv \
+  --params pyradiomics_params.yaml \
+  --n4 --clahe
 ```
 
 ### Common Extraction Failures
