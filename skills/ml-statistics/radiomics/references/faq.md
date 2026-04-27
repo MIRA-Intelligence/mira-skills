@@ -22,7 +22,6 @@ Each combination is evaluated via cross-validation, producing an ensemble of mod
 
 #### 1. Data Balancing
 Handles class imbalance in binary classification:
-- **None**: No balancing
 - **DownSampling**: Random under-sampling of majority class
 - **UpSampling**: Random over-sampling of minority class
 - **SMOTE**: Synthetic Minority Over-sampling Technique (generates synthetic samples via interpolation)
@@ -32,14 +31,12 @@ Uses `imbalanced-learn` library.
 
 #### 2. Normalization
 Feature scaling applied to training data, then transformed to validation/test:
-- **None**: Identity transform
 - **MinMax**: Scale to [0, 1] range
 - **ZScore**: Standardize to zero mean, unit variance (`StandardScaler`)
 - **Mean**: Mean-subtract and range-divide
 
 #### 3. Dimension Reduction
 Reduce feature collinearity before selection:
-- **None**: No reduction
 - **PCC**: Remove one of each pair with Pearson |r| > threshold (default 0.99). Greedy: start from highest correlation, remove feature with lower variance, iterate
 - **PCA**: Principal Component Analysis, retain components explaining 95% of variance
 
