@@ -233,6 +233,29 @@ Build reproducible, production-ready ML workflows.
 
 **See:** `references/pipelines_and_composition.md` for comprehensive pipeline patterns.
 
+### 6. Model Inspection & Visualizations
+
+Understand *why* a model makes specific predictions and visualize diagnostics without boilerplate plotting code.
+
+**Key tools:**
+- **Permutation Importance**: Model-agnostic feature importance.
+- **Partial Dependence Plots (PDP)**: Marginal effect of features on target.
+- **ICE Plots**: Individual conditional expectations.
+- **Display APIs**: `RocCurveDisplay`, `ConfusionMatrixDisplay`, `CalibrationDisplay`, etc.
+
+**See:** `references/inspection_and_visualizations.md` for detailed usage.
+
+### 7. Best Practices, Pitfalls, & Scaling
+
+Ensure models are built without data leakage and learn to scale up to large datasets.
+
+**Key concepts:**
+- **Data Leakage**: Avoiding the #1 machine learning error.
+- **Model Persistence**: Using `joblib` to save production pipelines.
+- **Scaling**: Multi-core parallelism (`n_jobs`), Out-of-core learning (`partial_fit`), and fast algorithms (`HistGradientBoostingClassifier`).
+
+**See:** `references/best_practices_and_scaling.md` for comprehensive strategies.
+
 ## Example Scripts
 
 ### Classification Pipeline
