@@ -9,7 +9,7 @@ metadata:
 
 This skill orchestrates medical image data processing tasks. The following operations have no strict sequential order (except feature extraction, which requires curated data). They can be executed concurrently or as independent steps. 
 
-When executing these tasks, you MUST load and delegate to the specialized tool skills provided in the `tools/` directory (e.g., `tools/dicom2nifti/SKILL.md`, `tools/pydicom/SKILL.md`, `tools/nibabel/SKILL.md`, `tools/pyradiomics/SKILL.md`).
+When executing these tasks, you MUST load and delegate to the specialized tool skills provided in the `tools/` directory (e.g., `tools/dicom2nifti/SKILL.md`, `tools/pydicom/SKILL.md`, `tools/nibabel/SKILL.md`, `tools/pyradiomics/SKILL.md`, `tools/resample/SKILL.md`).
 
 ## 1. Data Curation (数据整理)
 
@@ -40,7 +40,16 @@ During the data curation process, you must pay attention to data privacy and spa
 - **Metadata Gathering**: Read the images (invoking the `tools/pydicom` skill for DICOMs or the `tools/nibabel` skill for NIfTIs) to extract spatial metadata.
 - **Statistical Summary**: Extract and compile the `orientation`, `shape`, and `spacing` across all cases in the dataset. Save this aggregated summary into a JSON file for easy review.
 
-## 3. Radiomics Feature Extraction (特征提取)
+## 3. Resampling (Resolution Unification) (图像重采样)
+
+Based on the spatial statistics gathered in the previous step, you must determine if resampling is necessary and perform it accordingly using the `tools/resample` skill.
+
+- **For Radiomics/Feature Extraction**: You MUST unify the spatial resolution across the dataset using the `resample` skill before extraction. Use the statistics (mode or median) to select an optimal target spacing that minimizes data loss. Different imaging modalities (e.g., T1, T2, CT) MUST be resampled separately according to their specific optimal spacing.
+- **For Deep Learning (MONAI)**: If the dataset has large dimensions, proactively ask the user if they want to pre-resample the data to a lower resolution using the `resample` skill. This can significantly reduce CPU RAM and GPU VRAM footprint during the deep learning pipeline.
+
+## 4. Radiomics Feature Extraction (特征提取)
+
+*NOTE: The following steps (4 through 7) are ONLY necessary when the downstream task specifically requires radiomics feature extraction (e.g., traditional Machine Learning pipelines, Medical Image Survival Analysis, or Radiomics modeling). If the data is being prepared purely for Deep Learning (e.g., MONAI segmentation/classification), you may stop at Step 3 and skip these extraction steps.*
 
 Data MUST be fully curated and spatially standardized before feature extraction begins.
 - **Tool Delegation**: Invoke the `tools/pyradiomics` skill to perform the actual extraction.
@@ -48,7 +57,7 @@ Data MUST be fully curated and spatially standardized before feature extraction 
 - **CT Specifics (CT 窗宽窗位)**: CT values (Hounsfield Units) have absolute physical meaning. Before applying any normalization to CT data, you must first apply a unified Window Width and Window Level (窗宽窗位) clipping across all data.
 - **ROI-Specific Normalization**: For segmentations/masks with highly specific or unusual shapes, consider performing intensity normalization *only within the Region of Interest (ROI)* rather than globally across the entire image volume.
 
-## 4. Spatial Validation (空间一致性校验)
+## 5. Spatial Validation (空间一致性校验)
 
 When curating data for radiomics, image-mask pairs must be spatially consistent:
 
@@ -102,14 +111,14 @@ def validate_and_index(image_dir, mask_dir, output_json="dataset.json"):
     return dataset, mismatches
 ```
 
-## 5. PyRadiomics Configuration (PyRadiomics参数配置)
+## 6. PyRadiomics Configuration (PyRadiomics参数配置)
 
 Generate a `pyradiomics_params.yaml` with explicit filter settings for reproducibility:
 
 ```yaml
 extraction:
   resample_spacing: [1, 1, 1]
-  bin_width: 25
+  binCount: 20
   dimensionality: 3
 
   imageType:
@@ -149,32 +158,19 @@ The choice depends primarily on **inter-slice resolution** (层间分辨率) and
 - **3D extraction** (default): Use when the image is **isotropic** (层内分辨率 ≈ 层间分辨率, e.g., spacing `[1, 1, 1]`). Enables shape, first-order, and 3D texture features (GLCM, GLRLM, NGTDM, SGLDM) across all voxels.
 - **2D extraction**: Use when the **inter-slice spacing is significantly larger** than in-plane spacing (e.g., spacing `[0.5, 0.5, 5]`). Set `dimensionality: 2`. Also use 2D when the **mask has only one slice** or **all masks have the same number of slices** (slice-level ROI). Note: 3D texture features (NGTDM, SGLDM) will be unavailable.
 
-## 6. Batch Extraction (批量提取)
+## 7. Batch Extraction (批量提取)
 
-For batch processing over cohorts, you SHOULD delegate to the high-performance scripts provided in the `tools/pyradiomics` skill. These scripts handle logging, error recovery, and data consolidation automatically.
-
-### Option A: Basic Batch Extraction
-Use `tools/pyradiomics/scripts/batch_extract.py` when images and masks are stored in two matching directories.
+For batch processing over cohorts, you MUST delegate to the unified extraction engine provided in the `tools/pyradiomics` skill. This script handles logging, error recovery, data consolidation, and mandatory preprocessing (N4, CLAHE, Normalization) automatically. (N4 should be skipped if already performed during curation, CLAHE is optional but can improve feature stability for low-contrast modalities like MRI).:
 
 ```bash
-python tools/pyradiomics/scripts/batch_extract.py \
-  --image_dir ./data/images \
-  --mask_dir ./data/masks \
-  --out_csv features.csv \
-  --params pyradiomics_params.yaml
-```
-
-### Option B: Advanced Extraction (Preprocessing)
-Use `tools/pyradiomics/scripts/advanced_extract.py` when data is organized in patient-specific folders or requires advanced preprocessing (N4 correction, CLAHE).
-
-```bash
-python tools/pyradiomics/scripts/advanced_extract.py \
+python tools/pyradiomics/scripts/extract_feature.py \
   --root_dir ./data/patients \
   --img_key "T1" \
   --msk_key "mask" \
-  --out_csv features_advanced.csv \
+  --out_csv features.csv \
   --params pyradiomics_params.yaml \
-  --n4 --clahe
+  --n4 --clahe \
+  --labels ./data/labels.json
 ```
 
 ### Common Extraction Failures

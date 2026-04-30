@@ -72,33 +72,20 @@ mask_path = "path/to/mask.nii.gz"
 result = extractor.execute(image_path, mask_path)
 ```
 
-### 3. Batch Processing with pandas
-Extracting features over a dataset to train ML models.
-```python
-import pandas as pd
-from radiomics import featureextractor
-
-cases = [{"image": "img1.nii", "mask": "mask1.nii"}, {"image": "img2.nii", "mask": "mask2.nii"}]
-extractor = featureextractor.RadiomicsFeatureExtractor("Params.yaml")
-
-results_list = []
-for case in cases:
-    result = extractor.execute(case["image"], case["mask"])
-    results_list.append(result)
-
-df = pd.DataFrame(results_list)
-df.to_csv("radiomics_features.csv", index=False)
-```
-
-### 4. Advanced Batch Extraction (Preprocessing + Matching)
-Use the included `advanced_extract.py` for cohorts requiring N4 correction, CLAHE, or folder-based matching.
+### 3. Batch Extraction (Preprocessing + Labels)
+Extracting features over a dataset with built-in preprocessing (Normalization) and label merging.
 ```bash
-python scripts/advanced_extract.py --root_dir ./data/raw --img_key "LGE" --msk_key "mask" --out_csv features.csv --params pyradiomics_params.yaml --n4 --clahe
+python scripts/extract_feature.py \
+  --root_dir ./data/raw \
+  --img_key "LGE" \
+  --msk_key "mask" \
+  --out_csv features.csv \
+  --params pyradiomics_params.yaml \
+  --labels ./data/labels.json
 ```
 
 ## Automation Scripts
-- `scripts/batch_extract.py`: Simple batch extraction for NIfTI image-mask pairs in a single directory.
-- `scripts/advanced_extract.py`: Feature extraction with built-in N4 bias correction, CLAHE, and patient-folder string matching.
+- `scripts/extract_feature.py`: Unified feature extraction engine. Supports N4 bias correction, CLAHE, custom normalization, patient-folder string matching, and automated label merging.
 
 ## Integration with machine learning
 Radiomics features extracted directly map to downstream analysis libraries.
@@ -108,9 +95,9 @@ Radiomics features extracted directly map to downstream analysis libraries.
 
 ## Best Practices
 - **Standardize Acquisition Parameters**: Variability in voxel size, slice thickness, and reconstruction kernels heavily impacts feature robustness.
-- **Always Resample**: Use pyradiomics' native resampling (configure `resampledPixelSpacing` and `interpolator`) to achieve isotropic voxel sizes before extracting texture features.
+- **Default Bin Settings**: For CT, a `binWidth` of 25 is common, while for MRI, shoubld be `binCount` (e.g., 20) is often more appropriate due to the lack of standardized intensity units.
 - **Tune Bin Width**: Discretization is critical. A `binWidth` between 5 and 25 is typical for CT, but setting this optimally requires understanding your modality's intensity spread (e.g., HU for CT).
-- **Use Parameter Files**: Always configure your pipeline using `.yaml` parameter files for scientific reproducibility rather than hard-coding settings.
+- **Use Parameter Files**: Always configure your pipeline using `.yaml` parameter files for scientific reproducibility rather than hard-coding settings. Exsamples are provided in `templates/RadiomicsParams.yaml`.
 - **Handle Diagnostics**: Monitor the `diagnostics_` features appended by pyradiomics to check for execution warnings or metadata inconsistencies.
 
 ## Common Pitfalls to Avoid
@@ -120,8 +107,8 @@ Radiomics features extracted directly map to downstream analysis libraries.
 
 ## Reference Files
 If creating radiomics projects, refer to the included codebase templates and parameter configurations:
-- `references/example_params.yaml`: Standard configuration template for CT/MRI.
-- `references/batch_extractor.py`: Boilerplate for multiprocessing over large cohorts.
+- `/templates/RadiomicsParams.yaml`: Standard configuration template for CT/MRI.
+- `/references/batch_extractor.py`: Boilerplate for multiprocessing over large cohorts.
 
 ## Additional Resources
 - [PyRadiomics Documentation](https://pyradiomics.readthedocs.io/)
