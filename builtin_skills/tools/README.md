@@ -1,6 +1,6 @@
-# medpilot Skills
+# MIRA Skills
 
-This directory contains built-in skills that extend medpilot's capabilities.
+This directory contains built-in skills that extend MIRA's capabilities.
 
 ## Skill Format
 
@@ -8,7 +8,7 @@ Each skill is a directory containing a `SKILL.md` file with:
 - YAML frontmatter (name, description, metadata)
 - Markdown instructions for the agent
 
-When skills reference large local documentation or logs, prefer medpilot's built-in
+When skills reference large local documentation or logs, prefer MIRA's built-in
 `grep` / `glob` tools to narrow the search space before loading full files.
 Use `grep(output_mode="count")` / `files_with_matches` for broad searches first,
 use `head_limit` / `offset` to page through large result sets,

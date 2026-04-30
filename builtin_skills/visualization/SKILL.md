@@ -5,7 +5,7 @@ description: "Master orchestrator for publication-quality scientific visualizati
 
 # Scientific Visualization Orchestrator (科研绘图与可视化统筹)
 
-This skill acts as the central hub for all plotting, diagramming, and data visualization tasks in MedPilot. It ensures that every figure generated meets the rigorous aesthetic and technical standards of top-tier academic journals (e.g., Nature, Science, Cell), rivaling the output quality of professional software like OriginLab or R's `ggplot2`.
+This skill acts as the central hub for all plotting, diagramming, and data visualization tasks in MIRA. It ensures that every figure generated meets the rigorous aesthetic and technical standards of top-tier academic journals (e.g., Nature, Science, Cell), rivaling the output quality of professional software like OriginLab or R's `ggplot2`.
 
 ## The Visualization Philosophy (Top-Tier Journal Standards)
 To achieve "Origin/R-level" aesthetics using Python (`matplotlib`/`seaborn`), you MUST adhere to the following principles across all plotting tasks:

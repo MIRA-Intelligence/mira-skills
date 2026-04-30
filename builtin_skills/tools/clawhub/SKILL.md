@@ -27,21 +27,21 @@ npx --yes clawhub@latest search "web scraping" --limit 5
 ## Install
 
 ```bash
-npx --yes clawhub@latest install <slug> --workdir ~/.medpilot/workspace
+npx --yes clawhub@latest install <slug> --workdir ~/.mira/workspace
 ```
 
-Replace `<slug>` with the skill name from search results. This places the skill into `~/.medpilot/workspace/skills/`, where medpilot loads workspace skills from. Always include `--workdir`.
+Replace `<slug>` with the skill name from search results. This places the skill into `~/.mira/workspace/skills/`, where mira loads workspace skills from. Always include `--workdir`.
 
 ## Update
 
 ```bash
-npx --yes clawhub@latest update --all --workdir ~/.medpilot/workspace
+npx --yes clawhub@latest update --all --workdir ~/.mira/workspace
 ```
 
 ## List installed
 
 ```bash
-npx --yes clawhub@latest list --workdir ~/.medpilot/workspace
+npx --yes clawhub@latest list --workdir ~/.mira/workspace
 ```
 
 ## Notes
@@ -49,5 +49,5 @@ npx --yes clawhub@latest list --workdir ~/.medpilot/workspace
 - Requires Node.js (`npx` comes with it).
 - No API key needed for search and install.
 - Login (`npx --yes clawhub@latest login`) is only required for publishing.
-- `--workdir ~/.medpilot/workspace` is critical — without it, skills install to the current directory instead of the medpilot workspace.
+- `--workdir ~/.mira/workspace` is critical — without it, skills install to the current directory instead of the mira workspace.
 - After install, remind the user to start a new session to load the skill.

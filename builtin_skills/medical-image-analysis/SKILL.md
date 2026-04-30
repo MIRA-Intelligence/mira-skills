@@ -35,5 +35,5 @@ Analyze real-world capability and trigger feedback loops.
 - Provide clear and modular code structure.
 
 ## External Tool Invocation
-If raw medical data (like DICOMs) needs conversion or advanced preprocessing before it enters the pipeline, you **MUST** delegate these low-level operations to the specialized tool skills found in `@medpilot/skills/data_processing/tools/`. 
-For instance, load and read `@medpilot/skills/data_processing/tools/dicom2nifti/SKILL.md` when DICOM formatting is required, rather than attempting to write custom parsing scripts from scratch.
+If raw medical data (like DICOMs) needs conversion or advanced preprocessing before it enters the pipeline, you **MUST** delegate these low-level operations to the specialized tool skills found in `@/skills/data_processing/tools/`. 
+For instance, load and read `@/skills/data_processing/tools/dicom2nifti/SKILL.md` when DICOM formatting is required, rather than attempting to write custom parsing scripts from scratch.

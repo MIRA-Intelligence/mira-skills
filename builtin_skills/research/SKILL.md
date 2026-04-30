@@ -5,7 +5,7 @@ description: "Master orchestrator for the entire scientific research lifecycle. 
 
 # Scientific Research Orchestrator (科研全流程统筹)
 
-This skill acts as the central orchestrator for the entire scientific research lifecycle in MedPilot. It enforces a highly rigorous, cyclical, and iterative process designed to produce high-quality, innovative academic outcomes.
+This skill acts as the central orchestrator for the entire scientific research lifecycle in MIRA. It enforces a highly rigorous, cyclical, and iterative process designed to produce high-quality, innovative academic outcomes.
 
 ## The Iterative Scientific Lifecycle
 
@@ -25,7 +25,7 @@ The research process is never linear. It is a continuous loop of discovery, vali
 
 ### 3. Execution & Analysis (Scientific Method + Visualization)
 * **Objective**: Run the experiment, analyze the data, and visualize the findings.
-* **Skill Used**: **`scientific-method`** (for analysis) + **`medpilot/skills/visualization`** (for plotting).
+* **Skill Used**: **`scientific-method`** (for analysis) + **`/skills/visualization`** (for plotting).
 * **Workflow**: 
   - Compare empirical results against the predictions.
   - Call the `visualization` skill to generate necessary data plots, histograms, and statistical charts to make sense of the results.
@@ -60,6 +60,6 @@ To reduce homogenization and improve efficiency, the research skills are categor
 5. **`peer-review`**: The evaluation engine for rigorous quality assurance, checking ethics, statistics, and reporting standards.
 
 ## Cross-Skill Interaction (Important Rules)
-- **Visualization is Mandatory**: Whenever data needs to be interpreted in Stage 3, or when drafting the paper in Stage 4, you MUST invoke the `medpilot/skills/visualization` skill to create high-quality plots and graphical abstracts.
+- **Visualization is Mandatory**: Whenever data needs to be interpreted in Stage 3, or when drafting the paper in Stage 4, you MUST invoke the `/skills/visualization` skill to create high-quality plots and graphical abstracts.
 - **Never Skip the Hypothesis**: Do not jump from Literature Review directly to running models. You must explicitly use the `scientific-method` skill to state the *Why* and the *Prediction* before executing code.
 - **Cyclical Feedback**: If `peer-review` identifies a critical flaw (e.g., missing a baseline), you must loop back to `scientific-method` to design the new baseline experiment, execute it, and update the manuscript via `scientific-writing`.

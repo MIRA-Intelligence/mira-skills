@@ -5,7 +5,7 @@ description: "Use this skill as an orchestrator for any task involving office do
 
 # Document Processing Orchestrator
 
-This skill acts as a central hub for all document-related operations in MedPilot. It delegates tasks to specialized skills based on the file format involved.
+This skill acts as a central hub for all document-related operations in MIRA. It delegates tasks to specialized skills based on the file format involved.
 
 ## Specialized Skills
 

@@ -23,7 +23,7 @@ import zipfile
 from pathlib import Path
 
 import defusedxml.minidom
-from office.soffice import get_soffice_env
+from plugin_skills.documents.pptx.scripts.office.soffice import get_soffice_env
 from PIL import Image, ImageDraw, ImageFont
 
 THUMBNAIL_WIDTH = 300

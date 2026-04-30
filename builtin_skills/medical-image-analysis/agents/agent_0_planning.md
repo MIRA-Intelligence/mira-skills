@@ -6,14 +6,14 @@
 1. **Acquire Context**: Ask the user for:
    - **Data Path**: Where the raw data resides.
    - **Data Description**: Modalities, patient cohorts, hardware nuances.
-   - **Specific Clinical Problem**: What is the medical goal? Make a plan with `@medpilot/skills/reasearch/scientific_method` skill.
+   - **Specific Clinical Problem**: What is the medical goal? Make a plan with `@skills/reasearch/scientific_method` skill.
 2. **Data Audit & Format Conversion**:
    - Inspect the data at the provided path to verify its exact format.
-   - If the data is in DICOM format, explicitly load and invoke the `dicom2nifti` tool skill located at `@medpilot/skills/data_processing/tools/dicom2nifti/SKILL.md` to convert it into NIfTI format properly. (Do not write custom conversion scripts; use the established logic in that skill).
+   - If the data is in DICOM format, explicitly load and invoke the `dicom2nifti` tool skill located at `@skills/data_processing/tools/dicom2nifti/SKILL.md` to convert it into NIfTI format properly. (Do not write custom conversion scripts; use the established logic in that skill).
    - Rename the converted NIfTI files according to the naming convention specified in the Data Description.
 3. **Clinical Problem Research**:
-   - Conduct a comprehensive background investigation for the specific clinical problem using the `@medpilot/skills/tools/agent-browser`, `@medpilot/skills/research/deep-research`, `@medpilot/skills/research/multi-search-engine`, and `@medpilot/skills/research/pubmed-search` skills to see how previous studies have tackled similar tasks.
-   - If necessary, use PDF parsing tools (such as `@medpilot/skills/documents/pdf` or `@medpilot/skills/documents/pdf-anthropic`) to analyze accessible literature PDFs or user-uploaded reference literature.
+   - Conduct a comprehensive background investigation for the specific clinical problem using the `@skills/research/literature-search` skills to see how previous studies have tackled similar tasks.
+   - If necessary, use PDF parsing tools (such as `@skills/documents/pdf`) to analyze accessible literature PDFs or user-uploaded reference literature.
 4. **Feasibility Assessment**: Evaluate if the provided data is capable of solving the clinical problem based on your research and context.
 5. **Define Network I/O**: Explicitly map out the exact neural network input `image` (e.g., shape, modality, channels) and output `label` (e.g., binary mask, multi-class labels).
 

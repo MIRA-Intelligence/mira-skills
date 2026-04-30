@@ -3,7 +3,7 @@ import sys
 
 from pypdf import PdfReader, PdfWriter
 
-from extract_form_field_info import get_field_info
+from plugin_skills.documents.pdf.scripts.extract_form_field_info import get_field_info
 
 
 

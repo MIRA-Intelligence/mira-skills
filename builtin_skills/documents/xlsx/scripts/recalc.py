@@ -10,7 +10,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from office.soffice import get_soffice_env
+from plugin_skills.documents.xlsx.scripts.office.soffice import get_soffice_env
 
 from openpyxl import load_workbook
 
