@@ -5,7 +5,7 @@ description: "Orchestrator guide for machine learning, statistical, and survival
 
 # Machine Learning & Statistics Orchestrator
 
-This skill acts as a central hub for all machine learning and statistical modeling tasks in MedPilot. The `ml-statistics` module contains independent research methods (`radiomics`, `survival-analysis`, `statistical-analysis`) as well as the foundational toolkits (`scikit-learn`, `scikit-survival`) that power them.
+This skill acts as a central hub for all machine learning and statistical modeling tasks in MIRA. The `ml-statistics` module contains independent research methods (`radiomics`, `survival-analysis`, `statistical-analysis`) as well as the foundational toolkits (`scikit-learn`, `scikit-survival`) that power them.
 
 ## Sub-Skills & Toolkits
 

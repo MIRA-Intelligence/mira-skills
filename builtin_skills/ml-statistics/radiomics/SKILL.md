@@ -1,32 +1,29 @@
 ---
 name: radiomics
-description: End-to-end radiomics feature extraction and machine learning pipeline. Use this skill when configuring PyRadiomics, processing medical images and segmentations, performing feature selection, and building radiomic signatures for outcome prediction.
+description: End-to-end radiomics pipeline for feature extraction, selection, and modeling. Use when building radiomic signatures with hierarchical interpretability (Original -> LoG -> Wavelet), performing balanced clinical-feature splitting, or handling small-cohort cross-validation.
 ---
 
 # Radiomics Pipeline
 
-This skill provides a structured workflow for configuring, extracting, refining, and analyzing radiomic features from medical images.
+A specialized workflow for clinical radiomics, prioritizing model interpretability and statistical rigor.
 
-## Workflow & Independent Agents
+## Core Workflow
 
-**The Iterative Cycle**: The radiomics pipeline depends on a `radiomics_plan.yaml`. Agent 0 establishes the parameters and study design. Agents 1-3 extract and process the features. Agent 4 models and evaluates the radiomic signature.
+The pipeline is driven by specialized agents. The process adapts dynamically based on cohort size and data availability.
 
-### [Agent 0: Overall Planning Agent (整体设定Agent)](agents/agent_0_planning.md)
-Define the extraction parameters (e.g., bin width, interpolator, resampling spacing) and clinical endpoints.
+### 0. Study Planning & Extraction
+**[Agent 0: Planning](agents/agent_0_planning.md)** - Assess data source (DICOM/NIfTI/CSV), execute feature extraction via `@skills/data_processing`, and design study architecture.
 
-### [Agent 1: Data Curation Agent (数据格式化Agent)](agents/agent_1_data_curation.md)
-Validate image-mask spatial matching, format DICOM to NIfTI if needed, and set up index files.
+### 1. Splitting & Partitioning
+**[Agent 1: Splitting & Partitioning](agents/agent_1_curation_partitioning.md)** - Perform balanced cohort splitting (clinical features/labels) and organize features into hierarchical sub-models (Original -> LoG -> Wavelet).
 
-### [Agent 2: Feature Extraction Agent (特征化Agent)](agents/agent_2_feature_extraction.md)
-Configure PyRadiomics with YAML/JSON, execute batch extractions across the cohort, and output tabular data (CSV/DataFrames).
+### 2. Baseline Modeling & Feature Selection
+**[Agent 2: Baseline Modeling](agents/agent_2_modeling.md)** - Refine features per sub-model, eliminate noise, and build interpretability-focused baseline sub-models (LR/SVM/RF). Handle batch effects (ComBat).
 
-### [Agent 3: Feature Selection Agent (特征筛选Agent)](agents/agent_3_feature_selection.md)
-Perform ICC analysis, handle high multi-collinearity, and employ techniques like LASSO, mRMR, or Recursive Feature Elimination.
+### 3. Two-Stage Optimization
+**[Agent 3: Optimization](agents/agent_3_optimization.md)** - Fine-tune baseline models using coarse-to-fine two-stage grid search and auto-iteration to maximize performance.
 
-### [Agent 4: Modeling & Testing Agent (建模测试Agent)](agents/agent_4_modeling_testing.md)
-Train models (Logistic Regression, SVMS, etc.) on the radiomic signature, calculate AUC, plot ROC/Calibration curves, and build the Rad-score.
-
-## Coding Guidelines
-- Always generate a `pyradiomics_params.yaml` file for reproducibility.
-- Strictly monitor multi-collinearity; radiomics datasets easily overfit.
-- Integrate smoothly with standard standardizers (`sklearn.preprocessing.StandardScaler`).
+## Specialized References
+- **Methodology**: [FAE Pipeline Methodology](references/methodology.md).
+- **Interpretability**: Sub-model hierarchy (Shape -> Firstorder -> Texture).
+- **Harmonization**: ComBat and normalization persistence for external sets.
