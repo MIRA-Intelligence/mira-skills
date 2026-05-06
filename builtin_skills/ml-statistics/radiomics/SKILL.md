@@ -11,19 +11,19 @@ A specialized workflow for clinical radiomics, prioritizing model interpretabili
 
 ## Core Workflow
 
-The pipeline is driven by specialized agents. The process adapts dynamically based on cohort size and data availability.
+The pipeline is a **mandatory 4-step sequence**. Whether starting from raw images or pre-extracted features, the process must follow all steps to ensure scientific rigor and data organization.
 
 ### 0. Study Planning & Extraction
-**[Agent 0: Planning](agents/agent_0_planning.md)** - Assess data source (DICOM/NIfTI/CSV), execute feature extraction via `@skills/data_processing`, and design study architecture.
+**[Agent 0: Planning](agents/agent_0_planning.md)** - Assess data source (DICOM/NIfTI or pre-extracted CSV), execute feature extraction (if starting from images), and design the study architecture. Generates `radiomics_plan.yaml`.
 
-### 1. Splitting & Partitioning
-**[Agent 1: Splitting & Partitioning](agents/agent_1_curation_partitioning.md)** - Perform balanced cohort splitting (clinical features/labels) and organize features into hierarchical sub-models (Original -> LoG -> Wavelet).
+### 1. Data Organization & Partitioning
+**[Agent 1: Splitting & Partitioning](agents/agent_1_curation_partitioning.md)** - **Mandatory for all workflows.** Organizes features into hierarchical sub-models (Original -> LoG -> Wavelet) and performs balanced cohort splitting (if sample size allows).
 
-### 2. Baseline Modeling & Feature Selection
-**[Agent 2: Baseline Modeling](agents/agent_2_modeling.md)** - Refine features per sub-model, eliminate noise, and build interpretability-focused baseline sub-models (LR/SVM/RF). Handle batch effects (ComBat).
+### 2. Feature Selection & Baseline Modeling
+**[Agent 2: Modeling](agents/agent_2_modeling.md)** - Refine features per sub-model, build interpretability-focused baseline models, and handle batch effects.
 
-### 3. Two-Stage Optimization
-**[Agent 3: Optimization](agents/agent_3_optimization.md)** - Fine-tune baseline models using coarse-to-fine two-stage grid search and auto-iteration to maximize performance.
+### 3. Optimization & Validation
+**[Agent 3: Optimization](agents/agent_3_optimization.md)** - Fine-tune baseline models using two-stage grid search and validate performance on test/external sets.
 
 ## Specialized References
 - **Methodology**: [FAE Pipeline Methodology](references/methodology.md).

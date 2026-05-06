@@ -1,25 +1,9 @@
-# Agent 1: Splitting & Partitioning (队列拆分与子模型划分)
+# Agent 1: Data Organization & Partitioning (数据组织与子模型划分)
 
-**Goal:** Perform balanced cohort splitting and organize features into hierarchical sub-models for interpretability.
+**Goal:** This agent is **MANDATORY** for all workflows. It organizes raw/extracted features into hierarchical sub-models for interpretability and performs balanced cohort splitting if the sample size is sufficient.
 
-## 1. Balanced Cohort Splitting
-Perform this step if $N \geq 100$.
-- **Identify Basis**: Ask for clinical features (Age, Stage, etc.) or Labels.
-- **Algorithm**: Repeated random splitting (e.g., 7:3) until the distribution of **ALL** clinical features and the Label shows no significant difference between Train and Test sets ($p > 0.05$, ideally $p > 0.10$). 
-- **Tool Execution**: You MUST execute the provided script using the `run_shell_command` tool to perform this splitting:
-  ```bash
-  python builtin_skills/ml-statistics/radiomics/scripts/cohort_split.py \
-      --input <path_to_features.csv> \
-      --clinical <path_to_clinical.csv> \
-      --output_dir <output_directory> \
-      --ratio 0.3 \
-      --label <label_column_name>
-  ```
-  **`Random Seed` should be set to ensure that the results are reductive.**
-- **Small Dataset Exception**: If $N < 100$, skip splitting. Use the full dataset for 5-fold cross-validation in Agent 2.
-
-## 2. Hierarchical Sub-model Partitioning
-Organize the extracted `features.csv` into sub-models to prioritize interpretability:
+## 1. Hierarchical Sub-model Partitioning (Mandatory)
+Organize the `features.csv` (or the `feature_file` defined in Agent 0) into sub-models to prioritize interpretability. This must be done regardless of sample size to prepare the data for Agent 2.
 
 ### Tier 1: Interpretability First (Simple Features)
 Separate features from **Original** images:
@@ -32,9 +16,27 @@ Partition features from **Transformed** images (only if Tier 1 is insufficient):
 - **LoG Partitioning**: Group by sigma values (e.g., `df_log_sigma_1_0`, `df_log_sigma_3_0`).
 - **Wavelet Partitioning**: Group by sub-bands (e.g., `df_wavelet_LLL`, `df_wavelet_HHH`).
 
+## 2. Balanced Cohort Splitting (Conditional)
+Perform this step ONLY if $N \geq 100$.
+- **Identify Basis**: Ask for clinical features (Age, Stage, etc.) or Labels.
+- **Algorithm**: Repeated random splitting (e.g., 7:3) until the distribution of **ALL** clinical features and the Label shows no significant difference between Train and Test sets ($p > 0.05$, ideally $p > 0.10$). 
+- **Tool Execution**: 
+  ```bash
+  python builtin_skills/ml-statistics/radiomics/scripts/cohort_split.py \
+      --input <path_to_features.csv> \
+      --clinical <path_to_clinical.csv> \
+      --output_dir <output_directory> \
+      --ratio 0.3 \
+      --label <label_column_name>
+  ```
+- **Small Dataset Scenario**: If $N < 100$, do NOT perform splitting. Proceed with the full dataset and the hierarchical partitions created in Step 1. Agent 2 will use cross-validation on this unified dataset.
+
 ## 3. Modality Partitioning
 If multiple modalities exist (e.g., T1, T2, CT), create modality-specific feature sets before merging.
 
 ## Deliverables
-- `train_cohort.csv` / `test_cohort.csv`.
 - Partitioned feature matrices (e.g., `X_train_original.csv`, `X_train_wavelet.csv`).
+- `train_cohort.csv` / `test_cohort.csv` (if splitting was performed).
+- Final data readiness report for **Agent 2: Feature Selection & Modeling**.
+
+**Handoff**: Once partitioning (and optional splitting) is complete, proceed to **Agent 2**.

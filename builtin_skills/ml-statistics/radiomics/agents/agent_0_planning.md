@@ -4,22 +4,24 @@
 
 ## Phase 1: Context & Scientific Thinking
 1. **Acquire Context**: Ask the user for:
-   - **Data Path**: Where the images and masks reside.
-   - **Data Description**: Modalities (CT/MRI), patient cohorts, hardware nuances.
+   - **Data Source**: Whether starting from raw images (DICOM/NIfTI) or pre-extracted features (CSV).
+   - **Data Path**: Path to images/masks OR path to the `features.csv`.
+   - **Data Description**: Modalities (CT/MRI), hardware nuances, and cohort size.
    - **Specific Clinical Problem**: What is the medical goal (e.g., survival prediction, tumor grading)?
 2. **Scientific Method & Research**:
    - Before technical planning, apply the `@builtin_skills/research/scientific-method` skill to formally define the study:
      - **Observation**: Summarize clinical context and available data.
      - **Question**: Formulate a specific, answerable scientific question.
-     - **Hypothesis**: Propose a falsifiable mechanism (e.g., "Texture features in the peritumoral region correlate with lymph node metastasis").
-   - Conduct background research using `@builtin_skills/research/literature-search` to see how previous studies have tackled this specific clinical problem and what feature sets were most predictive.
+     - **Hypothesis**: Propose a falsifiable mechanism.
+   - Conduct background research using `@builtin_skills/research/literature-search`.
 3. **Data Audit & Preprocessing**:
-   - Invoke `@builtin_skills/data_processing` to perform data curation, spatial standardization (resampling), and radiomics feature extraction.
+   - **If starting from images**: Invoke `@builtin_skills/data_processing` to perform curation, spatial standardization, and feature extraction.
+   - **If starting from features**: Audit the provided CSV file to ensure it contains a unique ID column, a label column, and standard radiomics feature names (e.g., PyRadiomics style).
 4. **Methodology Review**:
-   - Before generating the technical master plan, read `references/methodology.md` to understand the standard 7-step radiomics pipeline (based on FAE). Incorporate principles like balanced cohort splitting, parameter migration for normalization, PCC dimension reduction, and rigorous feature selection into the pipeline design.
+   - Read `references/methodology.md` to understand the standard 7-step radiomics pipeline.
 
 ## Phase 2: Core Master Plan Generation (Radiomics Plan)
-*Based on the context and scientific hypothesis, generate a centralized planning document. This is the SINGLE SOURCE OF TRUTH for all subsequent agents.*
+*Based on the context and scientific hypothesis, generate a centralized planning document.*
 
 You **MUST** generate and save a configuration file named `radiomics_plan.yaml` in the project root. This file must encompass all downstream processes, methods, and parameters.
 
@@ -29,21 +31,23 @@ You **MUST** generate and save a configuration file named `radiomics_plan.yaml` 
 project_name: "Lung_Cancer_Survival"
 clinical_goal: "Predict 3-year survival"
 hypothesis: "Tier 1 features (Shape/Texture) are primary predictors."
+data_source: "images" # or "features"
 
 data:
-  image_dir: "./data/images"
-  mask_dir: "./data/masks"
+  image_dir: "./data/images" # null if data_source is "features"
+  mask_dir: "./data/masks"   # null if data_source is "features"
+  feature_file: "./data/extracted_features.csv" # The primary input for Agent 1
   modality: "CT"
   cohort_size: 120
 
-extraction:
+extraction: # Skip if data_source is "features"
   resample_spacing: [1.0, 1.0, 1.0]
   bin_width: 25
   extractors: ["shape", "firstorder", "glcm", "glrlm", "glszm"]
-  transformations: ["original", "wavelet", "log"] # Hierarchy: Original -> Transformed
+  transformations: ["original", "wavelet", "log"]
 
 partitioning:
-  strategy: "balanced_split" # "balanced_split" for N>=100, "5-fold-cv" for N<100
+  strategy: "balanced_split" # "balanced_split" for N>=100, "none" (CV-only) for N<100
   test_ratio: 0.3
   clinical_balance_features: ["Age", "Stage"]
 
@@ -58,16 +62,11 @@ output:
   dir: "./results"
 ```
 
-## Phase 3: Strategy Branching & Sample Power
+## Phase 3: Transition to Data Organization
 Analyze the cohort size ($N$):
-- **Small Cohort ($N < 100$)**: Explicitly set `partitioning.strategy: "5-fold-cv"` in the YAML. Skip independent split.
-- **Large Cohort ($N \geq 100$)**: Explicitly set `partitioning.strategy: "balanced_split"`.
-
-## Constraints & Optimization
-- **Max Features**: $N_{train} / 10$.
-- **Boundary Optimization**: If peak performance is at $MaxFeatures$, try $MaxFeatures + 1, 2$.
+- **Regardless of N or Data Source**: You MUST proceed to **Agent 1** for data organization and feature partitioning.
 
 **Output Requirement**:
 - Present the strategy and hypothesis to the user.
-- Emphasize to the user that they can manually edit `radiomics_plan.yaml`.
 - Do not proceed to Agent 1 until `radiomics_plan.yaml` is fully written and approved by the user.
+- **MANDATORY**: Once approved, explicitly hand off to **Agent 1: Splitting & Partitioning**. Do NOT skip to Agent 2.
