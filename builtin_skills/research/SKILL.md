@@ -1,6 +1,8 @@
 ---
 name: research-orchestrator
 description: "Master orchestrator for the entire scientific research lifecycle. Guides the iterative process from literature search and review, to hypothesis generation and experimental design (scientific method), manuscript writing, and rigorous peer review. Orchestrates tools like visualization for plotting."
+metadata:
+  scenarios: ["Conducting a complete systematic review", "Designing a new experimental protocol", "Drafting a scientific paper from raw data"]
 ---
 
 # Scientific Research Orchestrator (科研全流程统筹)

@@ -2,7 +2,7 @@
 name: data-processing
 description: Orchestrator skill for medical image data processing. Triggers when users ask to curate, format, convert (e.g., DICOM to NIfTI), or extract radiomics features from medical datasets.
 metadata:
-  aliases: ["dicom conversion", "radiomics extraction", "data preprocessing", "nifti formatting", "medical image curation", "特征提取", "dicom转换", "数据预处理", "nifti格式化", "医学图像整理"]
+  scenarios: ["Format conversion for large medical cohorts", "Standardizing medical image spatial resolution", "Batch extracting radiomics features"]
 ---
 
 # Medical Image Data Processing

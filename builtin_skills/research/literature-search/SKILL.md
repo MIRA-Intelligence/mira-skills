@@ -1,6 +1,8 @@
 ---
 name: "literature-search"
 description: "Comprehensive literature and web search engine. Integrates NCBI PubMed via BioPython Entrez and 17 general web search engines (Google, Bing, DuckDuckGo, WolframAlpha, etc.). Use this to find peer-reviewed papers, clinical guidelines, datasets, code repositories, or broad web knowledge without API keys."
+metadata:
+  aliases: ["pubmed search", "google scholar", "web search", "find papers"]
 ---
 
 # Literature Search

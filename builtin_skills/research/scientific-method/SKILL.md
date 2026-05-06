@@ -1,6 +1,8 @@
 ---
 name: scientific-method
 description: "Scientific method workflow for research projects. Use this skill whenever starting a new experiment, analyzing results, planning next steps, or when the user asks to investigate a phenomenon. Enforces the observation→question→hypothesis→prediction→experiment→analysis→iterate cycle. Triggers on: 'experiment', 'investigate', 'why does', 'hypothesis', 'next experiment', 'analyze results', 'what should we try', 'research plan'."
+metadata:
+  aliases: ["experiment planning", "hypothesis generation", "scientific protocol"]
 ---
 
 # Scientific Method for Computational Research

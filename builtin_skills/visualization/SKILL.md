@@ -1,6 +1,8 @@
 ---
 name: visualization-orchestrator
 description: "Master orchestrator for publication-quality scientific visualization. Guides the creation of both experimental result plots and academic flowcharts/architectures. Enforces top-tier journal aesthetics (comparable to Origin or R/ggplot2) using matplotlib and seaborn."
+metadata:
+  scenarios: ["Creating multi-panel figures for journal publication", "Designing scientific flowcharts", "Generating statistical plots for data exploration"]
 ---
 
 # Scientific Visualization Orchestrator (科研绘图与可视化统筹)

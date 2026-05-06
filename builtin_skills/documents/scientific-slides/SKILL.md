@@ -4,7 +4,8 @@ description: Build slide decks and presentations for research talks. Use this fo
 allowed-tools: Read Write Edit Bash
 license: MIT license
 metadata:
-    skill-author: K-Dense Inc.
+  aliases: ["research talk", "seminar presentation", "beamer slides", "thesis defense"]
+  skill-author: K-Dense Inc.
 ---
 
 # Scientific Slides

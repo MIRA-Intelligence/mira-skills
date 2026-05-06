@@ -3,6 +3,7 @@ name: weather
 description: Get current weather and forecasts (no API key required).
 homepage: https://wttr.in/:help
 metadata: {"MIRA":{"emoji":"🌤️","requires":{"bins":["curl"]}}}
+  aliases: ["forecast", "temperature", "meteorology", "current weather"]
 ---
 
 # Weather

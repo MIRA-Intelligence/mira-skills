@@ -1,6 +1,8 @@
 ---
 name: cron
 description: Schedule reminders and recurring tasks.
+metadata:
+  aliases: ["scheduler", "reminders", "recurring tasks", "automation timer"]
 ---
 
 # Cron

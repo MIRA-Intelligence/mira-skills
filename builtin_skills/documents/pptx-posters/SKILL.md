@@ -4,7 +4,8 @@ description: Create research posters using HTML/CSS that can be exported to PDF 
 allowed-tools: Read Write Edit Bash
 license: MIT license
 metadata:
-    skill-author: K-Dense Inc.
+  aliases: ["powerpoint poster", "html poster", "css layout", "conference presentation"]
+  skill-author: K-Dense Inc.
 ---
 
 # PPTX Research Posters (HTML-Based)

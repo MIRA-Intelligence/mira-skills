@@ -1,6 +1,8 @@
 ---
 name: pyradiomics
 description: Comprehensive toolkit for extracting radiomics features from medical images using pyradiomics. Use this skill when working with feature extraction from CT, MRI, PET, or other medical imaging modalities, configuring feature extractors (e.g., bin width, resampling, filtering), handling shape, first-order, and texture features (GLCM, GLRLM, GLSZM, GLDM, NGTDM), or integrating radiomics into machine learning pipelines.
+metadata:
+  aliases: ["feature extraction", "texture features", "GLCM", "shape features", "first-order"]
 ---
 
 # pyradiomics: Radiomics Feature Extraction Toolkit

@@ -1,6 +1,8 @@
 ---
 name: dicom2nifti
 description: Python library for robustly converting DICOM medical imaging series into NIfTI (.nii.gz) format. Use this skill when you need to convert folders of DICOM files, handle slice spacing properly, calculate correct affine matrices, deal with gantry tilt, or batch process raw scanner data into standard neuroimaging formats for deep learning.
+metadata:
+  aliases: ["conversion", "gantry tilt", "slice spacing", "batch process", "dcm2nii"]
 ---
 
 # Dicom2nifti

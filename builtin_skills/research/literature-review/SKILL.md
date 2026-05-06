@@ -2,6 +2,7 @@
 name: literature-review
 description: "Execute autonomous multi-step deep research and write comprehensive literature reviews. Combines broad topic deep-dives with systematic medical imaging review capabilities. Triggers on 'deep research', 'literature review', 'survey paper', 'systematic review'."
 metadata:
+  aliases: ["deep research", "literature review", "survey paper", "systematic review"]
   version: "2.0.0"
 allowed-tools:
   - Read

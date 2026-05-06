@@ -1,6 +1,8 @@
 ---
 name: medical-image-dl-pipeline
 description: End-to-end deep learning pipeline for medical image analysis. Make sure to use this skill whenever the user asks to build, train, evaluate, or optimize a deep learning model for medical image data (like MRI, CT, X-ray) or solve a specific medical imaging problem. It covers data organization, preprocessing, architecture design, training, testing, and iterative improvement.
+metadata:
+  scenarios: ["Training 3D CNNs for tumor segmentation", "Evaluating classification networks on medical scans", "Optimizing deep learning pipelines for clinical images", "Building MONAI-based workflows for medical imaging", "Deep learning for medical image analysis"]
 ---
 
 # Medical Image Deep Learning Pipeline

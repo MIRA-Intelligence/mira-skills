@@ -1,6 +1,8 @@
 ---
 name: ml-statistics-orchestrator
 description: "Orchestrator guide for machine learning, statistical, and survival analysis tasks. Use this skill to navigate between dedicated research methods (radiomics, survival-analysis, statistical-analysis) and their underlying toolkits (scikit-learn, scikit-survival)."
+metadata:
+  scenarios: ["End-to-end clinical data analysis", "Planning a statistical study", "Orchestrating survival and radiomics pipelines", "radiomics feature selection and modeling", "Kaplan-Meier and Cox regression analysis", "General machine learning tasks in healthcare"]
 ---
 
 # Machine Learning & Statistics Orchestrator

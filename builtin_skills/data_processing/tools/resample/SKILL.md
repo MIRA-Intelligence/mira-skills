@@ -1,6 +1,8 @@
 ---
 name: resample
 description: Unify spatial resolution of medical images prior to feature extraction using optimal domain operations (Image vs. Frequency).
+metadata:
+  aliases: ["image resolution", "spacing", "interpolation", "k-space zero padding", "isotropic", "resample", "resampling"]
 ---
 
 # Resample Skill

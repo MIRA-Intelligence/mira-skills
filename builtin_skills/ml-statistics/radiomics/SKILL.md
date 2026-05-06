@@ -1,6 +1,8 @@
 ---
 name: radiomics
 description: End-to-end radiomics pipeline for feature extraction, selection, and modeling. Use when building radiomic signatures with hierarchical interpretability (Original -> LoG -> Wavelet), performing balanced clinical-feature splitting, or handling small-cohort cross-validation.
+metadata:
+  scenarios: ["Building radiomics signatures", "Evaluating clinical-radiomic combined models", "Feature extraction and selection pipeline"]
 ---
 
 # Radiomics Pipeline

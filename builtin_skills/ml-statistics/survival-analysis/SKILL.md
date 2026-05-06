@@ -1,6 +1,8 @@
 ---
 name: survival-analysis
 description: End-to-end survival analysis and time-to-event modeling pipeline. Use this skill when working with censored survival data, performing time-to-event analysis, fitting Cox models, Random Survival Forests, formatting clinical datasets for survival, and evaluating survival predictions.
+metadata:
+  scenarios: ["Modeling patient overall survival", "Applying Cox proportional hazards to clinical cohorts", "Predicting time-to-event with machine learning"]
 ---
 
 # Survival Analysis Pipeline

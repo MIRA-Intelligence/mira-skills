@@ -2,6 +2,7 @@
 name: tmux
 description: Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.
 metadata: {"MIRA":{"emoji":"🧵","os":["darwin","linux"],"requires":{"bins":["tmux"]}}}
+  aliases: ["terminal multiplexer", "background process", "cli automation", "shell session"]
 ---
 
 # tmux Skill

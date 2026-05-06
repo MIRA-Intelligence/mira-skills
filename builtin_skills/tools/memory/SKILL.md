@@ -2,6 +2,8 @@
 name: memory
 description: Two-layer memory system with Dream-managed knowledge files.
 always: true
+metadata:
+  aliases: ["knowledge base", "remember", "store information", "recall"]
 ---
 
 # Memory

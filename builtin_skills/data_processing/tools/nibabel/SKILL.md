@@ -1,6 +1,8 @@
 ---
 name: nibabel
 description: Python library for reading and writing medical/neuroimaging data formats, particularly NIfTI (.nii, .nii.gz). Use this skill when the user wants to load medical imaging arrays, manipulate NIfTI headers (e.g., affine matrices, voxel sizes), modify spatial orientations (RAS/LPS), or save processed NumPy arrays back to standard neuroimaging formats for further analysis.
+metadata:
+  aliases: ["nifti", ".nii.gz", "neuroimaging", "affine matrix", "RAS orientation"]
 ---
 
 # Nibabel
