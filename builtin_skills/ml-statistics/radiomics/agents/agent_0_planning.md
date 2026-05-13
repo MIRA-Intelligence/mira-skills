@@ -52,10 +52,15 @@ partitioning:
   clinical_balance_features: ["Age", "Stage"]
 
 modeling_pipeline:
+  exhaustive_search: true # MANDATORY: Always true for Agent 2
   lasso_prefilter: true
-  pcc_threshold: 0.9
-  feature_selection: ["anova", "mrmr", "rfe"]
-  classifiers: ["lr", "svm_linear", "rf"]
+  pcc_threshold: 0.95
+  sub_models: ["original_shape", "original_texture", "tier_1_all", "wavelet_all"]
+  normalizations: ["zscore", "minmax"]
+  dimension_reduction: ["pcc", "pca"]
+  feature_selection: ["anova", "mrmr", "relief", "lasso"]
+  classifiers: ["lr", "svm_linear", "rf", "xgboost"]
+  top_k_iteration: "1 to N/10"
   cv_folds: 5
 
 output:

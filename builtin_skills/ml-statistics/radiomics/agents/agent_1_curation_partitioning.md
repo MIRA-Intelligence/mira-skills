@@ -35,8 +35,8 @@ Perform this step ONLY if $N \geq 100$.
 If multiple modalities exist (e.g., T1, T2, CT), create modality-specific feature sets before merging.
 
 ## Deliverables
-- Partitioned feature matrices (e.g., `X_train_original.csv`, `X_train_wavelet.csv`).
+- **Partitioned Feature Matrices**: (e.g., `X_train_original.csv`, `X_train_wavelet_LLL.csv`). These serve as the discrete data inputs for the **Exhaustive Permutation Grid** in Agent 2.
 - `train_cohort.csv` / `test_cohort.csv` (if splitting was performed).
-- Final data readiness report for **Agent 2: Feature Selection & Modeling**.
+- **Final Data Readiness Report**: A summary of available sub-models and sample sizes per cohort for **Agent 2: Feature Selection & Modeling**.
 
-**Handoff**: Once partitioning (and optional splitting) is complete, proceed to **Agent 2**.
+**Handoff**: Once partitioning (and optional splitting) is complete, proceed to **Agent 2**. You MUST use the partitioned matrices to evaluate every sub-model independently and in combination as part of the pre-experiment sweep.

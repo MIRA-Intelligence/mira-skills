@@ -4,20 +4,34 @@
 
 ## 1. Pre-experiment Pipeline Planning (预实验管线规划)
 
-Before executing a single feature selection or modeling run, you MUST systematically plan the pre-experiment combinations by iterating over the core components defined in the [Methodology Reference](../references/methodology.md). 
+Before executing a single feature selection or modeling run, you MUST systematically plan the pre-experiment combinations. A "pipeline" is defined as a unique path from raw data subsets to final prediction. You MUST iterate over ALL combinations of the following dimensions to establish robust baselines.
 
-Generate a grid of basic pipeline configurations to test as baselines. A standard pre-experiment grid includes combinations of:
-- **Normalization (参数迁移)**: [Z-Score (StandardScaler), MinMax (MinMaxScaler), Robust (RobustScaler), MaxAbs (MaxAbsScaler)]
-- **Dimension Reduction (降维)**: [PCC (threshold=0.99), PCA, TruncatedSVD]
-- **Feature Selection (特征选择)**: 
-  - *Filter Methods*: [ANOVA (f_classif), Chi-Squared (chi2), Mutual Information (mutual_info_classif), Kruskal-Wallis (KW)]
-  - *Wrapper/Embedded Methods*: [RFE, mRMR, LASSO (L1-based SelectFromModel), ReliefF, Random Forest Importance (SelectFromModel)]
-- **Classifiers (分类器)**: 
-  - *Linear*: [LR (Logistic Regression), SVM-Linear (LinearSVC), RidgeClassifier, SGDClassifier]
-  - *Tree/Ensemble*: [Random Forest, Gradient Boosting, HistGradientBoosting, AdaBoost, Decision Tree]
-  - *Other*: [SVM-RBF/Poly (SVC), Naive Bayes (GaussianNB, BernoulliNB), KNN (KNeighborsClassifier), MLP (MLPClassifier), LDA (LinearDiscriminantAnalysis)]
+### Exhaustive Permutation Grid
+The total number of pre-experiment pipelines is the product of these dimensions:
 
-*Note*: You are running a preliminary sweep to establish which broad categories of algorithms work best on this specific dataset before moving to deep tuning in Agent 3.
+1. **Sub-model Data Inputs (from Agent 1)**:
+   - *Independent*: [Clinical, Original_Shape, Original_Firstorder, Original_Texture]
+   - *Tiered*: [Tier 1 All (Shape+Firstorder+Texture), Tier 2 LoG (specific sigma), Tier 2 Wavelet (specific sub-band)]
+   - *Global*: [Advanced Radiomics (Tier 1 + Tier 2 All)]
+2. **Normalization (参数迁移)**: [Z-Score (StandardScaler), MinMax (MinMaxScaler), Robust (RobustScaler), MaxAbs (MaxAbsScaler)]
+3. **Dimension Reduction (降维)**: [PCC (threshold=0.99), PCA, TruncatedSVD]
+4. **Feature Selection (特征选择)**: 
+   - *Filter Methods*: [ANOVA (f_classif), Chi-Squared (chi2), Mutual Information (mutual_info_classif), Kruskal-Wallis (KW)]
+   - *Wrapper/Embedded Methods*: [RFE, mRMR, LASSO (L1-based SelectFromModel), ReliefF, Random Forest Importance (SelectFromModel)]
+5. **Classifiers (分类器)**: 
+   - *Linear*: [LR (Logistic Regression), SVM-Linear (LinearSVC), RidgeClassifier, SGDClassifier]
+   - *Tree/Ensemble*: [Random Forest, Gradient Boosting, HistGradientBoosting, AdaBoost, Decision Tree]
+   - *Other*: [SVM-RBF/Poly (SVC), Naive Bayes (GaussianNB, BernoulliNB), KNN (KNeighborsClassifier), MLP (MLPClassifier), LDA (LinearDiscriminantAnalysis)]
+
+### Dynamic Feature Count & Evaluation Strategy
+For EACH combination above, you MUST:
+- **Iterate Top-K Features**: Vary the number of selected features (K) from **1 to 1/10 of the training sample size** ($N_{train} / 10$).
+- **Apply 1-SE Rule**: For every pipeline, evaluate both:
+  1. The **Best Model** (highest Validation AUC).
+  2. The **1-SE Model** (the simplest model with the fewest features whose AUC is within one standard error of the best).
+  *Note*: This dual-evaluation effectively doubles the pipeline combinations per grid cell to prioritize parsimonious models.
+
+*Note*: You are running a preliminary sweep to establish which broad categories of algorithms and feature subsets work best on this specific dataset before moving to deep tuning in Agent 3.
 **Efficiency Mandate**: To drastically reduce the time spent searching across this vast grid, you MUST enable parallel computing by setting `n_jobs=-1` whenever possible in cross-validation functions (e.g., `cross_val_score`, `GridSearchCV`, `SelectFromModel`) and capable estimators (e.g., `RandomForestClassifier`, `HistGradientBoostingClassifier`).
 
 ## 2. Iterative Pipeline Execution (迭代执行预实验管线)
@@ -55,11 +69,8 @@ To ensure interpretability, build baseline models in this sequence:
 ### Validation Paths & Model Selection
 - **Metric Priority**: Models MUST be selected primarily based on the **Validation AUC** (or CV AUC).
 - **1-SE Rule**: When analyzing the relationship between Feature Number and Validation AUC, select the simplest model (fewest features) whose AUC is within one standard error (1-SE) of the highest Validation AUC.
-- **Result Persistence**: For EVERY evaluated pipeline, you MUST save the complete output dictionary for Train, Valid (CV), and Test sets, including:
-  - Raw prediction probabilities and predicted class labels.
-  - The optimized cutoff/threshold value.
-  - The fitted model weights (coefficients/feature importances).
-  - The serialized model object (e.g., via `joblib` or `pickle`).
+- **Result Persistence**: For EVERY evaluated pipeline permutation, you MUST save all outputs into the standardized hierarchical directory structure.
+  - **Mandatory Standards**: Refer to **[Result Preservation Guide](../references/result_preservation.md)** for exact folder paths, required filenames, and metric precision (3 decimal places).
 - **Confidence Intervals**: The 95% CI for the Validation and Test AUCs MUST be calculated using the **Bootstrap algorithm**.
 
 ### External Cohort Harmonization
@@ -108,8 +119,10 @@ def bootstrap_auc_ci(y_true, y_pred_prob, n_bootstraps=1000, alpha=0.95):
 ```
 
 ## Deliverables & Mandatory Plots
-1. **Performance Table**: Comprehensive table displaying AUC (with 95% Bootstrap CI), Accuracy, Sensitivity, and Specificity for Train, 5-Fold CV, and Test/External sets.
-2. **Unified ROC Curve**: A single, composite plot containing the ROC curves (optionally with shaded 95% CI bounds) for Train, CV Valid, and Test sets on the same axes.
-3. **Feature Selection Curve**: A line plot showing **Feature Number (X-axis) vs. Validation AUC (Y-axis)**. Highlight the peak AUC and the final model chosen via the **1-SE rule**.
-4. **Feature Weights Plot**: A horizontal bar chart visualizing the coefficients or feature importances for each final sub-model.
+You MUST generate and save all artifacts specified in the **[Result Preservation Guide](../references/result_preservation.md)**. Key requirements include:
+1. **Performance Table**: AUC (with 95% Bootstrap CI), Accuracy, Sens, and Spec, all reported to **3 decimal places**.
+2. **Unified ROC Curve**: Combined Train/CV/Test plot with **shaded 95% Bootstrap CI regions**.
+3. **Feature Selection Curve**: Feature Number vs. Validation AUC, highlighting the 1-SE model.
+4. **Feature Weights Plot**: Sorted horizontal bar chart of coefficients or importances.
 5. **Artifacts Directory**: A folder containing the saved `.pkl` / `.joblib` models, probabilities CSVs, and threshold cutoffs for reproducible inference. 
+ 
