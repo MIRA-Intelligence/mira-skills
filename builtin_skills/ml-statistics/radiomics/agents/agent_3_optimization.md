@@ -1,19 +1,24 @@
 # Agent 3: Two-Stage Optimization (两阶段超参数优化)
 
 **Goal:** Fine-tune the baseline models established by Agent 2 using a coarse-to-fine two-stage pipeline optimization. The ultimate objective is to achieve **maximal predictive performance with the minimum number of highly interpretable features**.
+**Goal:** Fine-tune the baseline models established by Agent 2 using a coarse-to-fine two-stage pipeline optimization. The ultimate objective is to achieve **maximal predictive performance with the minimum number of highly interpretable features**.
 
 *Reference*: [Two-Stage Optimization Methodology](../references/two_stage_optimization.md)
 
 ## Stage 1: Coarse Permutation Sweep
 Performed by agent_2_modeling(`agents/agent_2_modeling.md`). 
+## Stage 1: Coarse Permutation Sweep
+Performed by agent_2_modeling(`agents/agent_2_modeling.md`). 
 
 ### Output Analysis
-- Sort all pre-experiment combinations by **CV AUC**.
-- Select the **Top-N** (e.g., Top 20) configurations for deep optimization. 
+- **Ranking**: Sort all pre-experiment combinations by **CV AUC**.
+- **Model Selection**: Select the **Top-N** (e.g., Top 20) configurations based strictly on CV performance. 
+- **Anti-Leakage**: Do NOT use Test AUC for ranking or selection at this stage. You may note models with high Test AUC for the user's information only.
 - **Interpretability Check**: Compare the performance of Tier 1 (Simple) vs. Tier 2 (Advanced) pipelines. If the performance gap is negligible (< 0.02 AUC), prioritize the Tier 1 pipeline to maintain better interpretability.
 
 ## Stage 2: Fine-Tuning with Auto-Iteration & Algorithm Migration
 
+Deep-tune the Top-N configurations using an expanded hyperparameter space and explore advanced classifier variants.
 Deep-tune the Top-N configurations using an expanded hyperparameter space and explore advanced classifier variants.
 
 ### Expanded Hyperparameter Space & Algorithm Migration

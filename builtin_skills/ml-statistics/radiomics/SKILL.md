@@ -25,8 +25,15 @@ For EVERY pipeline permutation evaluated, you MUST preserve all outputs in a hie
 - **Mandatory Visualizations**: ROC curves MUST include shaded 95% CI areas (Bootstrap n=1000).
 
 ## Core Workflow
-...
+
+### Model Selection Principle (模型挑选原则)
+When selecting the final model from the pre-experiment or optimization stages, you MUST adhere to the following statistical rigor:
+- **CV AUC is the ONLY Criterion**: Always use Cross-Validation (CV) AUC on the training set to rank and select the best pipeline or model. 
+- **Test AUC Prohibition**: NEVER use the Test Set performance (Test AUC) to pick or "peek" at models. This prevents data leakage and ensures the Test Set remains an unbiased evaluator of generalization.
+- **Reporting Exception**: You MAY inform the user if a different model has a higher Test AUC, but you MUST NOT select it as the final recommendation based on that fact.
+
 The pipeline is a **mandatory 4-step sequence**. Whether starting from raw images or pre-extracted features, the process must follow all steps to ensure scientific rigor and data organization.
+
 
 ### 0. Study Planning & Extraction
 **[Agent 0: Planning](agents/agent_0_planning.md)** - Assess data source (DICOM/NIfTI or pre-extracted CSV), execute feature extraction (if starting from images), and design the study architecture. Generates `radiomics_plan.yaml`.

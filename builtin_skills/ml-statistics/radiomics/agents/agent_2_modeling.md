@@ -68,6 +68,7 @@ To ensure interpretability, build baseline models in this sequence:
 
 ### Validation Paths & Model Selection
 - **Metric Priority**: Models MUST be selected primarily based on the **Validation AUC** (or CV AUC).
+- **Test Set Integrity**: NEVER use the Test Set performance to select models. If you notice a model has a higher Test AUC than the one selected by CV, you should inform the user of this observation but still proceed with the CV-selected model as the primary recommendation.
 - **1-SE Rule**: When analyzing the relationship between Feature Number and Validation AUC, select the simplest model (fewest features) whose AUC is within one standard error (1-SE) of the highest Validation AUC.
 - **Result Persistence**: For EVERY evaluated pipeline permutation, you MUST save all outputs into the standardized hierarchical directory structure.
   - **Mandatory Standards**: Refer to **[Result Preservation Guide](../references/result_preservation.md)** for exact folder paths, required filenames, and metric precision (3 decimal places).
