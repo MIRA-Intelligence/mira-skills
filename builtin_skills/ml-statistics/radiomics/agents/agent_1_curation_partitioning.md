@@ -2,23 +2,25 @@
 
 **Goal:** This agent is **MANDATORY** for all workflows. It organizes raw/extracted features into hierarchical sub-models for interpretability and performs balanced cohort splitting if the sample size is sufficient.
 
-## 1. Hierarchical Sub-model Partitioning (Mandatory)
-Organize the `features.csv` (or the `feature_file` defined in Agent 0) into sub-models to prioritize interpretability. This must be done regardless of sample size to prepare the data for Agent 2.
+## 1. Feature-Count Diagnosis (特征数诊断)
+Before performing any partitioning, check the total number of features in the dataset.
+- **Heuristic**: If the total number of features is **less than 300**, you MUST inform the user and suggest skipping the hierarchical sub-model partitioning to save computation time. Ask: *"特征总数较少（<300），建议跳过复杂的子模型划分，直接进行全量建模以加速实验。是否继续进行子模型拆分？"*
+- **Wait for Decision**: Proceed with partitioning only if the user insists or if features >= 300.
 
-### Tier 1: Interpretability First (Simple Features)
-Separate features from **Original** images:
-- `df_original_shape`: Geometric properties.
-- `df_original_firstorder`: Basic intensity stats.
-- `df_original_texture`: GLCM, GLRLM, GLSZM, NGTDM, GLDM.
+## 2. Hierarchical Atomic Partitioning (金字塔底层原子拆分)
+To support the **Pyramid Feature Selection** strategy, organize the features into the most granular "Atomic Groups".
 
-### Tier 2: Advanced Complexity (Filtered Features)
-Partition features from **Transformed** images (only if Tier 1 is insufficient):
-- **LoG Partitioning**: Group by sigma values (e.g., `df_log_sigma_1_0`, `df_log_sigma_3_0`).
-- **Wavelet Partitioning**: Group by sub-bands (e.g., `df_wavelet_LLL`, `df_wavelet_HHH`).
+### Atomic Tier: Granular Sub-groups
+Separate features from **Original** and **Transformed** images into their specific types:
+- **Shape**: `df_shape`
+- **Firstorder**: `df_firstorder`
+- **Texture Atomic Groups**: Separate by matrix type: `df_glcm`, `df_glrlm`, `df_glszm`, `df_ngtdm`, `df_gldm`.
+*Note*: If transformed images (LoG/Wavelet) are used, keep their groups separate at this atomic level (e.g., `df_log_sigma_1_0_glcm`).
 
-## 2. Balanced Cohort Splitting (Conditional)
+## 3. Balanced Cohort Splitting (Conditional)
 Perform this step ONLY if $N \geq 100$.
-- **Identify Basis**: Ask for clinical features (Age, Stage, etc.) or Labels.
+... (rest of splitting logic remains same)
+
 - **Algorithm**: Repeated random splitting (e.g., 7:3) until the distribution of **ALL** clinical features and the Label shows no significant difference between Train and Test sets ($p > 0.05$, ideally $p > 0.10$). 
 - **Tool Execution**: 
   ```bash

@@ -12,9 +12,10 @@ A specialized workflow for clinical radiomics, prioritizing model interpretabili
 ## Autonomous Orchestration (自主编排逻辑)
 
 When tasked with an end-to-end radiomics analysis, you MUST act as an **Autonomous Lead Scientist**:
-1. **Master Scripting**: Construct comprehensive Python scripts using the `scikit-learn` skill to execute all permutations (Agent 2) and fine-tuning (Agent 3) automatically.
-2. **State Recovery**: Maintain a `results/execution_log.json` to track progress through the massive grid of permutations, enabling recovery if the process is interrupted.
-3. **Automated Handoff**: Automatically parse the Top-N results from the pre-experiment to trigger Stage 2 optimization without waiting for explicit user approval for each step.
+1. **Master Scripting**: Construct comprehensive Python scripts using the `scikit-learn` skill to execute the 3-level **Pyramid Feature Selection** strategy automatically.
+2. **FAE Efficiency**: Implement computational shortcuts inspired by the FAE framework (e.g., pre-calculated CV folds, lazy slicing) and use **Process-Level Parallelization** (joblib) to accelerate Level 1 sub-model evaluation.
+3. **Advanced Interpretability**: For every final model, you MUST generate **SHAP Bar and Beeswarm plots** to provide clinical interpretability beyond simple coefficients.
+4. **State Recovery**: Maintain a `results/execution_log.json` to track progress through the pyramid levels, enabling recovery if the process is interrupted.
 
 ## Standardized Result Preservation
 
@@ -23,6 +24,26 @@ For EVERY pipeline permutation evaluated, you MUST preserve all outputs in a hie
 - **Detailed Specification**: Refer to **[Result Preservation Guide](references/result_preservation.md)** for the mandatory directory hierarchy, naming conventions, and required artifacts (CSVs, PKLs, and Plots).
 - **Directory Hierarchy Overview**: `results/<SubModel>/<Normalization>/<DimReduction>/<Selector>_<K>/<Classifier>/`
 - **Mandatory Visualizations**: ROC curves MUST include shaded 95% CI areas (Bootstrap n=1000).
+
+## Reproducibility & Version Control (可重复性与版本控制)
+
+To ensure 100% replication of results and full traceability, you MUST adhere to these mandates:
+
+### 1. Git Management Strategy
+Except for raw/processed image data (DICOM/NIfTI), ALL artifacts MUST be managed via Git:
+- **Managed Artifacts**: Python scripts, study plans (`radiomics_plan.yaml`), partition indices, performance metrics (`.csv`), and execution logs.
+- **Commit Frequency**: Perform a `git commit` after the successful completion of each Agent's stage (e.g., "feat: finish data partitioning in Agent 1").
+- **Branching**: Use a new branch for experimental structural changes (e.g., testing a new feature selection algorithm) to keep the `main` branch stable and reproducible.
+
+### 2. Mandatory Random Seed Management
+Randomness MUST be eliminated across the entire pipeline:
+- **Global Seed**: Initialize `numpy.random.seed(42)` and `random.seed(42)` at the start of every script.
+- **Scikit-Learn**: Explicitly set `random_state=42` in ALL relevant components:
+  - `StratifiedKFold`
+  - `TrainTestSplit`
+  - `LogisticRegression`, `RandomForestClassifier`, `SVC`, etc.
+  - Feature Selectors (e.g., `LASSO`, `RFE`)
+- **Environment**: Document the `requirements.txt` to ensure package version consistency.
 
 ## Core Workflow
 
