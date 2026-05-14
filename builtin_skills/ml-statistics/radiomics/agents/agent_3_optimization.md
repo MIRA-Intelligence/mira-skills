@@ -47,6 +47,13 @@ Your tuning strategy MUST balance these three pillars:
 2. **Interpretability**: Favor linear models or models with clear feature importance rankings (like SVM-linear coefficients or RF importances).
 3. **Generalization**: Maximize CV AUC while ensuring the **Gap (Train AUC - CV AUC) < 0.1**. If the gap is larger, increase regularization (e.g., smaller `C`, larger `alpha`, or smaller `max_depth`).
 
+### 4. Mandatory Optimization Execution & Fallback
+- **Tune ALL Top-K Models**: You MUST apply fine-tuning to **ALL eligible Top-K configurations** identified in Stage 1, not just the single best model. 
+- **Performance Fallback**: If the fine-tuned version of a model performs worse than its baseline pre-experiment version (Stage 1), you MUST:
+  1. Revert to the best pre-experiment version.
+  2. Propose to the user that further tuning might be detrimental (overfitting).
+  3. List ALL models that you believe could still benefit from further hyperparameter exploration, and ask the user if they wish to proceed with manual/deeper tuning for those specific models.
+
 - **Optimized Model Pipeline**: The best combination of balancing, normalization, selection, and classifier with its fine-tuned hyperparameters.
 - **Artifacts**: You MUST preserve all optimization results (CSVs, models, plots) according to the **[Result Preservation Guide](../references/result_preservation.md)**.
 - **Final Performance Metrics**: Updated performance table showing the improvement over the baseline models (reported to **3 decimal places**).

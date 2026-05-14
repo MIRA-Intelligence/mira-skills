@@ -86,11 +86,12 @@ def save_interpretability_plots(model, X_train, output_dir):
 
 You MUST generate and save all artifacts specified in the **[Result Preservation Guide](../references/result_preservation.md)**. Key requirements include:
 
-1. **Comprehensive AUC Reporting**: For the selected optimal models at each pyramid level, the output report to the user MUST explicitly list:
+1. **Model Selection Integrity (Anti-Leakage)**: You MUST NEVER use the Test Set performance (Test AUC) to select, rank, or filter models. Looking at the Test AUC during the selection phase is strictly prohibited to prevent data leakage. You may only refer to Test AUC if the user explicitly instructs you to do so.
+2. **Comprehensive AUC Reporting for Top-K Models**: When presenting results, you MUST output the performance of the **Top-K selected models** (not just the single best one). For each of these Top-K models, the report MUST explicitly list:
    - **Train AUC** (with 95% Bootstrap CI)
    - **CV AUC** (with 95% CI or standard deviation)
    - **Test AUC** (with 95% Bootstrap CI) - if a test set exists.
-2. **Metrics Persistence**: For EVERY pipeline permutation evaluated in the grid search, the saved performance metrics (`metrics.csv` or `pipeline_info.csv`) MUST include the **Train AUC** alongside the CV AUC. This is critical for evaluating the generalization gap (Train AUC - CV AUC).
-3. **Unified ROC Curve**: Combined Train/CV/Test plot with **shaded 95% Bootstrap CI regions**.
-4. **Interpretability Plots**: Feature Importance (Bar chart) and SHAP visualizations (Global Bar + Local Beeswarm) for the final model.
-5. **Artifacts Directory**: A folder containing the saved `.pkl` / `.joblib` pipelines, selected features CSVs, and predictions for reproducible inference.
+3. **Metrics Persistence**: For EVERY pipeline permutation evaluated in the grid search, the saved performance metrics (`metrics.csv` or `pipeline_info.csv`) MUST include the **Train AUC** alongside the CV AUC. This is critical for evaluating the generalization gap (Train AUC - CV AUC).
+4. **Unified ROC Curve**: Combined Train/CV/Test plot with **shaded 95% Bootstrap CI regions**.
+5. **Interpretability Plots**: Feature Importance (Bar chart) and SHAP visualizations (Global Bar + Local Beeswarm) for the final model.
+6. **Artifacts Directory**: A folder containing the saved `.pkl` / `.joblib` pipelines, selected features CSVs, and predictions for reproducible inference.
