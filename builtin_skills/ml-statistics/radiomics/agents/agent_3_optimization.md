@@ -1,27 +1,25 @@
 # Agent 3: Two-Stage Optimization (两阶段超参数优化)
 
 **Goal:** Fine-tune the baseline models established by Agent 2 using a coarse-to-fine two-stage pipeline optimization. The ultimate objective is to achieve **maximal predictive performance with the minimum number of highly interpretable features**.
-**Goal:** Fine-tune the baseline models established by Agent 2 using a coarse-to-fine two-stage pipeline optimization. The ultimate objective is to achieve **maximal predictive performance with the minimum number of highly interpretable features**.
 
 *Reference*: [Two-Stage Optimization Methodology](../references/two_stage_optimization.md)
 
 ## Stage 1: Coarse Permutation Sweep
 Performed by agent_2_modeling(`agents/agent_2_modeling.md`). 
-## Stage 1: Coarse Permutation Sweep
-Performed by agent_2_modeling(`agents/agent_2_modeling.md`). 
 
-### Output Analysis
-- **Ranking**: Sort all pre-experiment combinations by **CV AUC**.
-- **Model Selection**: Select the **Top-N** (e.g., Top 20) configurations based strictly on CV performance. 
+### Output Analysis & 1-SE Application (模型横向PK与1-SE检验)
+Instead of blindly forcing 1-SE on every pipeline, you MUST follow this comparative logic to avoid over-penalizing already-sparse models:
+1. **Absolute Ranking**: First, sort ALL pre-experiment pipelines by their **Absolute Maximum CV AUC** (ignoring feature counts temporarily).
+2. **Select Top-K Candidates**: Pick the top-performing pipelines (e.g., Top 10-20) from this absolute ranking.
+3. **1-SE Verification**: For EACH of these Top-K pipelines, find its corresponding "1-SE version" (the version with the fewest features whose CV AUC is within one standard error of its absolute maximum).
+4. **Parsimony Check**: Compare the 1-SE version against the absolute version. Did 1-SE actually reduce the feature count? If a model's absolute best version already uses very few features (e.g., $\le 5$), the 1-SE version might unnecessarily degrade performance without significantly improving interpretability.
+5. **Final Stage 1 Selection**: Re-rank these Top-K candidates using the CV AUC of their **1-SE versions** (or their absolute version if 1-SE degraded performance without a meaningful reduction in features). Select the final configurations for deep optimization. 
 - **Anti-Leakage**: Do NOT use Test AUC for ranking or selection at this stage. You may note models with high Test AUC for the user's information only.
-- **Interpretability Check**: Compare the performance of Tier 1 (Simple) vs. Tier 2 (Advanced) pipelines. If the performance gap is negligible (< 0.02 AUC), prioritize the Tier 1 pipeline to maintain better interpretability.
+- **Interpretability Check**: If the performance gap between a Tier 1 (Simple) pipeline and a Tier 2 (Advanced) pipeline is negligible (< 0.02 AUC), prioritize the Tier 1 pipeline.
 
-## Stage 2: Fine-Tuning with Auto-Iteration & Algorithm Migration
-
-Deep-tune the Top-N configurations using an expanded hyperparameter space and explore advanced classifier variants.
 ## Stage 2: Fine-Tuning & Hyperparameter Strategy
 
-Deep-tune the Top-N configurations using an expanded hyperparameter space. You MUST refer to the following scenarios to decide which parameters to prioritize.
+Deep-tune the Top-K configurations using an expanded hyperparameter space. You MUST refer to the following scenarios to decide which parameters to prioritize.
 
 ### 1. Feature Selector Optimization (特征选择器调优)
 

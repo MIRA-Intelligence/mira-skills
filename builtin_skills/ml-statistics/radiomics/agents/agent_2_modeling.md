@@ -82,5 +82,15 @@ def save_interpretability_plots(model, X_train, output_dir):
     plt.savefig(f"{output_dir}/SHAP_Local.png")
 ```
 
-## 5. Deliverables
-... (ROC Curves, SHAP Plots, Metrics CSVs)
+## 5. Deliverables & Mandatory Reporting
+
+You MUST generate and save all artifacts specified in the **[Result Preservation Guide](../references/result_preservation.md)**. Key requirements include:
+
+1. **Comprehensive AUC Reporting**: For the selected optimal models at each pyramid level, the output report to the user MUST explicitly list:
+   - **Train AUC** (with 95% Bootstrap CI)
+   - **CV AUC** (with 95% CI or standard deviation)
+   - **Test AUC** (with 95% Bootstrap CI) - if a test set exists.
+2. **Metrics Persistence**: For EVERY pipeline permutation evaluated in the grid search, the saved performance metrics (`metrics.csv` or `pipeline_info.csv`) MUST include the **Train AUC** alongside the CV AUC. This is critical for evaluating the generalization gap (Train AUC - CV AUC).
+3. **Unified ROC Curve**: Combined Train/CV/Test plot with **shaded 95% Bootstrap CI regions**.
+4. **Interpretability Plots**: Feature Importance (Bar chart) and SHAP visualizations (Global Bar + Local Beeswarm) for the final model.
+5. **Artifacts Directory**: A folder containing the saved `.pkl` / `.joblib` pipelines, selected features CSVs, and predictions for reproducible inference.

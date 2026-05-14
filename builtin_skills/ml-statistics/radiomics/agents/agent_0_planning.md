@@ -39,6 +39,7 @@ data:
   feature_file: "./data/extracted_features.csv" # The primary input for Agent 1
   modality: "CT"
   cohort_size: 120
+  train_size: 84 # Calculated based on test_ratio
 
 extraction: # Skip if data_source is "features"
   resample_spacing: [1.0, 1.0, 1.0]
@@ -53,19 +54,32 @@ partitioning:
 
 modeling_pipeline:
   exhaustive_search: true # MANDATORY: Always true for Agent 2
-  lasso_prefilter: true
   pcc_threshold: 0.95
   sub_models: ["original_shape", "original_texture", "tier_1_all", "wavelet_all"]
   normalizations: ["zscore", "minmax"]
   dimension_reduction: ["pcc", "pca"]
   feature_selection: ["anova", "mrmr", "relief", "lasso"]
   classifiers: ["lr", "svm_linear", "rf", "xgboost"]
-  top_k_iteration: "1 to N/10"
+  top_k_iteration: "1 to N_train/10" # MANDATORY: Max features <= Training Sample Size / 10
   cv_folds: 5
+  model_selection_rule: "1-SE"
+
+evaluation_metrics:
+  required_cohorts: ["Train", "CV_Train", "CV_Val", "Test"]
 
 output:
   dir: "./results"
 ```
+
+### Definitions & Constraints (核心定义与约束)
+You MUST adhere to these definitions when planning and communicating with the user:
+- **Maximum Feature Count**: In ALL experiments, the maximum number of selected features ($K$) MUST NEVER exceed one-tenth of the training data size ($N_{train} / 10$). This is a hard limit to prevent overfitting.
+- **Evaluation Cohorts**:
+  - `CV_Val` (Cross-Validation Validation): The performance on the held-out fold during CV. **This is the ONLY metric used to select the best model hyperparameters.**
+  - `CV_Train`: The performance on the training folds during CV. Comparing this to `CV_Val` helps diagnose overfitting.
+  - `Train`: The performance on the *entire* training dataset after refitting the chosen model with the best hyperparameters found via CV.
+  - `Test`: The performance on the independent hold-out set (if applicable).
+- **1-SE Rule (1-Standard Error Rule)**: A parsimony principle applied during model selection. Instead of blindly forcing it on every model, first rank all models by their absolute maximum `CV_Val` AUC. For the Top-K models, find their 1-SE version (the simplest version within 1 std error of its maximum). Only apply the 1-SE version if it meaningfully reduces the feature count compared to the absolute version without degrading performance too much.
 
 ## Phase 3: Transition to Data Organization
 Analyze the cohort size ($N$):
