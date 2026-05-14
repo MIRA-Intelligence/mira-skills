@@ -1,5 +1,5 @@
 ---
-name: data-processing
+name: data_processing
 description: Orchestrator skill for medical image data processing. Triggers when users ask to curate, format, convert (e.g., DICOM to NIfTI), or extract radiomics features from medical datasets.
 metadata:
   scenarios: ["Format conversion for large medical cohorts", "Standardizing medical image spatial resolution", "Batch extracting radiomics features"]

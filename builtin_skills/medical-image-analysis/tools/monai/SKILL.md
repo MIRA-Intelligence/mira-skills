@@ -1,3 +1,8 @@
+---
+name: monai
+description: Medical imaging deep learning toolkit using MONAI for data loading, transforms, neural networks, and evaluation metrics for radiology and pathology workflows.
+---
+
 # MONAI Skill
 
 ## 1. Objective

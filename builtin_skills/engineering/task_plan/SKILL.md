@@ -1,6 +1,7 @@
 ---
+name: task_plan
 description: "Maintain a structured task_plan.json for tracking multi-step research progress"
-metadata: '{"mira": {"requires": {}}}'
+metadata:
   aliases: ["task tracking", "project management", "todo list", "milestones"]
 ---
 

@@ -1,3 +1,8 @@
+---
+name: beampy-slides
+description: LaTeX-powered presentation engine for scientific and research presentations using beampy.
+---
+
 # Scientific Beampy: High-Precision Research Presentations
 
 `beampy-slides` is a LaTeX-powered presentation engine designed for scientists and researchers. It combines the typographic excellence of LaTeX with the flexibility of Python and the ubiquity of PowerPoint.
