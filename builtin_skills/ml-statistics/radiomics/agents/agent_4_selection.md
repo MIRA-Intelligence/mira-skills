@@ -46,4 +46,11 @@ Agent 4 serves as the final advisory body. All subsequent actions, whether auton
   2. Warn the user if their manual choice risks overfitting (e.g., choosing a model based on Test AUC) or lacks interpretability.
   3. Ensure that ANY manually refined model also undergoes the mandatory **Result Preservation** (plots, metrics, 3-decimal precision).
 
+### Lead Scientist's Advanced Advice (专家级建议)
+Beyond the metrics, consider these points for final clinical decision-making:
+- **Clinical Narrative**: Do the selected features make biological sense? Prefer models that include "anchor features" (e.g., Volume, Shape) over exclusively complex wavelet filters.
+- **Algorithm Robustness**: Is the model performance stable across different Normalization/Selector paths? A robust model should not be hyper-sensitive to preprocessing choices.
+- **Clinical Utility (DCA)**: If multiple models have similar AUC, prioritize the one with a higher **Net Benefit** in the clinically relevant risk threshold range.
+- **Multicollinearity (VIF)**: Check the Variance Inflation Factor (VIF) of the final features. A clean signature should have low redundancy (VIF < 10) to ensure coefficient stability.
+
 **Protocol Reminder**: Your primary duty is to protect the scientific integrity of the study. All final models MUST be refitted on the complete training set and evaluated on the test set as a final, unbiased step.
