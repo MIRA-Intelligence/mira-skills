@@ -22,8 +22,8 @@ When tasked with an end-to-end radiomics analysis, you MUST act as an **Autonomo
 For EVERY pipeline permutation evaluated, you MUST preserve all outputs in a hierarchical directory structure. Adherence to this format is critical for reproducibility and automated analysis.
 
 - **Detailed Specification**: Refer to **[Result Preservation Guide](references/result_preservation.md)** for the mandatory directory hierarchy, naming conventions, and required artifacts (CSVs, PKLs, and Plots).
-- **Directory Hierarchy Overview**: `results/<SubModel>/<Normalization>/<DimReduction>/<Selector>_<K>/<Classifier>/`
-- **Mandatory Visualizations**: ROC curves MUST include shaded 95% CI areas (Bootstrap n=1000).
+- **Directory Hierarchy Overview**: `results/<SubModel>/<Normalization>/PCC_0.99/<Selector>_<K>/<Classifier>/`
+- **Mandatory Visualizations**: ROC curves MUST include shaded 95% CI areas (Bootstrap n=1000) for Train, CV, and Test.
 
 ## Reproducibility & Version Control (可重复性与版本控制)
 
@@ -33,42 +33,51 @@ To ensure 100% replication of results and full traceability, you MUST adhere to 
 Except for raw/processed image data (DICOM/NIfTI), ALL artifacts MUST be managed via Git:
 - **Managed Artifacts**: Python scripts, study plans (`radiomics_plan.yaml`), partition indices, performance metrics (`.csv`), and execution logs.
 - **Commit Frequency**: Perform a `git commit` after the successful completion of each Agent's stage (e.g., "feat: finish data partitioning in Agent 1").
-- **Branching**: Use a new branch for experimental structural changes (e.g., testing a new feature selection algorithm) to keep the `main` branch stable and reproducible.
 
 ### 2. Mandatory Random Seed Management
 Randomness MUST be eliminated across the entire pipeline:
 - **Global Seed**: Initialize `numpy.random.seed(42)` and `random.seed(42)` at the start of every script.
-- **Scikit-Learn**: Explicitly set `random_state=42` in ALL relevant components:
-  - `StratifiedKFold`
-  - `TrainTestSplit`
-  - `LogisticRegression`, `RandomForestClassifier`, `SVC`, etc.
-  - Feature Selectors (e.g., `LASSO`, `RFE`)
-- **Environment**: Document the `requirements.txt` to ensure package version consistency.
+- **Scikit-Learn**: Explicitly set `random_state=42` in ALL relevant components (Splitters, Selectors, Classifiers).
 
 ## Core Workflow
 
 ### Model Selection Principle (模型挑选原则)
-When selecting the final model from the pre-experiment or optimization stages, you MUST adhere to the following statistical rigor:
-- **CV AUC is the ONLY Criterion**: Always use Cross-Validation (CV) AUC on the training set to rank and select the best pipeline or model. 
-- **Test AUC Prohibition**: NEVER use the Test Set performance (Test AUC) to pick or "peek" at models. This prevents data leakage and ensures the Test Set remains an unbiased evaluator of generalization.
-- **Reporting Exception**: You MAY inform the user if a different model has a higher Test AUC, but you MUST NOT select it as the final recommendation based on that fact.
+When selecting the final model, you MUST adhere to the following scientific mindset:
+- **Performance & Interpretability**: Prioritize models that combine high CV AUC with clinical transparency. Favor linear models and fewer features.
+- **Optional 1-SE Rule**: The 1-SE rule is a tool for finding the simplest robust model, but its application is **optional** and should be balanced against potential performance loss or CV-related overfitting.
+- **Test Set Protection**: NEVER use the Test Set performance to select or tune models. The Test Set is for final evaluation only.
 
-The pipeline is a **mandatory 4-step sequence**. Whether starting from raw images or pre-extracted features, the process must follow all steps to ensure scientific rigor and data organization.
-
+The pipeline is a **mandatory 4-step sequence**:
 
 ### 0. Study Planning & Extraction
-**[Agent 0: Planning](agents/agent_0_planning.md)** - Assess data source (DICOM/NIfTI or pre-extracted CSV), execute feature extraction (if starting from images), and design the study architecture. Generates `radiomics_plan.yaml`.
+**[Agent 0: Planning](agents/agent_0_planning.md)** - Assess data source, design study architecture, and define the scientific hypothesis. Generates `radiomics_plan.yaml`.
 
 ### 1. Data Organization & Partitioning
-**[Agent 1: Splitting & Partitioning](agents/agent_1_curation_partitioning.md)** - **Mandatory for all workflows.** Organizes features into hierarchical sub-models (Original -> LoG -> Wavelet) and performs balanced cohort splitting (if sample size allows).
+**[Agent 1: Splitting & Partitioning](agents/agent_1_curation_partitioning.md)** - Organizes features into sub-models and performs balanced cohort splitting.
 
-### 2. Feature Selection & Baseline Modeling
-**[Agent 2: Modeling](agents/agent_2_modeling.md)** - Refine features per sub-model, build interpretability-focused baseline models, and handle batch effects.
+### 2. Baseline Modeling Grid
+**[Agent 2: Modeling](agents/agent_2_modeling.md)** - Execute an exhaustive grid search using interpretable models (LR, SVM), standardized normalization (Z-score, Minmax), and PCC (0.99). Saves results for EVERY permutation.
 
-### 3. Optimization & Validation
-**[Agent 3: Optimization](agents/agent_3_optimization.md)** - Fine-tune baseline models using two-stage grid search and validate performance on test/external sets.
+### 3. Hyperparameter Optimization
+**[Agent 3: Optimization](agents/agent_3_optimization.md)** - Perform fine-tuning of top baseline configurations to maximize stability and performance. **Exhaustive Result Preservation**: All tuning results and plots are saved in the hierarchical results folder.
+
+### 4. Final Model Selection
+**[Agent 4: Selection](agents/agent_4_selection.md)** - Ingest all evidence (Baseline, 1-SE, Optimized) to select the final clinical signature based on parsimony and interpretability. **Authoritative Guidance**: Agents 3 and 4 provide the definitive scientific recommendations for any final model choice or manual refinement by the user.
 
 ## Specialized References
 - **Methodology**: [FAE Pipeline Methodology](references/methodology.md).
+- **Implementation Standards**: [Implementation Quality Check](references/implementation_check.md).
 - **Interpretability**: Sub-model hierarchy (Shape -> Firstorder -> Texture).
 - **Harmonization**: ComBat and normalization persistence for external sets.
+
+---
+
+## Compliance Checklist (执行自查清单)
+At the end of every response, you MUST verify your compliance:
+- [ ] **Current State**: (Agent 0/1/2/3/4)
+- [ ] **Random Seed**: 42 applied globally and in all SKLearn components.
+- [ ] **Selection Criterion**: CV AUC + 1-SE Rule (decided in Agent 4).
+- [ ] **Bootstrap**: ROC plots include 95% CI (n=1000) for Train, CV, and Test.
+- [ ] **Full Matrix**: Results and plots saved for EVERY pipeline permutation.
+- [ ] **Structure**: Hierarchical results folder per `result_preservation.md`.
+- [ ] **Precision**: All reported metrics are formatted to 3 decimal places.

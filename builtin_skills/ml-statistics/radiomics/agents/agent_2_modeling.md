@@ -1,97 +1,46 @@
-# Agent 2: Pyramid Feature Selection & Modeling (金字塔特征筛选与建模)
+# Agent 2: Baseline Modeling Grid (基线建模网格搜索)
 
-**Goal:** Execute a FAE-inspired hierarchical "Pyramid" selection strategy to reduce dimensionality, ensure interpretability, and build robust sub-models using process-level parallelization.
+**Goal:** Execute a comprehensive grid search of standardized radiomics pipelines to identify promising feature-classifier combinations using interpretable baseline models.
 
-## 1. Pyramid Selection Strategy (金字塔合并策略)
+## 1. Exhaustive Pipeline Grid (标准网格维度)
 
-You MUST iterate through three distinct levels of feature selection. At EACH level, you perform a full Grid Search (Normalizer × Mutually-Exclusive-Selector × Classifier).
+You MUST iterate through ALL combinations of the following dimensions using the partitioned matrices from Agent 1.
 
-### Level 1: Atomic Base (底层原子筛选)
-- **Input**: Every atomic sub-model matrix created in Agent 1 (e.g., `df_shape`, `df_glcm`, `df_log_sigma_1_glrlm`).
-- **Execution**: Perform independent Grid Searches for every group.
-- **Mandate**: Select the best performing features from each atomic group to pass to Level 2.
+1. **Normalization (归一化)**: 
+   - `Z-score` (StandardScaler)
+   - `MinMax` (MinMaxScaler)
+2. **Dimension Reduction (相关性剔除)**:
+   - `PCC` (Pearson Correlation Coefficient): **Mandatory**. Remove features with $|r| > 0.99$.
+3. **Feature Selection (特征筛选 - 并列互斥)**:
+   - `ANOVA` (F-classif)
+   - `LASSO` (Logistic Regression with L1 penalty)
+   - `Chi-squared` (chi2)
+   - `MI` (Mutual Information)
+   - `KW` (Kruskal-Wallis)
+   - `ReliefF`
+   - `RFE` (Recursive Feature Elimination with linear SVM)
+4. **Interpretable Classifiers (基线分类器)**:
+   - `LR` (Logistic Regression)
+   - `SVM-Linear` (Support Vector Machine with linear kernel)
 
-### Level 2: Intermediate Merge (中层语义合并)
-- **Input**: Concatenate the selected features from Level 1 into intermediate semantic groups (e.g., `Original`, `LoG`, `Wavelet`).
-- **Execution**: Perform a new full Grid Search on these merged matrices.
+## 2. Computational Execution
 
-### Level 3: Global Fusion (全局顶层融合)
-- **Input**: Concatenate the selected features from Level 2 into a single `Global Radiomics` matrix.
-- **Execution**: Perform the final Grid Search and hyperparameter optimization.
+- **Parallelization**: Use `joblib.Parallel` to evaluate sub-models and pipeline permutations across CPU cores.
+- **Data Integrity**: Use the `DataContainer` class to ensure parameter migration (fitting Scaler/PCC on training data only).
+- **Metric Tracking**: For every permutation, calculate and save:
+  - **Train AUC** (with 95% Bootstrap CI)
+  - **CV AUC** (mean and standard error across folds)
+  - **Test AUC** (if test set is available)
 
-## 2. Exhaustive Pipeline Grid
+## 3. Deliverables & Mandatory Reporting (全量保存)
 
-Within each level, iterate over ALL combinations of the following parallel dimensions:
+You MUST generate and save all artifacts specified in the **[Result Preservation Guide](../references/result_preservation.md)**.
 
-1. **Normalization**: [StandardScaler, MinMaxScaler, RobustScaler, MaxAbsScaler]
-2. **Feature Selection (Mutually Exclusive)**: 
-   - *Filter*: [ANOVA (f_classif), Chi-Squared, MI, Kruskal-Wallis]
-   - *Embedded*: [LASSO (LogisticRegression with penalty='l1'), Random Forest Importance]
-   *Constraint*: You MUST NOT chain LASSO and ANOVA. Pick exactly ONE for each pipeline.
-3. **Classifiers**: [LogisticRegression, SVM (Linear/RBF), Random Forest, LDA, AdaBoost]
+1. **Full Matrix Preservation**: Save results for **EVERY** pipeline permutation. Do not discard results.
+2. **Exhaustive Visualization**: For **EVERY** permutation, generate:
+   - `roc_combined.png`: Combined Train/CV/Test plot with shaded 95% CI.
+   - `feature_importance.png`: Bar chart of coefficients/weights.
+   - `one_se_selection.png`: Plot of CV AUC vs. $K$ with 1-SE thresholds (Note: 1-SE selection is analyzed in Agent 3).
+3. **Master Summary**: Generate `pipeline_info.csv` at the root of the `results/` folder, indexing all pipelines by their performance.
 
-## 3. Computational Efficiency & Parallelization (进程级加速)
-
-### Parallel Orchestration (Mandatory)
-- **Level 1 Acceleration**: When evaluating the multiple independent atomic sub-models, you MUST NOT use a sequential `for` loop.
-- **Mandate**: Use `joblib.Parallel` or `multiprocessing` to dispatch sub-model evaluations to separate CPU cores.
-
-### Efficiency Optimizations
-- **Fold Consistency**: Pre-calculate `StratifiedKFold` indices and reuse them across the entire grid to ensure statistical fairness.
-- **Feature Ranking Caching**: For score-based selectors, calculate rankings once per normalization method and use "Lazy Slicing" for different $K$ (Top-K) values.
-
-## 4. FAE-Inspired Implementation Standard (参考代码)
-
-You MUST generate Python code that adheres to these robust patterns:
-
-### A. DataContainer & Parameter Migration
-```python
-# Encapsulate data and handle training-to-test parameter migration (Mean/Std)
-class DataContainer:
-    def __init__(self, X, y, feature_names, case_names):
-        self.X, self.y = X, y
-        self.feature_names, self.case_names = feature_names, case_names
-
-    def transform_and_evaluate(self, pipeline, cv_indices):
-        # Pipeline ensures Scaler is fit on training fold only (Anti-Leakage)
-        return cross_val_score(pipeline, self.X, self.y, cv=cv_indices, scoring='roc_auc')
-```
-
-### B. Process-Level Parallelization
-```python
-from joblib import Parallel, delayed
-
-# DISPATCH independent Level 1 sub-models to separate processes
-results = Parallel(n_jobs=-1)(
-    delayed(run_grid_search)(submodel_X, submodel_y) 
-    for submodel_X, submodel_y in atomic_groups
-)
-```
-
-### C. Advanced Interpretability (SHAP)
-Alongside ROC curves, generate SHAP explanations for the final model:
-```python
-import shap
-def save_interpretability_plots(model, X_train, output_dir):
-    explainer = shap.Explainer(model, X_train)
-    shap_values = explainer(X_train)
-    # Global Importance (Bar) and Local Contribution (Beeswarm)
-    shap.plots.bar(shap_values, show=False)
-    plt.savefig(f"{output_dir}/SHAP_Global.png")
-    shap.plots.beeswarm(shap_values, show=False)
-    plt.savefig(f"{output_dir}/SHAP_Local.png")
-```
-
-## 5. Deliverables & Mandatory Reporting
-
-You MUST generate and save all artifacts specified in the **[Result Preservation Guide](../references/result_preservation.md)**. Key requirements include:
-
-1. **Model Selection Integrity (Anti-Leakage)**: You MUST NEVER use the Test Set performance (Test AUC) to select, rank, or filter models. Looking at the Test AUC during the selection phase is strictly prohibited to prevent data leakage. You may only refer to Test AUC if the user explicitly instructs you to do so.
-2. **Comprehensive AUC Reporting for Top-K Models**: When presenting results, you MUST output the performance of the **Top-K selected models** (not just the single best one). For each of these Top-K models, the report MUST explicitly list:
-   - **Train AUC** (with 95% Bootstrap CI)
-   - **CV AUC** (with 95% CI or standard deviation)
-   - **Test AUC** (with 95% Bootstrap CI) - if a test set exists.
-3. **Metrics Persistence**: For EVERY pipeline permutation evaluated in the grid search, the saved performance metrics (`metrics.csv` or `pipeline_info.csv`) MUST include the **Train AUC** alongside the CV AUC. This is critical for evaluating the generalization gap (Train AUC - CV AUC).
-4. **Unified ROC Curve**: Combined Train/CV/Test plot with **shaded 95% Bootstrap CI regions**.
-5. **Interpretability Plots**: Feature Importance (Bar chart) and SHAP visualizations (Global Bar + Local Beeswarm) for the final model.
-6. **Artifacts Directory**: A folder containing the saved `.pkl` / `.joblib` pipelines, selected features CSVs, and predictions for reproducible inference.
+**Handoff**: Once the baseline grid is complete and all artifacts are saved, proceed to **Agent 3: Optimization & Selection**. Do NOT perform the 1-SE selection or final model picking in this Agent.

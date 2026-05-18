@@ -1,59 +1,46 @@
 # Agent 3: Two-Stage Optimization (两阶段超参数优化)
 
-**Goal:** Fine-tune the baseline models established by Agent 2 using a coarse-to-fine two-stage pipeline optimization. The ultimate objective is to achieve **maximal predictive performance with the minimum number of highly interpretable features**.
+**Goal:** Fine-tune the promising baseline configurations identified in Agent 2 to maximize performance while maintaining model stability.
 
-*Reference*: [Two-Stage Optimization Methodology](../references/two_stage_optimization.md)
+## 1. Candidate Identification
 
-## Stage 1: Coarse Permutation Sweep
-Performed by agent_2_modeling(`agents/agent_2_modeling.md`). 
+Based on the baseline results from Agent 2 (`pipeline_info.csv`), select the Top-N (default 20) configurations based on their **Maximum CV AUC**. 
 
-### Output Analysis & 1-SE Application (模型横向PK与1-SE检验)
-Instead of blindly forcing 1-SE on every pipeline, you MUST follow this comparative logic to avoid over-penalizing already-sparse models:
-1. **Absolute Ranking**: First, sort ALL pre-experiment pipelines by their **Absolute Maximum CV AUC** (ignoring feature counts temporarily).
-2. **Select Top-K Candidates**: Pick the top-performing pipelines (e.g., Top 10-20) from this absolute ranking.
-3. **1-SE Verification**: For EACH of these Top-K pipelines, find its corresponding "1-SE version" (the version with the fewest features whose CV AUC is within one standard error of its absolute maximum).
-4. **Parsimony Check**: Compare the 1-SE version against the absolute version. Did 1-SE actually reduce the feature count? If a model's absolute best version already uses very few features (e.g., $\le 5$), the 1-SE version might unnecessarily degrade performance without significantly improving interpretability.
-5. **Final Stage 1 Selection**: Re-rank these Top-K candidates using the CV AUC of their **1-SE versions** (or their absolute version if 1-SE degraded performance without a meaningful reduction in features). Select the final configurations for deep optimization. 
-- **Anti-Leakage**: Do NOT use Test AUC for ranking or selection at this stage. You may note models with high Test AUC for the user's information only.
-- **Interpretability Check**: If the performance gap between a Tier 1 (Simple) pipeline and a Tier 2 (Advanced) pipeline is negligible (< 0.02 AUC), prioritize the Tier 1 pipeline.
+## 2. Fine-Tuning Strategy
 
-## Stage 2: Fine-Tuning & Hyperparameter Strategy
+For each candidate configuration, perform an expanded hyperparameter search.
 
-Deep-tune the Top-K configurations using an expanded hyperparameter space. You MUST refer to the following scenarios to decide which parameters to prioritize.
+### Expanded Search Space
+- **Classifiers**:
+  - `LR`: Deep-tune `C` (logspace), `penalty` (l1, l2, elasticnet), and `solver`.
+  - `SVM-Linear`: Deep-tune `C` and `intercept_scaling`.
+  - **Advanced Models**: If baseline performance is low (CV AUC < 0.70), introduce and tune `Random Forest` or `XGBoost`.
+- **Reference**: Follow the ranges in **[Two-Stage Optimization Guide](../references/two_stage_optimization.md)**.
 
-### 1. Feature Selector Optimization (特征选择器调优)
+### Generalization Focus
+- Adjust hyperparameters to ensure the **Gap (Train AUC - CV AUC) < 0.1**. 
+- Increase regularization if the gap is too large.
 
-| Selector | Tunable Parameters | Tuning Scenario (适用场景) |
-| :--- | :--- | :--- |
-| **K-Best (ANOVA/KW)** | `k` (Number of features) | **Dimension Bottleneck**: If CV AUC fluctuates wildly, narrow `k` to find the plateau. Usually $1 \leq k \leq N_{cases}/10$. |
-| **RFE** | `step` (float/int), `estimator` params | **Interaction Sensitivity**: Use small `step` (e.g., 0.05) if features are highly synergistic; adjust the base estimator (e.g., SVC `C`) to change selection strictness. |
-| **LASSO (Embedded)** | `C` (Inverse regularization) | **Sparsity Control**: Use smaller `C` (high penalty) when features are extremely redundant; larger `C` when signal is sparse and distributed. |
-| **ReliefF** | `n_neighbors` | **Local Interaction**: Increase `n_neighbors` if data has high noise/outliers; decrease if data is clean and local clusters are tight. |
+## 3. Deliverables & Result Preservation (调优结果全量保存)
 
-### 2. Classifier Optimization (分类器调优)
+You MUST treat the results of the optimization process with the same rigor as the baseline grid. 
 
-| Classifier | Expanded Hyperparameter Space | Tuning Scenario (适用场景) |
-| :--- | :--- | :--- |
-| **LR** | `C`: logspace(-4, 4, 20)<br>`penalty`: ['l1', 'l2', 'elasticnet']<br>`solver`: ['liblinear', 'saga'] | **Linear Parsimony**: Use `l1` or `elasticnet` when you need the model to force coefficients of redundant features to exactly zero for better interpretability. |
-| **SVM** | `C`: logspace(-3, 3, 20)<br>`kernel`: ['linear', 'rbf', 'poly']<br>`gamma`: logspace(-4, 2, 12)<br>`degree`: [2, 3, 4] | **Complexity Scaling**: If linear SVM underperforms, migrate to `rbf` (captures non-linear blobs) or `poly` (captures feature interactions). Adjust `gamma` to control the "reach" of a single training instance. |
-| **Random Forest** | `n_estimators`: [50, 100, 200, 500]<br>`max_depth`: [3, 5, 10, None]<br>`min_samples_split`: [2, 5, 10]<br>`class_weight`: ['balanced', None] | **Ensemble Stability**: Decrease `max_depth` and increase `n_estimators` to fight overfitting on small cohorts. Use `class_weight='balanced'` if the label distribution is skewed (> 1:2). |
-| **MLP (NN)** | `hidden_layer_sizes`: [(10,), (50,), (100,), (50, 25)]<br>`alpha`: logspace(-5, -2, 10)<br>`learning_rate`: ['constant', 'adaptive'] | **Non-Linear Depth**: Use smaller `alpha` (less regularization) if the model is underfitting; increase `hidden_layer_sizes` only if simpler classifiers fail to reach target AUC. |
-| **LDA** | `solver`: ['lsqr', 'eigen']<br>`shrinkage`: ['auto', 0.1, 0.5, None] | **Small Sample Adjustment**: Use `shrinkage='auto'` or a float value when the number of features is large relative to the number of samples ($k > N_{train}$) to stabilize the covariance matrix. |
-| **AdaBoost** | `n_estimators`: [50, 100, 200, 500]<br>`learning_rate`: [0.01, 0.1, 0.5, 1.0] | **Boosting Precision**: Use smaller `learning_rate` with larger `n_estimators` for a more robust but slower convergence to the optimal decision boundary. |
+- **Hierarchical Storage**: Save the artifacts for EVERY fine-tuned pipeline in the directory structure defined in **[Result Preservation Guide](../references/result_preservation.md)**.
+  - *Note*: Use the `<Classifier>` name with an `_optimized` suffix if necessary (e.g., `.../LR_optimized/`) to distinguish from baseline results.
+- **Mandatory Artifacts**: For every optimized configuration, you MUST generate and save:
+  - `metrics.csv`: Performance table (3 decimal places).
+  - `roc_combined.png`: Updated Train/CV/Test plot with 95% Bootstrap CI.
+  - `feature_importance.png`: Updated weight/importance bar chart.
+  - `optimized_model.pkl`: The fine-tuned pipeline object.
+  - `tuning_log.json`: A record of the hyperparameter search space and the best parameters found.
 
-### 3. Optimization Objectives & Logic
-Your tuning strategy MUST balance these three pillars:
-1. **Parsimony**: Favor models with fewer features (refer back to the 1-SE models from Agent 2).
-2. **Interpretability**: Favor linear models or models with clear feature importance rankings (like SVM-linear coefficients or RF importances).
-3. **Generalization**: Maximize CV AUC while ensuring the **Gap (Train AUC - CV AUC) < 0.1**. If the gap is larger, increase regularization (e.g., smaller `C`, larger `alpha`, or smaller `max_depth`).
+**Handoff**: Provide the user with a summary of the improvements gained through optimization and hand off to **Agent 4** for the final selection advice.
 
-### 4. Mandatory Optimization Execution & Fallback
-- **Tune ALL Top-K Models**: You MUST apply fine-tuning to **ALL eligible Top-K configurations** identified in Stage 1, not just the single best model. 
-- **Performance Fallback**: If the fine-tuned version of a model performs worse than its baseline pre-experiment version (Stage 1), you MUST:
-  1. Revert to the best pre-experiment version.
-  2. Propose to the user that further tuning might be detrimental (overfitting).
-  3. List ALL models that you believe could still benefit from further hyperparameter exploration, and ask the user if they wish to proceed with manual/deeper tuning for those specific models.
+## 4. Tuning Redlines (调优警戒线)
 
-- **Optimized Model Pipeline**: The best combination of balancing, normalization, selection, and classifier with its fine-tuned hyperparameters.
-- **Artifacts**: You MUST preserve all optimization results (CSVs, models, plots) according to the **[Result Preservation Guide](../references/result_preservation.md)**.
-- **Final Performance Metrics**: Updated performance table showing the improvement over the baseline models (reported to **3 decimal places**).
+During the fine-tuning process, you MUST adhere to the following empirical rules to prevent "hyperparameter overfitting":
+
+- **Stability Check**: If the Standard Deviation of the CV AUC increases by > 50% compared to the baseline model, REJECT the optimization even if the mean CV AUC is higher. Consistency is more important than peak performance.
+- **Boundary Warning**: If the optimal hyperparameter found is at the absolute upper or lower boundary of your defined search grid (e.g., `C=1000` when the range was `[0.001, 1000]`), you MUST expand the grid further in that direction and re-run to ensure you haven't missed the true peak.
+- **Complexity Penalty**: If two sets of hyperparameters yield a CV AUC within an insignificant margin (e.g., delta < 0.005), ALWAYS choose the configuration with higher regularization (e.g., lower `C` in SVM/LR, smaller `max_depth` in RF) to enforce model simplicity.
+- **Sensitivity/Specificity Balance**: Do not accept an optimization that achieves high AUC solely by predicting the majority class correctly. Monitor Class Weights and ensure a balanced Sensitivity and Specificity.

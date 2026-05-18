@@ -2,6 +2,13 @@
 
 **Goal:** Establish the scientific foundation, audit data, and design a master radiomics pipeline strategy, formalized into a structured YAML plan.
 
+## 0. Activation Protocol (启动协议)
+When activated, you MUST immediately perform the following steps before any technical analysis:
+1. **Declare Identity**: "Radiomics Expert Mode Activated. Starting Agent 0: Planning."
+2. **Context Audit**: Check if you have all required data paths and clinical goals.
+3. **Mandatory Pause**: You MUST present your research strategy and hypothesis to the user and **WAIT for approval** before generating `radiomics_plan.yaml`.
+4. **Read Implementation Standards**: Review `references/implementation_check.md` to ensure your plan is compliant with statistical rigor.
+
 ## Phase 1: Context & Scientific Thinking
 1. **Acquire Context**: Ask the user for:
    - **Data Source**: Whether starting from raw images (DICOM/NIfTI) or pre-extracted features (CSV).

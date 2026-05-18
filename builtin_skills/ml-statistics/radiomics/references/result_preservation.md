@@ -1,19 +1,18 @@
 # Radiomics Result Preservation Guide
 
-This guide defines the mandatory hierarchical directory structure and file specifications for preserving all artifacts from the radiomics pipeline. Adhering to this structure ensures full reproducibility and auditability of every model iteration.
+This guide defines the mandatory hierarchical directory structure and file specifications for preserving artifacts from **EVERY** pipeline permutation evaluated during the experiment. Adhering to this structure ensures full reproducibility and allows for post-hoc analysis of the entire search space.
 
-## 1. Directory Hierarchy
+## 1. Directory Hierarchy (Full Matrix Preservation)
 
-All results MUST be stored under a root `results/` directory using the following nesting pattern:
+You **MUST NOT** only save the "best" or "selected" models. You MUST preserve the results for **EVERY** combination of SubModel, Normalization, Selector, and Classifier that is executed.
 
-`results/<SubModel>/<Normalization>/<DimensionReduction>/<Selector>_<K>/<Classifier>/`
+`results/<SubModel>/<Normalization>/PCC_0.99/<Selector>_<K>/<Classifier>/`
 
 ### Path Components:
 - `<SubModel>`: The data subset defined in Agent 1 (e.g., `Original`, `Wavelet_LLL`, `Combined`).
-- `<Normalization>`: The scaler used (e.g., `Zscore`, `MinMax`, `Robust`).
-- `<DimensionReduction>`: The redundancy reduction method (e.g., `PCC`, `PCA`).
-- `<Selector>_<K>`: The feature selector name and the number of features (e.g., `ANOVA_10`, `Relief_5`, `LASSO_15`).
-- `<Classifier>`: The algorithm used (e.g., `LR`, `RF`, `SVM`).
+- `<Normalization>`: The scaler used (e.g., `Zscore`, `MinMax`).
+- `<Selector>_<K>`: The feature selector name and the number of features (e.g., `ANOVA_10`, `LASSO_15`).
+- `<Classifier>`: The algorithm used (e.g., `LR`, `SVM`).
 
 ---
 
@@ -48,7 +47,7 @@ All results MUST be stored under a root `results/` directory using the following
 
 ## 3. Visualization Requirements
 
-Every terminal `<Classifier>` directory MUST contain a `plots/` sub-directory with high-resolution images (min 300 DPI, `.png` or `.pdf`).
+Every terminal `<Classifier>` directory MUST contain a `plots/` sub-directory with high-resolution images (min 300 DPI, `.png` or `.pdf`). These plots MUST be generated for **EVERY** pipeline permutation, not just the final winners.
 
 ### 3.1 Unified ROC Curve (`roc_combined.png`)
 - **Multi-Cohort Plotting**: You MUST plot the ROC curves for **Train, CV-Validation, and Test** cohorts on a single set of axes.
@@ -57,19 +56,29 @@ Every terminal `<Classifier>` directory MUST contain a `plots/` sub-directory wi
   - Plot the **mean ROC curve** as a bold solid line.
   - Plot the **95% Confidence Interval** as a semi-transparent shaded area (alpha ≈ 0.2) surrounding the mean curve.
 - **Legend Specifications**: The legend MUST display the AUC value and its 95% Bootstrap CI for each cohort. 
-  - *Format*: `Test AUC: 0.85 (95% CI: 0.81-0.89)`
+  - *Format*: `Test AUC: 0.850 (95% CI: 0.810-0.890)`
 
 ### 3.2 Feature Weights/Importance Plot (`feature_importance.png`)
-- **Type**: A horizontal bar chart.
+- **Type**: A horizontal bar chart showing the contribution of each feature to the model.
 - **Data Source**: 
-  - For linear models (LR, SVM-Linear): Use the values from `{Classifier}_coef.csv`.
+  - For linear models (LR, SVM-Linear): Use the coefficients from `{Classifier}_coef.csv`.
   - For tree-based models (RF, Boosting): Use the `feature_importances_` attribute.
 - **Formatting**:
-  - Features MUST be sorted in descending order of absolute weight or importance.
+  - Features MUST be sorted in descending order of absolute weight.
   - Use color coding to distinguish between positive and negative coefficients if applicable.
-  - Feature names on the Y-axis MUST be clearly legible and match the names in `features_selected.csv`.
 
-### 3.3 Calibration Curve (`calibration_curve.png`)
+### 3.3 One Standard Error (1-SE) Rule Plot (`one_se_selection.png`)
+- **Purpose**: To visualize the model selection process based on the parsimony principle (selecting the simplest model within 1 SE of the best).
+- **Content**: 
+  - **X-axis**: Number of features ($K$).
+  - **Y-axis**: CV AUC.
+  - **Markers**: Plot the mean CV AUC with error bars (standard error) for each $K$.
+  - **Reference Lines**: 
+    - A horizontal dashed line at the level of `max(CV_AUC)`.
+    - A horizontal dotted line at `max(CV_AUC) - 1*SE`.
+  - **Selection Highlight**: Clearly mark the selected $K$ (the smallest $K$ such that its CV AUC is above the 1-SE line).
+
+### 3.4 Calibration Curve (`calibration_curve.png`)
 - **Content**: A plot showing the agreement between predicted probabilities and observed outcomes across cohorts.
 - **Reference**: Include a 45-degree dashed line representing the "Perfectly Calibrated" model.
 
