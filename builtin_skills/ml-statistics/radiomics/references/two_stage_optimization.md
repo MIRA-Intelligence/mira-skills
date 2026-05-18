@@ -33,71 +33,26 @@ Each classifier uses a small, fixed set of hyperparameters:
 ### Output
 All 9,000 results sorted by CV AUC. Top-N (default 20) configurations selected for fine-tuning.
 
-## Stage 2: Fine-Tuning with Auto-Iteration
+## Stage 2: Fine-Tuning with Elite Evolution
 
-### Expanded Hyperparameter Space
+Instead of an exhaustive search across all combinations, Stage 2 uses a hierarchical selection process to ensure efficiency.
 
-| Classifier | Fine Hyperparameters |
-|-----------|---------------------|
-| SVM | kernel ∈ {linear, rbf, poly, sigmoid}; C = logspace(-3, 3, 20); gamma = logspace(-4, 2, 12); degree ∈ {2, 3, 4, 5} |
-| RF | n_estimators ∈ {50, 100, 200, 500}; max_depth ∈ {3, 5, 10, None}; min_samples_split ∈ {2, 5, 10}; class_weight ∈ {None, balanced} |
-| LR | C = logspace(-4, 4, 20); solver ∈ {liblinear, saga, lbfgs}; class_weight ∈ {None, balanced} |
-| MLP | hidden ∈ {[10], [30], [50], [100], [100,50]}; alpha = logspace(-5, -2, 10); learning_rate ∈ {constant, adaptive, invscaling} |
-| LDA | solver ∈ {lsqr, eigh}; shrinkage ∈ {None, auto, 0.1, 0.5} |
-| AdaBoost | n_estimators ∈ {50, 100, 200, 500}; learning_rate ∈ {0.01, 0.1, 0.5, 1.0} |
+### 1. Feature Anchoring
+Identify the Top-3 to Top-5 feature configurations from Stage 1. A configuration includes the Normalizer, Dimension Reduction (PCC 0.99), and the Feature Selector with its optimal $K$.
 
-### Auto-Iteration Algorithm
+### 2. Enriched Model Shootout
+Evaluate a broad palette of advanced classifiers on the anchored feature sets using wide-range search.
 
-```
-iteration = 0
-best_auc = 0
-previous_auc = 0
+| Category | Models |
+| :--- | :--- |
+| **Boosting** | XGBoost, LightGBM, CatBoost |
+| **Bagging** | Random Forest, ExtraTrees |
+| **Kernels** | SVM (RBF, Poly) |
+| **Linear+** | ElasticNet, Ridge |
+| **Others** | MLP, LDA, Naive Bayes |
 
-while iteration < max_iterations:
-    iteration += 1
-
-    for config in top_n_configs:
-        if iteration == 1:
-            param_grid = expanded_fine_grid[config.classifier]
-        else:
-            param_grid = narrow_around(best_params, shrink_factor=0.5)
-
-        grid_result = GridSearchCV(pipeline, param_grid, cv=folds, scoring='roc_auc')
-        grid_result.fit(X_train, y_train)
-
-        if grid_result.best_score_ > best_auc:
-            best_auc, best_config, best_params = update(grid_result)
-
-    improvement = best_auc - previous_auc
-
-    if best_auc >= auc_target: break          # Target reached
-    if improvement < min_improvement and iteration > 1: break  # Early stopping
-
-    previous_auc = best_auc
-    top_n_configs = re_rank(all_configs, top_n)
-```
-
-### Param Range Narrowing
-
-For numeric parameters (C, gamma, alpha), narrowing happens in log space:
-```
-log_center = log(best_value)
-log_half_range = log(prev_max / prev_min) / 2 * shrink_factor
-new_min = exp(log_center - log_half_range)
-new_max = exp(log_center + log_half_range)
-```
-
-For categorical parameters (kernel, solver), all options are retained but the best-found value is used as the default in fallback scenarios.
-
-If the narrowed range produces fewer than 3 distinct values, revert to the coarse grid for that parameter to avoid over-narrowing.
-
-### Convergence Criteria
-
-| Criterion | Default | Description |
-|-----------|---------|-------------|
-| `auc_target` | 0.90 | Stop when any config reaches this AUC |
-| `max_iterations` | 10 | Hard limit on fine-tuning rounds |
-| `min_improvement` | 0.005 | Stop if AUC improvement < threshold between iterations |
+### 3. Deep Hyperparameter Tuning
+Pick the best-performing model-feature combination and perform dense optimization using `HalvingGridSearchCV` or similar efficient methods.
 
 ## Compute Time Estimation
 

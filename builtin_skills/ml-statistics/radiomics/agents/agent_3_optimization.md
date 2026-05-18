@@ -14,17 +14,23 @@ You MUST follow a two-tier approach to optimization, ensuring that the full pipe
 - **Scope**: Focus on the Top-N baseline pipelines (`LR`, `SVM-Linear`).
 - **Action**: Adjust hyperparameters and **re-run the entire pipeline**.
 
-### Tier 2: Advanced Model Grid (模型升级搜索)
+### Tier 2: Advanced Model Search (模型升级搜索)
 - **Trigger**: ONLY IF Tier 1 fails to reach CV AUC targets or is unstable.
-- **Mandatory Advanced Palette**:
-  | Model ID | Implementation | Tuning Focus |
+- **Narrow Grid Strategy (精简搜索策略)**: To prevent computational explosion, do NOT re-run the full grid for advanced models. Instead:
+  1. **Feature Anchoring**: Identify the **Top-3 to Top-5 feature subsets** (fixed combinations of Normalizer + Selector + K) that performed best in Agent 2.
+  2. **Model Shootout**: Evaluate the **Enriched Advanced Palette** using default parameters or wide-range random search ONLY on these anchored feature sets.
+  3. **Deep Dive**: Select the top-performing model from the shootout and perform dense hyperparameter tuning (preferably using `HalvingGridSearchCV` for speed).
+
+- **Enriched Advanced Palette**:
+  | Category | Model IDs | Tuning Focus |
   | :--- | :--- | :--- |
-  | **RF** | `RandomForestClassifier` | `n_estimators`, `max_depth`, `min_samples_split` |
-  | **XGB** | `XGBClassifier` | `learning_rate`, `max_depth`, `subsample` |
-  | **SVM-RBF** | `SVC(kernel='rbf')` | `C`, `gamma` |
-  | **MLP** | `MLPClassifier` | `hidden_layer_sizes`, `alpha` |
-  | **LGBM** | `LGBMClassifier` | `num_leaves`, `max_depth` |
-- **Constraint**: Even for advanced models, you MUST maintain the exhaustive result preservation and 3-decimal reporting standards.
+  | **Boosting** | XGBoost, LightGBM, CatBoost | `learning_rate`, `n_estimators`, `max_depth` |
+  | **Bagging** | Random Forest, ExtraTrees | `n_estimators`, `max_depth`, `min_samples_leaf` |
+  | **Kernels** | SVM (RBF, Poly) | `C`, `gamma`, `degree` |
+  | **Regularized** | ElasticNet, Ridge | `alpha`, `l1_ratio` |
+  | **Others** | MLP, LDA, NaiveBayes | `hidden_layers`, `shrinkage` |
+
+- **Constraint**: Even for advanced models, you MUST maintain exhaustive result preservation (3-decimal metrics and shaded ROC plots).
 
 ## 3. Deliverables & Result Preservation (调优结果全量保存)
 
