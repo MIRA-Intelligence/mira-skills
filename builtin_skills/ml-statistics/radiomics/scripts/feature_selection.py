@@ -48,8 +48,11 @@ def select_features(train_dc, output_dir, n_features=10, method='anova', pcc_thr
         else:
             support = coef > 0
     elif method == 'rfe':
-        svc = SVC(kernel="linear", C=1)
-        selector = RFE(estimator=svc, n_features_to_select=min(n_features, X_remaining.shape[1]), step=0.05)
+        # NOTE: RFE estimator MUST match the final classifier of the pipeline.
+        # For this standalone script, we default to LogisticRegression, but
+        # Agent 2 will dynamically pass the correct estimator.
+        base_estimator = LogisticRegression(max_iter=1000, solver='liblinear')
+        selector = RFE(estimator=base_estimator, n_features_to_select=min(n_features, X_remaining.shape[1]), step=0.05)
         selector.fit(X_remaining, y)
         support = selector.get_support()
     else:

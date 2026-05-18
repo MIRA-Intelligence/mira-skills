@@ -61,15 +61,15 @@ partitioning:
 
 modeling_pipeline:
   exhaustive_search: true # MANDATORY: Always true for Agent 2
-  pcc_threshold: 0.95
+  pcc_threshold: 0.99 # MANDATORY: Fixed at 0.99
   sub_models: ["original_shape", "original_texture", "tier_1_all", "wavelet_all"]
   normalizations: ["zscore", "minmax"]
-  dimension_reduction: ["pcc", "pca"]
-  feature_selection: ["anova", "mrmr", "relief", "lasso"]
-  classifiers: ["lr", "svm_linear", "rf", "xgboost"]
+  dimension_reduction: ["pcc"] # MANDATORY: Only PCC
+  feature_selection: ["anova", "lasso", "chi2", "mi", "kw", "relieff", "rfe"]
+  classifiers: ["lr", "svm_linear"] # Agent 2 baseline models only
   top_k_iteration: "1 to N_train/10" # MANDATORY: Max features <= Training Sample Size / 10
   cv_folds: 5
-  model_selection_rule: "1-SE"
+  selection_advice: "performance_parsimony_balance" # Logic handled in Agent 4
 
 evaluation_metrics:
   required_cohorts: ["Train", "CV_Train", "CV_Val", "Test"]

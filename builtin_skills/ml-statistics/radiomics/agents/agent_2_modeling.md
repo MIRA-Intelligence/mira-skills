@@ -18,7 +18,7 @@ You MUST iterate through ALL combinations of the following dimensions using the 
    - `MI` (Mutual Information)
    - `KW` (Kruskal-Wallis)
    - `ReliefF`
-   - `RFE` (Recursive Feature Elimination with linear SVM)
+   - `RFE` (Recursive Feature Elimination): **Mandatory Consistency**. You MUST use the same classifier for RFE as the final model in the pipeline (e.g., if the classifier is LR, RFE must use an LR estimator). Cross-usage of estimators (e.g., SVM-RFE with an LR classifier) is strictly prohibited.
 4. **Interpretable Classifiers (基线分类器)**:
    - `LR` (Logistic Regression)
    - `SVM-Linear` (Support Vector Machine with linear kernel)
@@ -40,7 +40,7 @@ You MUST generate and save all artifacts specified in the **[Result Preservation
 2. **Exhaustive Visualization**: For **EVERY** permutation, generate:
    - `roc_combined.png`: Combined Train/CV/Test plot with shaded 95% CI.
    - `feature_importance.png`: Bar chart of coefficients/weights.
-   - `one_se_selection.png`: Plot of CV AUC vs. $K$ with 1-SE thresholds (Note: 1-SE selection is analyzed in Agent 3).
+   - `one_se_selection.png`: Plot of CV AUC vs. $K$ with 1-SE thresholds (Note: 1-SE selection is analyzed in Agent 4).
 3. **Master Summary**: Generate `pipeline_info.csv` at the root of the `results/` folder, indexing all pipelines by their performance.
 
 **Handoff**: Once the baseline grid is complete and all artifacts are saved, proceed to **Agent 3: Optimization & Selection**. Do NOT perform the 1-SE selection or final model picking in this Agent.

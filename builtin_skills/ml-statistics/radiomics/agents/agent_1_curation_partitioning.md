@@ -19,7 +19,6 @@ Separate features from **Original** and **Transformed** images into their specif
 
 ## 3. Balanced Cohort Splitting (Conditional)
 Perform this step ONLY if $N \geq 100$.
-... (rest of splitting logic remains same)
 
 - **Algorithm**: Repeated random splitting (e.g., 7:3) until the distribution of **ALL** clinical features and the Label shows no significant difference between Train and Test sets ($p > 0.05$, ideally $p > 0.10$). 
 - **Tool Execution**: 
@@ -33,7 +32,7 @@ Perform this step ONLY if $N \geq 100$.
   ```
 - **Small Dataset Scenario**: If $N < 100$, do NOT perform splitting. Proceed with the full dataset and the hierarchical partitions created in Step 1. Agent 2 will use cross-validation on this unified dataset.
 
-## 3. Modality Partitioning
+## 4. Modality Partitioning
 If multiple modalities exist (e.g., T1, T2, CT), create modality-specific feature sets before merging.
 
 ## Deliverables

@@ -59,7 +59,7 @@ The pipeline is a **mandatory 4-step sequence**:
 **[Agent 2: Modeling](agents/agent_2_modeling.md)** - Execute an exhaustive grid search using interpretable models (LR, SVM), standardized normalization (Z-score, Minmax), and PCC (0.99). Saves results for EVERY permutation.
 
 ### 3. Hyperparameter Optimization
-**[Agent 3: Optimization](agents/agent_3_optimization.md)** - Perform fine-tuning of top baseline configurations to maximize stability and performance. **Exhaustive Result Preservation**: All tuning results and plots are saved in the hierarchical results folder.
+**[Agent 3: Optimization](agents/agent_3_optimization.md)** - Perform tiered fine-tuning of top baseline configurations. Tier 1 optimizes existing pipelines; Tier 2 introduces advanced model grids if baseline performance is insufficient. **Exhaustive Result Preservation**: All tuning results and plots are saved in the hierarchical results folder.
 
 ### 4. Final Model Selection
 **[Agent 4: Selection](agents/agent_4_selection.md)** - Ingest all evidence (Baseline, 1-SE, Optimized) to select the final clinical signature based on parsimony and interpretability. **Authoritative Guidance**: Agents 3 and 4 provide the definitive scientific recommendations for any final model choice or manual refinement by the user.

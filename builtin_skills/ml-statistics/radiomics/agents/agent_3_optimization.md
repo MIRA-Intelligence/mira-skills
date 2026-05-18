@@ -6,20 +6,22 @@
 
 Based on the baseline results from Agent 2 (`pipeline_info.csv`), select the Top-N (default 20) configurations based on their **Maximum CV AUC**. 
 
-## 2. Fine-Tuning Strategy
+## 2. Tiered Optimization Strategy (分层优化策略)
 
-For each candidate configuration, perform an expanded hyperparameter search.
+You MUST follow a two-tier approach to optimization, ensuring that the full pipeline is re-run for every parameter change.
 
-### Expanded Search Space
-- **Classifiers**:
-  - `LR`: Deep-tune `C` (logspace), `penalty` (l1, l2, elasticnet), and `solver`.
-  - `SVM-Linear`: Deep-tune `C` and `intercept_scaling`.
-  - **Advanced Models**: If baseline performance is low (CV AUC < 0.70), introduce and tune `Random Forest` or `XGBoost`.
-- **Reference**: Follow the ranges in **[Two-Stage Optimization Guide](../references/two_stage_optimization.md)**.
+### Tier 1: Parameter Refinement (针对性调优)
+- **Scope**: Focus on the Top-N baseline pipelines identified in Agent 2.
+- **Action**: Adjust the hyperparameters of the **Feature Selector** (e.g., `C` in LASSO, `step` in RFE, `n_neighbors` in ReliefF) and the **Classifier** (e.g., `C` in LR/SVM).
+- **Mandate**: You MUST **re-run the entire pipeline** (from Normalization through Selection to Classification) with the new parameters to capture the downstream effects on feature stability and performance.
 
-### Generalization Focus
-- Adjust hyperparameters to ensure the **Gap (Train AUC - CV AUC) < 0.1**. 
-- Increase regularization if the gap is too large.
+### Tier 2: Advanced Model Grid (模型升级搜索)
+- **Trigger**: Proceed to Tier 2 ONLY IF:
+  1. Tier 1 results fail to meet the performance targets (e.g., CV AUC remains < 0.70).
+  2. The optimized baseline models show persistent instability (Tuning Redlines triggered).
+- **Action**: Launch a new, broader Grid Search introducing complex, non-linear classifiers.
+- **Expanded Space**: [Random Forest, XGBoost, LightGBM, SVM-RBF, MLP].
+- **Constraint**: Even for advanced models, you MUST maintain the exhaustive result preservation and 3-decimal reporting standards.
 
 ## 3. Deliverables & Result Preservation (调优结果全量保存)
 
