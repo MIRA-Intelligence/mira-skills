@@ -19,9 +19,15 @@ You MUST iterate through ALL combinations of the following dimensions using the 
    - `KW` (Kruskal-Wallis)
    - `ReliefF`
    - `RFE` (Recursive Feature Elimination): **Mandatory Consistency**. You MUST use the same classifier for RFE as the final model in the pipeline (e.g., if the classifier is LR, RFE must use an LR estimator). Cross-usage of estimators (e.g., SVM-RFE with an LR classifier) is strictly prohibited.
-4. **Interpretable Classifiers (基线分类器)**:
-   - `LR` (Logistic Regression)
-   - `SVM-Linear` (Support Vector Machine with linear kernel)
+4. Mandatory Baseline Model Palette (标准基线模型集)
+
+You MUST restrict your baseline grid to the following interpretable models. Using other classifiers at this stage is prohibited.
+
+| Model ID | Implementation | Rationale |
+| :--- | :--- | :--- |
+| **LR** | `sklearn.linear_model.LogisticRegression` | Golden standard for clinical interpretability; provides feature coefficients. |
+| **SVM-Linear** | `sklearn.svm.SVC(kernel='linear')` | High-dimensional robustness with linear decision boundaries. |
+
 
 ## 2. Computational Execution
 

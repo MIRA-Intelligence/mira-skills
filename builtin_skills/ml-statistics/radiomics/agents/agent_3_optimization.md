@@ -11,16 +11,19 @@ Based on the baseline results from Agent 2 (`pipeline_info.csv`), select the Top
 You MUST follow a two-tier approach to optimization, ensuring that the full pipeline is re-run for every parameter change.
 
 ### Tier 1: Parameter Refinement (针对性调优)
-- **Scope**: Focus on the Top-N baseline pipelines identified in Agent 2.
-- **Action**: Adjust the hyperparameters of the **Feature Selector** (e.g., `C` in LASSO, `step` in RFE, `n_neighbors` in ReliefF) and the **Classifier** (e.g., `C` in LR/SVM).
-- **Mandate**: You MUST **re-run the entire pipeline** (from Normalization through Selection to Classification) with the new parameters to capture the downstream effects on feature stability and performance.
+- **Scope**: Focus on the Top-N baseline pipelines (`LR`, `SVM-Linear`).
+- **Action**: Adjust hyperparameters and **re-run the entire pipeline**.
 
 ### Tier 2: Advanced Model Grid (模型升级搜索)
-- **Trigger**: Proceed to Tier 2 ONLY IF:
-  1. Tier 1 results fail to meet the performance targets (e.g., CV AUC remains < 0.70).
-  2. The optimized baseline models show persistent instability (Tuning Redlines triggered).
-- **Action**: Launch a new, broader Grid Search introducing complex, non-linear classifiers.
-- **Expanded Space**: [Random Forest, XGBoost, LightGBM, SVM-RBF, MLP].
+- **Trigger**: ONLY IF Tier 1 fails to reach CV AUC targets or is unstable.
+- **Mandatory Advanced Palette**:
+  | Model ID | Implementation | Tuning Focus |
+  | :--- | :--- | :--- |
+  | **RF** | `RandomForestClassifier` | `n_estimators`, `max_depth`, `min_samples_split` |
+  | **XGB** | `XGBClassifier` | `learning_rate`, `max_depth`, `subsample` |
+  | **SVM-RBF** | `SVC(kernel='rbf')` | `C`, `gamma` |
+  | **MLP** | `MLPClassifier` | `hidden_layer_sizes`, `alpha` |
+  | **LGBM** | `LGBMClassifier` | `num_leaves`, `max_depth` |
 - **Constraint**: Even for advanced models, you MUST maintain the exhaustive result preservation and 3-decimal reporting standards.
 
 ## 3. Deliverables & Result Preservation (调优结果全量保存)
