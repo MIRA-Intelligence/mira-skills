@@ -5,7 +5,7 @@ from copy import deepcopy
 
 class DataContainer:
     """
-    参考 FAE (FeAture Explorer) 设计的数据容器。
+    放射组学数据容器。
     用于统一管理特征矩阵、标签、特征名和病例 ID，确保在流水线处理过程中的一致性。
     """
     def __init__(self, data=None, label=None, feature_names=None, case_names=None):

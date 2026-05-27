@@ -1,21 +1,21 @@
 ---
-name: FAE-Methodology
-description: Core methodology reference based on the FAE (FeAture Explorer) open-source radiomics framework
+name: Radiomics-Methodology
+description: Core methodology reference for clinical radiomics pipeline
 ---
 
-# Radiomics Pipeline Methodology (FAE Inspired)
+# Radiomics Pipeline Methodology
 
-This methodology is based on the **FeAture Explorer (FAE)** framework (PLoS One 2020), optimized for clinical radiomics studies.
+This methodology implements a structured radiomics pipeline optimized for clinical studies.
 
 ## Core Architecture: The 7-Step Pipeline
 
-FAE implements a structured workflow to ensure reproducibility and statistical rigor.
+The pipeline implements a structured workflow to ensure reproducibility and statistical rigor.
 
 ### 1. Data Containerization
 All features, labels, and case IDs are encapsulated in a `DataContainer`. This ensures that during any transformation (splitting, scaling, selection), the correspondence between feature values and their respective cases remains synchronized.
 
 ### 2. Balanced Cohort Splitting
-Unlike simple random splitting, FAE emphasizes **clinical balance**:
+Unlike simple random splitting, this pipeline emphasizes **clinical balance**:
 - **Mechanism**: Iteratively performs random splits (e.g., 7:3) until the distribution of clinical features (age, stage, etc.) and the outcome labels shows no significant difference between the training and testing sets.
 - **Verification**: Uses `Mann-Whitney U` for continuous variables and `Chi-Square` for categorical variables. A split is accepted typically when all $p > 0.10$.
 

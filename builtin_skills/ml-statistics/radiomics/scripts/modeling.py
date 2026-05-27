@@ -18,7 +18,7 @@ from data_container import DataContainer
 
 def run_pipeline(train_dc, test_dc, output_dir, classifier_name='lr', n_features=10):
     """
-    参考 FAE 逻辑：使用严格的 Pipeline (Scaler -> Selector -> Classifier)
+    使用严格的 Pipeline (Scaler -> Selector -> Classifier)
     """
     os.makedirs(output_dir, exist_ok=True)
 
@@ -39,7 +39,7 @@ def run_pipeline(train_dc, test_dc, output_dir, classifier_name='lr', n_features
         ('classifier', clf)
     ])
 
-    # 3. 交叉验证 (使用固定 Seed 保证 FAE 风格的一致性)
+    # 3. 交叉验证 (使用固定 Seed 保证可重复性)
     cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
     cv_scores = cross_val_score(pipeline, train_dc.data, train_dc.label, cv=cv, scoring='roc_auc')
     print(f"5-Fold CV AUC: {np.mean(cv_scores):.3f} +/- {np.std(cv_scores):.3f}")
@@ -63,13 +63,13 @@ def run_pipeline(train_dc, test_dc, output_dir, classifier_name='lr', n_features
             'specificity': recall_score(dc.label, y_pred, pos_label=0)
         }
         
-        # 保存预测结果 (FAE 风格)
+        # 保存预测结果
         pred_df = pd.DataFrame({'Prob': y_prob, 'Label': dc.label}, index=dc.case_names)
         pred_df.to_csv(os.path.join(output_dir, f"{name}_predictions.csv"))
 
     pd.DataFrame(results).T.to_csv(os.path.join(output_dir, "performance_metrics.csv"))
 
-    # 6. SHAP 可解释性分析 (参考 FAE v0.8.0)
+    # 6. SHAP 可解释性分析
     try:
         # 获取筛选后的特征名
         selector_mask = pipeline.named_steps['selector'].get_support()

@@ -13,7 +13,7 @@ A specialized workflow for clinical radiomics, prioritizing model interpretabili
 
 When tasked with an end-to-end radiomics analysis, you MUST act as an **Autonomous Lead Scientist**:
 1. **Master Scripting**: Construct comprehensive Python scripts using the `scikit-learn` skill to execute the 3-level **Pyramid Feature Selection** strategy automatically.
-2. **FAE Efficiency**: Implement computational shortcuts inspired by the FAE framework (e.g., pre-calculated CV folds, lazy slicing) and use **Process-Level Parallelization** (joblib) to accelerate Level 1 sub-model evaluation.
+2. **Computational Efficiency**: Implement computational shortcuts (e.g., pre-calculated CV folds, lazy slicing) and use **Process-Level Parallelization** (joblib) to accelerate Level 1 sub-model evaluation.
 3. **Advanced Interpretability**: For every final model, you MUST generate **SHAP Bar and Beeswarm plots** to provide clinical interpretability beyond simple coefficients.
 4. **State Recovery**: Maintain a `results/execution_log.json` to track progress through the pyramid levels, enabling recovery if the process is interrupted.
 
@@ -65,7 +65,7 @@ The pipeline is a **mandatory 4-step sequence**:
 **[Agent 4: Selection](agents/agent_4_selection.md)** - Ingest all evidence (Baseline, 1-SE, Optimized) to select the final clinical signature based on parsimony and interpretability. **Authoritative Guidance**: Agents 3 and 4 provide the definitive scientific recommendations for any final model choice or manual refinement by the user.
 
 ## Specialized References
-- **Methodology**: [FAE Pipeline Methodology](references/methodology.md).
+- **Methodology**: [Radiomics Pipeline Methodology](references/methodology.md).
 - **Implementation Standards**: [Implementation Quality Check](references/implementation_check.md).
 - **Interpretability**: Sub-model hierarchy (Shape -> Firstorder -> Texture).
 - **Harmonization**: ComBat and normalization persistence for external sets.

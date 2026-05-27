@@ -1,6 +1,6 @@
 # Radiomics Utility Scripts
 
-These scripts provide standalone implementations of common radiomics pipeline steps, inspired by the FAE framework. They are provided as **supplements** and do not replace the core agent-led workflow.
+These scripts provide standalone implementations of common radiomics pipeline steps. They are provided as **supplements** and do not replace the core agent-led workflow.
 
 ## Scripts Overview
 
@@ -43,5 +43,5 @@ These scripts provide standalone implementations of common radiomics pipeline st
   python modeling.py --train train_selected.csv --test test_selected.csv --classifier lr --output_dir ./results
   ```
 
-## Integration with FAE
-If you have access to the full FAE codebase at `/homes/dxli/Code/FAE/BC`, you can use these scripts as lightweight wrappers or logic references when building your own custom pipelines.
+## Extensibility
+These scripts can be used as lightweight wrappers or logic references when building custom radiomics pipelines.

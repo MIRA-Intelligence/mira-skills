@@ -11,7 +11,7 @@ from data_container import DataContainer
 
 def select_features(train_dc, output_dir, n_features=10, method='anova', pcc_threshold=0.95):
     """
-    参考 FAE 逻辑：特征筛选函数，支持 PCC 和 并列的选择器 (ANOVA, LASSO, RFE)
+    特征筛选函数，支持 PCC 和 并列的选择器 (ANOVA, LASSO, RFE)
     """
     os.makedirs(output_dir, exist_ok=True)
     X = train_dc.data
@@ -61,7 +61,7 @@ def select_features(train_dc, output_dir, n_features=10, method='anova', pcc_thr
     selected_feature_names = [f for i, f in enumerate(remaining_features) if support[i]]
     print(f"Selected {len(selected_feature_names)} features using {method}.")
 
-    # 3. 保存结果 (FAE 风格)
+    # 3. 保存结果
     selected_dc = train_dc.get_subset(selected_feature_names)
     selected_dc.save(os.path.join(output_dir, "selected_features.csv"))
     
