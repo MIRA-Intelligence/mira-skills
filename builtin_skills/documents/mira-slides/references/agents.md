@@ -1,3 +1,7 @@
+> **MIRA note:** in MIRA this app is bundled as `assets/Mira_Slides.html` and decks are
+> built with `scripts/build_deck.py`. Do not download anything; the curl, install and
+> release links below are upstream instructions that do not apply here.
+
 # bento/slides — for AI agents
 
 **Guide version `1.2.7`** · document format `bento/slides` (v1). This
