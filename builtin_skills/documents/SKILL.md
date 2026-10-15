@@ -17,6 +17,8 @@ This skill acts as a central hub for all document-related operations in MIRA. It
 | **Excel** | `xlsx` | Spreadsheets, .xlsx, .csv, .tsv, data analysis, financial models, or tabular data cleaning. |
 | **PowerPoint** | `pptx` | Slide decks, presentations, pitch decks, .pptx files, or speaker notes. |
 | **Scientific Slides** | `scientific-slides` | Scientific slide decks, presentations for research talks, conference presentations, thesis defense slides, or LaTeX Beamer. |
+| **HTML Slides** | `bento-slides` | HTML slide deck, self-contained .bento.html, slides previewed inline instead of PDF/PPTX, the "Slides (HTML)" deliverable. |
+| **Jupyter Notebook** | `jupyter-notebook-export` | Export experiments, code and results as a single executed .ipynb for reproduction, the "Jupyter Notebook" deliverable. |
 | **Scientific Writing** | `scientific-writing` | Scientific manuscripts, journal papers, IMRAD structure, academic prose, and citations. |
 | **Research Posters** | `latex-posters` | Academic posters, conference posters, beamerposter, tikzposter, or baposter. |
 | **PPTX Posters** | `pptx-posters` | PowerPoint posters (HTML-based), explicitly requested PPTX format. |
@@ -30,6 +32,8 @@ This skill acts as a central hub for all document-related operations in MIRA. It
 - **Is it a Spreadsheet?** Use the `xlsx` skill. Use this for anything involving rows, columns, formulas, and data analysis via pandas.
 - **Is it a Presentation?** Use the `pptx` skill. Use this for creating and editing standard slide decks.
 - **Is it a Scientific Slide Deck?** Use the `scientific-slides` skill. Optimized for research talks using LaTeX Beamer, focusing on visual engagement and research backing.
+- **Is it an HTML slide deck (previewed inline, no PDF/PPTX)?** Use the `bento-slides` skill.
+- **Is it a reproduction notebook of experiments (.ipynb)?** Use the `jupyter-notebook-export` skill.
 - **Is it a Scientific Manuscript?** Use the `scientific-writing` skill. Use for journal papers, following IMRAD structure and ensuring professional academic prose.
 - **Is it a Research Poster?** 
     - **Standard/LaTeX**: Use `latex-posters`. This is the default for academic conferences (A0, beamerposter, etc.).
