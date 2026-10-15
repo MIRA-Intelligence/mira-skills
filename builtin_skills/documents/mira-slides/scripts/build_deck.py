@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""Build or validate a Bento ``.bento.html`` deck without any network access.
+"""Build or validate a MIRA Slides ``.mira.html`` deck without any network access.
 
 Usage:
-    build_deck.py build DOC.json OUT.bento.html [--editable]
+    build_deck.py build DOC.json OUT.mira.html [--editable]
                                                   # copy bundled app, inject document
-    build_deck.py check DECK.bento.html           # validate an existing deck
+    build_deck.py check DECK.mira.html            # validate an existing deck
 
-``DOC.json`` is the plain Bento document (``{"format": "bento/slides", ...}``).
+``DOC.json`` is the plain deck document. MIRA Slides is built from Bento and keeps
+its document format, so the format id stays ``{"format": "bento/slides", ...}``.
 By default the deck is built with ``readonly: true`` so it boots straight into the
 slideshow. That is what MIRA's inline preview needs: the preview iframe is sandboxed
 (scripts only, opaque origin) and the editor cannot start there. Pass ``--editable``
@@ -21,7 +22,7 @@ import re
 import sys
 from pathlib import Path
 
-APP = Path(__file__).resolve().parent.parent / "assets" / "Bento_Slides.bento.html"
+APP = Path(__file__).resolve().parent.parent / "assets" / "Mira_Slides.html"
 BLOCK = re.compile(
     r'(<script type="application/bento\+json" id="bento-doc">)(.*?)(</script>)',
     re.DOTALL,
@@ -90,7 +91,7 @@ def encode(doc: dict) -> str:
 def read_doc(html: str) -> dict:
     match = BLOCK.search(html)
     if not match:
-        raise SystemExit('no #bento-doc block found; not a Bento deck')
+        raise SystemExit('no #bento-doc block found; not a mira-slides deck')
     body = match.group(2).strip()
     if not body:
         raise SystemExit("the #bento-doc block is empty")

@@ -1,23 +1,25 @@
 ---
-name: bento-slides
-description: Build self-contained HTML slide decks (.bento.html) for the "Slides (HTML)" deliverable, previewed inline instead of PDF/PPTX. Maps results to charts, tables and morph transitions. Offline, bundled app.
+name: mira-slides
+description: Build self-contained HTML slide decks (.mira.html) for the "Slides (HTML)" deliverable, previewed inline instead of PDF/PPTX. Maps results to charts, tables and morph transitions. Offline, bundled app.
 metadata:
-  scenarios: ["HTML slide deck deliverable", "Inline-previewed research presentation", "Self-contained slides without PDF or PPTX", "Editing an existing .bento.html deck"]
+  scenarios: ["HTML slide deck deliverable", "Inline-previewed research presentation", "Self-contained slides without PDF or PPTX", "Editing an existing .mira.html deck"]
 ---
 
-# Authoring Bento decks (offline, bundled)
+# Authoring MIRA Slides decks (offline, bundled)
 
-A Bento deck is one self-contained `.bento.html` file. The document is plain
+A MIRA Slides deck is one self-contained `.mira.html` file. The document is plain
 JSON in a single block:
 
 ```html
 <script type="application/bento+json" id="bento-doc"> { "format":"bento/slides", ... } </script>
 ```
 
-Vendored from https://github.com/nyblnet/bento (MIT); see `SOURCE.md`. Everything
-this skill needs ships next to this file, so **do not download anything**:
+MIRA Slides is built from MIRA-Intelligence/mira-slides, a fork of Bento (MIT); see
+`SOURCE.md`. It keeps Bento's document format, so the `bento` names above and in
+`references/agents.md` are correct; keep them as written. Everything this skill
+needs ships next to this file, so **do not download anything**:
 
-- `assets/Bento_Slides.bento.html` — the app with an empty document block
+- `assets/Mira_Slides.html` — the app with an empty document block
 - `references/agents.md` — the full schema and recipes. **Read it before authoring.**
 - `scripts/build_deck.py` — builds and validates decks
 
@@ -30,7 +32,7 @@ this skill needs ships next to this file, so **do not download anything**:
 3. Build the deck (path relative to this skill's directory):
 
    ```bash
-   python <skill_dir>/scripts/build_deck.py build result/exports/_deck.json result/exports/slides.bento.html
+   python <skill_dir>/scripts/build_deck.py build result/exports/_deck.json result/exports/slides.mira.html
    ```
 
    By default the deck is built with `"readonly": true`, so it boots straight
@@ -42,11 +44,12 @@ this skill needs ships next to this file, so **do not download anything**:
    `asset:` references resolve, no external image URLs), injects it with every
    `<` escaped as `<`, and writes the file. Fix every `error:` and read
    each `warning:`; rerun until it exits 0.
-4. Delete the working JSON, and publish **only** the `.bento.html`.
+4. Delete the working JSON, and publish **only** the `.mira.html`.
 
 ## Editing an existing deck
 
-1. `python <skill_dir>/scripts/build_deck.py check deck.bento.html` first.
+1. `python <skill_dir>/scripts/build_deck.py check deck.mira.html` first
+   (upstream `.bento.html` decks work the same way).
    If it warns about `collab` keys, the file is a live-session invitation:
    **tell the user before continuing** and offer a read-only copy.
 2. Edit only the `#bento-doc` block, in place, escaping `<` as `<`.
