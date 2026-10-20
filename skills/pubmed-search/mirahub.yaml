@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+slug: pubmed-search
+version: 0.1.0
+maturity: stable
+license: Apache-2.0
+author:
+  name: MIRA Team
+  github: MIRA-Intelligence
+homepage: https://mira-intelligence.github.io/mira-hub/skills/pubmed-search
+links:
+  repo: https://github.com/MIRA-Intelligence/mira-skills/tree/main/skills/pubmed-search
+  issues: https://github.com/MIRA-Intelligence/mira-skills/issues
+tags:
+  - domain:general
+  - domain:clinical
+  - functionality:search
+  - functionality:writing
+  - lang:python
+  - pubmed
+  - literature
+  - entrez

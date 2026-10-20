@@ -1,0 +1,18 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: finishing-a-development-branch
+version: 0.1.0
+maturity: beta
+license: MIT
+author:
+  name: Jesse Vincent
+  github: obra
+links:
+  repo: https://github.com/obra/superpowers/tree/bb92a77741419a4ab5f06e711a283343f1ada0c3/skills/finishing-a-development-branch
+  issues: https://github.com/obra/superpowers/issues
+tags:
+  - domain:software
+  - functionality:coding
+  - git
+  - pull-request
+  - source:lobehub

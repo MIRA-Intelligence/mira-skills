@@ -33,5 +33,76 @@ When skills reference large local documentation or logs, MIRA utilizes built-in 
 | **Visualization** | Matplotlib, Seaborn, Plotly, Scientific Viz |
 | **Utilities** | GitHub, Tmux, Cron, Memory, Summarize, Skill Creator |
 
+## 🧩 MIRA Hub skills
+
+`skills/` is the source of truth for skills published on **MIRA Hub** — the
+research-focused skill marketplace at
+<https://mira-intelligence.github.io/mira-hub/>.
+
+Each skill is a single folder under [`skills/`](./skills) shaped like:
+
+```
+skills/<slug>/
+├── SKILL.md          # untouched, engine-compatible (YAML frontmatter + markdown)
+├── mirahub.yaml      # hub-only metadata (tags, version, author, screenshots, ...)
+├── plugin.json       # optional; the engine infers it if absent
+├── hub/
+│   ├── cover.png
+│   └── screenshots/01.png
+└── ...               # scripts, references, assets
+```
+
+The folder name **must** equal the `slug` in `mirahub.yaml` and the `name`
+field in `SKILL.md`'s frontmatter. There is **no** category / domain folder
+nesting — categorisation is purely tag-driven (see
+[`schemas/mirahub.schema.json`](./schemas/mirahub.schema.json) and the
+hub's [`taxonomy.yaml`](https://github.com/MIRA-Intelligence/mira-hub/blob/main/taxonomy.yaml)).
+
+See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for how to add a skill.
+
+### Tag conventions
+
+Tags are flat strings; namespaced ones (`<ns>:<value>`) become faceted
+filters in the hub UI:
+
+- `domain:<id>` — research domain. Default values: `radiology`, `pathology`,
+  `genomics`, `clinical`, `pharma`, `neuroscience`, `bio`, `epidemiology`,
+  `software`, `general`.
+- `functionality:<id>` — what the skill does. Default values: `search`,
+  `data`, `analysis`, `modeling`, `visualization`, `writing`, `documents`,
+  `coding`, `automation`, `integration`.
+- `lang:<id>` — primary language(s) the skill targets, e.g. `lang:python`.
+- Anything else (`dicom`, `texture`, …) is a free-form tag and is searchable
+  but does not show up as a filter checkbox.
+- `source:lobehub` — vendored third-party skill (see below).
+
+Adding new namespace values is a one-line PR to `mira-hub/taxonomy.yaml`.
+
+### Third-party skills
+
+Skills listed in [`upstream.yaml`](./upstream.yaml) are vendored from their
+original authors' repositories at a pinned commit. They're copied as-is
+except for the `SKILL.md` `name` (set to the slug), upstream dev/test files
+listed under `exclude`, and sections listed under `strip_sections` (e.g. ones
+telling the agent to cite the vendor in the user's manuscripts). Each such
+folder keeps the upstream `LICENSE`, and its generated `mirahub.yaml` credits
+the upstream author and links the exact source. That per-folder `LICENSE`
+(not this repository's root license) governs the skill. Don't edit those
+folders by hand; change `upstream.yaml` and re-run:
+
+```bash
+# from inside a local checkout of mira-hub
+npm run vendor:upstream -- --skills-dir ../mira-skills/skills
+```
+
+### Local validation
+
+```bash
+# from inside a local checkout of mira-hub
+npm run -w @mirahub/builder check -- --skills-dir ../mira-skills/skills
+```
+
+CI runs the same check on every PR.
+
 ---
 *Developed for the MIRA Intelligence ecosystem.*

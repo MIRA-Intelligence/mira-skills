@@ -1,0 +1,20 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: pathway-enrichment
+version: 1.3.0
+maturity: beta
+license: MIT
+author:
+  name: K-Dense Inc.
+  github: K-Dense-AI
+links:
+  repo: https://github.com/K-Dense-AI/scientific-agent-skills/tree/593377bb048752abb0152deab9fbb1083a6087df/skills/pathway-enrichment
+  issues: https://github.com/K-Dense-AI/scientific-agent-skills/issues
+tags:
+  - domain:genomics
+  - functionality:analysis
+  - lang:python
+  - gsea
+  - go
+  - enrichment
+  - source:lobehub

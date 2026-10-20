@@ -1,0 +1,20 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: webapp-testing
+version: 0.1.0
+maturity: beta
+license: Apache-2.0
+author:
+  name: Anthropic
+  github: anthropics
+links:
+  repo: https://github.com/anthropics/skills/tree/dbd4588f9e1033efb41dad4bef2f7947c8993d44/skills/webapp-testing
+  issues: https://github.com/anthropics/skills/issues
+tags:
+  - domain:software
+  - functionality:coding
+  - lang:python
+  - playwright
+  - testing
+  - frontend
+  - source:lobehub

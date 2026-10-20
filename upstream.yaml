@@ -1,0 +1,214 @@
+# Third-party skills vendored into skills/ (curated from the LobeHub skills
+# marketplace, always taken from the original author's repo, not re-hosts).
+#
+# Regenerate after editing this file or bumping a `ref`:
+#   cd ../mira-hub && npm run vendor:upstream -- --skills-dir ../mira-skills/skills
+#
+# Folders listed here are owned by this manifest: they are wiped and re-copied
+# on every run, and their mirahub.yaml is generated. Change tags/maturity here.
+#
+# Selection rules: permissive license (MIT / Apache-2.0 / BSD) or CC-BY(-SA);
+# no overlap with MIRA engine built-ins (mira_engine/skills/builtin_skills).
+
+sources:
+  k-dense:
+    repo: K-Dense-AI/scientific-agent-skills
+    ref: 593377bb048752abb0152deab9fbb1083a6087df
+    license: MIT
+    author: { name: K-Dense Inc., github: K-Dense-AI }
+    # Asks the agent to add K-Dense's paper to the user's manuscripts unprompted.
+    strip_sections: [Citing Scientific Agent Skills]
+  obra:
+    repo: obra/superpowers
+    ref: bb92a77741419a4ab5f06e711a283343f1ada0c3
+    license: MIT
+    author: { name: Jesse Vincent, github: obra }
+  anthropic-skills:
+    repo: anthropics/skills
+    ref: dbd4588f9e1033efb41dad4bef2f7947c8993d44
+    license: Apache-2.0
+    author: { name: Anthropic, github: anthropics }
+  anthropic-kwp:
+    repo: anthropics/knowledge-work-plugins
+    ref: a266ab8c3c754a3ccf7a634044fc1595fc06e50e
+    license: Apache-2.0
+    author: { name: Anthropic, github: anthropics }
+  sentry:
+    repo: getsentry/skills
+    ref: f57ada2d0b640406ea7e25b11d636c530e77c58b
+    license: Apache-2.0
+    author: { name: Sentry, github: getsentry }
+  kepano:
+    repo: kepano/obsidian-skills
+    ref: 3ccff5338ea700537839b21900aa5358a0402c98
+    license: MIT
+    author: { name: Steph Ango, github: kepano }
+  daymade:
+    repo: daymade/claude-code-skills
+    ref: 965b50fc410f12bc0fc34b074237f1d0a4af5c27
+    license: MIT
+    author: { name: daymade, github: daymade }
+  claude-scholar:
+    repo: Galaxy-Dawn/claude-scholar
+    ref: d394fb599ed9e6ea2212a9e6daa864345fe97a26
+    license: MIT
+    author: { name: Gaorui Zhang, github: Galaxy-Dawn }
+  bioskills:
+    repo: GPTomics/bioSkills
+    ref: d91ed3d563019e649dc854c56ccd62551359488a
+    license: MIT
+    author: { name: GPTomics, github: GPTomics }
+
+skills:
+  # ── Document processing ────────────────────────────────────────────────
+  - { slug: markitdown, source: k-dense, path: skills/markitdown,
+      tags: [domain:general, functionality:documents, functionality:data, lang:python, pdf, docx, pptx, xlsx, ocr, markdown] }
+  - { slug: liteparse, source: k-dense, path: skills/liteparse,
+      tags: [domain:general, functionality:documents, lang:python, pdf, ocr, layout, rag] }
+  - { slug: markdown-mermaid-writing, source: k-dense, path: skills/markdown-mermaid-writing, license: MIT AND Apache-2.0,
+      tags: [domain:general, functionality:documents, functionality:writing, markdown, mermaid, diagrams] }
+  - { slug: venue-templates, source: k-dense, path: skills/venue-templates,
+      tags: [domain:general, functionality:documents, functionality:writing, latex, journal, conference] }
+  - { slug: obsidian-markdown, source: kepano, path: skills/obsidian-markdown,
+      tags: [domain:general, functionality:documents, functionality:writing, obsidian, markdown, notes] }
+  - { slug: defuddle, source: kepano, path: skills/defuddle,
+      tags: [domain:general, functionality:documents, functionality:search, web, html, markdown] }
+  - { slug: doc-to-markdown, source: daymade, path: daymade-docs/doc-to-markdown,
+      tags: [domain:general, functionality:documents, lang:python, docx, pdf, pptx, pandoc, markdown] }
+
+  # ── Research & scholarship ─────────────────────────────────────────────
+  - { slug: citation-management, source: k-dense, path: skills/citation-management,
+      tags: [domain:general, functionality:search, functionality:writing, lang:python, bibtex, openalex, pubmed, doi] }
+  - { slug: paper-lookup, source: k-dense, path: skills/paper-lookup,
+      tags: [domain:general, functionality:search, lang:python, arxiv, pubmed, biorxiv, openalex, literature] }
+  - { slug: exa-search, source: k-dense, path: skills/exa-search, maturity: experimental,
+      tags: [domain:general, functionality:search, lang:python, web-search, literature, requires:api-key] }
+  - { slug: scientific-critical-thinking, source: k-dense, path: skills/scientific-critical-thinking,
+      tags: [domain:general, functionality:analysis, evidence, grade, bias, critical-appraisal] }
+  - { slug: exploratory-data-analysis, source: k-dense, path: skills/exploratory-data-analysis,
+      tags: [domain:general, functionality:data, functionality:analysis, lang:python, eda, csv, hdf5] }
+  - { slug: peer-review, source: k-dense, path: skills/peer-review,
+      tags: [domain:general, functionality:writing, functionality:analysis, manuscript, reporting-guidelines] }
+  - { slug: hypothesis-generation, source: k-dense, path: skills/hypothesis-generation,
+      tags: [domain:general, functionality:analysis, functionality:writing, hypothesis, preregistration] }
+  - { slug: research-grants, source: k-dense, path: skills/research-grants,
+      tags: [domain:general, functionality:writing, grants, nih, nsf, proposal] }
+  - { slug: scientific-brainstorming, source: k-dense, path: skills/scientific-brainstorming,
+      tags: [domain:general, functionality:analysis, ideation, brainstorming] }
+  - { slug: experimental-design, source: k-dense, path: skills/experimental-design,
+      tags: [domain:general, domain:bio, functionality:analysis, lang:python, doe, randomization, blocking] }
+  - { slug: statistical-power, source: k-dense, path: skills/statistical-power,
+      tags: [domain:general, domain:clinical, functionality:analysis, lang:python, sample-size, power-analysis] }
+  - { slug: pyzotero, source: k-dense, path: skills/pyzotero,
+      tags: [domain:general, functionality:integration, functionality:search, lang:python, zotero, references] }
+  - { slug: ml-paper-writing, source: claude-scholar, path: skills/ml-paper-writing,
+      tags: [domain:general, functionality:writing, latex, neurips, icml, iclr, paper-writing] }
+
+  # ── Programming ────────────────────────────────────────────────────────
+  - { slug: systematic-debugging, source: obra, path: skills/systematic-debugging,
+      exclude: [CREATION-LOG.md, test-academic.md, test-pressure-1.md, test-pressure-2.md, test-pressure-3.md],
+      tags: [domain:software, functionality:coding, debugging, root-cause] }
+  - { slug: using-git-worktrees, source: obra, path: skills/using-git-worktrees,
+      tags: [domain:software, functionality:coding, git, worktree] }
+  - { slug: verification-before-completion, source: obra, path: skills/verification-before-completion,
+      tags: [domain:software, functionality:coding, testing, verification] }
+  - { slug: receiving-code-review, source: obra, path: skills/receiving-code-review,
+      tags: [domain:software, functionality:coding, code-review] }
+  - { slug: finishing-a-development-branch, source: obra, path: skills/finishing-a-development-branch,
+      tags: [domain:software, functionality:coding, git, pull-request] }
+  - { slug: security-review, source: sentry, path: skills/security-review, license: CC-BY-SA-4.0,
+      tags: [domain:software, functionality:coding, security, owasp, code-review] }
+  - { slug: find-bugs, source: sentry, path: skills/find-bugs,
+      tags: [domain:software, functionality:coding, code-review, bugs, git] }
+  - { slug: webapp-testing, source: anthropic-skills, path: skills/webapp-testing,
+      tags: [domain:software, functionality:coding, lang:python, playwright, testing, frontend] }
+  - { slug: uv-package-manager, source: claude-scholar, path: skills/uv-package-manager,
+      tags: [domain:software, functionality:coding, lang:python, uv, packaging] }
+  - { slug: optimize-for-gpu, source: k-dense, path: skills/optimize-for-gpu,
+      tags: [domain:software, domain:general, functionality:coding, functionality:modeling, lang:python, cuda, gpu, nvidia] }
+
+  # ── Medical & clinical ─────────────────────────────────────────────────
+  - { slug: database-lookup, source: k-dense, path: skills/database-lookup,
+      tags: [domain:clinical, domain:pharma, domain:genomics, functionality:search, functionality:integration, clinicaltrials, openfda, chembl, uniprot] }
+  - { slug: clinical-decision-support, source: k-dense, path: skills/clinical-decision-support,
+      tags: [domain:clinical, functionality:writing, functionality:analysis, cds, evidence, research-only] }
+  - { slug: treatment-plans, source: k-dense, path: skills/treatment-plans,
+      tags: [domain:clinical, functionality:writing, treatment-plan, documentation] }
+  - { slug: clinical-reports, source: k-dense, path: skills/clinical-reports,
+      tags: [domain:clinical, functionality:writing, case-report, care, safety-report] }
+  - { slug: pyhealth, source: k-dense, path: skills/pyhealth,
+      tags: [domain:clinical, functionality:modeling, lang:python, ehr, mimic, omop] }
+
+  # ── Imaging & pathology ────────────────────────────────────────────────
+  - { slug: pydicom, source: k-dense, path: skills/pydicom,
+      tags: [domain:radiology, functionality:data, lang:python, dicom] }
+  - { slug: imaging-data-commons, source: k-dense, path: skills/imaging-data-commons,
+      tags: [domain:radiology, domain:pathology, functionality:search, functionality:data, lang:python, nci-idc, dicom, datasets] }
+  - { slug: histolab, source: k-dense, path: skills/histolab,
+      tags: [domain:pathology, functionality:data, lang:python, wsi, tiling, h-and-e] }
+  - { slug: pathml, source: k-dense, path: skills/pathml,
+      tags: [domain:pathology, functionality:analysis, functionality:modeling, lang:python, wsi, multiplex] }
+
+  # ── Genomics & bioinformatics ──────────────────────────────────────────
+  - { slug: gget, source: k-dense, path: skills/gget,
+      tags: [domain:genomics, functionality:search, lang:python, blast, ensembl, opentargets] }
+  - { slug: biopython, source: k-dense, path: skills/biopython,
+      tags: [domain:genomics, domain:bio, functionality:data, lang:python, fasta, genbank, entrez] }
+  - { slug: scanpy, source: k-dense, path: skills/scanpy,
+      tags: [domain:genomics, functionality:analysis, functionality:visualization, lang:python, single-cell, scrna-seq] }
+  - { slug: pydeseq2, source: k-dense, path: skills/pydeseq2,
+      tags: [domain:genomics, functionality:analysis, lang:python, rna-seq, differential-expression] }
+  - { slug: bulk-rnaseq, source: k-dense, path: skills/bulk-rnaseq,
+      tags: [domain:genomics, functionality:data, lang:python, rna-seq, salmon, star, nf-core] }
+  - { slug: pathway-enrichment, source: k-dense, path: skills/pathway-enrichment,
+      tags: [domain:genomics, functionality:analysis, lang:python, gsea, go, enrichment] }
+  - { slug: nextflow, source: k-dense, path: skills/nextflow,
+      tags: [domain:genomics, functionality:automation, nextflow, nf-core, pipelines] }
+  - { slug: depmap, source: k-dense, path: skills/depmap,
+      tags: [domain:genomics, domain:pharma, functionality:analysis, lang:python, cancer, crispr, dependency] }
+  - { slug: clinvar-lookup, source: bioskills, path: clinical-databases/clinvar-lookup,
+      tags: [domain:genomics, domain:clinical, functionality:search, lang:python, clinvar, variants, pathogenicity] }
+  - { slug: acmg-classification, source: bioskills, path: clinical-databases/acmg-classification, maturity: experimental,
+      tags: [domain:genomics, domain:clinical, functionality:analysis, acmg, variant-interpretation] }
+  - { slug: entrez-search, source: bioskills, path: database-access/entrez-search,
+      tags: [domain:genomics, domain:general, functionality:search, lang:python, ncbi, entrez] }
+
+  # ── Pharma & physiology ────────────────────────────────────────────────
+  - { slug: medchem, source: k-dense, path: skills/medchem,
+      tags: [domain:pharma, functionality:analysis, lang:python, drug-likeness, pains, lipinski] }
+  - { slug: rdkit, source: k-dense, path: skills/rdkit,
+      tags: [domain:pharma, functionality:data, functionality:analysis, lang:python, cheminformatics, smiles] }
+  - { slug: pkpd-modeling, source: k-dense, path: skills/pkpd-modeling,
+      tags: [domain:pharma, functionality:modeling, lang:python, pharmacokinetics, nca, dose] }
+  - { slug: neurokit2, source: k-dense, path: skills/neurokit2,
+      tags: [domain:neuroscience, functionality:analysis, lang:python, ecg, eda, hrv, physiology] }
+
+# Considered and skipped (keep so future reviews don't redo the work):
+#   anthropics/skills docx|pdf|pptx|xlsx (+ re-hosted copies) — proprietary license; MIRA has built-ins
+#   K-Dense scientific-writing|literature-review|statistical-analysis|scientific-visualization|matplotlib|
+#     seaborn|scikit-survival|scientific-slides|latex-posters|pptx-posters — overlap MIRA built-ins / hub
+#   K-Dense bioservices — GPL-3.0
+#   K-Dense research-lookup — needs Parallel / OpenRouter keys; paper-lookup covers it keylessly
+#   davila7/claude-code-templates *-database, affaan-m/*, openclaw/skills/* — re-hosts of the above
+#   obra test-driven-development, mattpocock tdd — MIRA built-in TDD
+#   tfriedel/claude-office-skills, luwill/research-skills, gexijin/vibe — no license
+#   letta-ai/skills extracting-pdf-text — NOASSERTION license
+#   JimLiu baoyu-url-to-markdown — heavy Chrome CDP runtime; defuddle covers it
+#   exa-labs search — duplicate of K-Dense exa-search
+#   aipoch search-pubmed — overlaps hub pubmed-search
+#   aipoch meta-analysis — SKILL.md frontmatter is invalid YAML upstream
+#   K-Dense bgpt-paper-search — only works through a host-configured paid MCP server
+#   karpathy read-arxiv-paper — tied to the nanochat repo, writes to ~/.cache
+#   ARIS arxiv|semantic-scholar|openalex|citation-audit — need unbundled ARIS helpers / Codex MCP;
+#     helper lookup runs tools/*.py from the user's repo. paper-lookup covers these APIs
+#   awesome-copilot convert-pdf-to-md — hijacks all PDF handling, AGPL PyMuPDF; markitdown covers it
+#   obra executing-plans|requesting-code-review — need unvendored subagent-driven-development / a subagent tool
+#   obra writing-plans — writes references to missing superpowers:subagent-driven-development into plans
+#   obra brainstorming — third-party tracking image in its companion server, fires on almost any request
+#   anthropics/knowledge-work-plugins code-review — thin slash-command checklist; find-bugs + security-review cover it
+#   aipoch lab-result-interpretation — understates critical values, no unit checks (patient-facing)
+#   aipoch dicom-anonymizer — crashes on typical files, leaves dates, reversible hashes; pydicom skill covers it
+#   aipoch table-1-generator|irb-application-assistant|systematic-review — scripts/references missing or broken
+#   aipoch clinical-trial-protocol-skill — hard-requires a Claude Desktop MCP server
+#   aipoch phi-prompt-guard — blocks reading clinical files unless the user types [PHI-OK]
+#   bioSkills pharmacogenomics — DPYD activity code tells normal/heterozygous patients to avoid fluoropyrimidines

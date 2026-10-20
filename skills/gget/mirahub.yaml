@@ -1,0 +1,20 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: gget
+version: 1.7.0
+maturity: beta
+license: MIT
+author:
+  name: K-Dense Inc.
+  github: K-Dense-AI
+links:
+  repo: https://github.com/K-Dense-AI/scientific-agent-skills/tree/593377bb048752abb0152deab9fbb1083a6087df/skills/gget
+  issues: https://github.com/K-Dense-AI/scientific-agent-skills/issues
+tags:
+  - domain:genomics
+  - functionality:search
+  - lang:python
+  - blast
+  - ensembl
+  - opentargets
+  - source:lobehub

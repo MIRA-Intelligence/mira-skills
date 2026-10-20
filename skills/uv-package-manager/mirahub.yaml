@@ -1,0 +1,19 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: uv-package-manager
+version: 0.1.0
+maturity: beta
+license: MIT
+author:
+  name: Gaorui Zhang
+  github: Galaxy-Dawn
+links:
+  repo: https://github.com/Galaxy-Dawn/claude-scholar/tree/d394fb599ed9e6ea2212a9e6daa864345fe97a26/skills/uv-package-manager
+  issues: https://github.com/Galaxy-Dawn/claude-scholar/issues
+tags:
+  - domain:software
+  - functionality:coding
+  - lang:python
+  - uv
+  - packaging
+  - source:lobehub

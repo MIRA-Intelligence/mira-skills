@@ -1,0 +1,19 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: acmg-classification
+version: 0.1.0
+maturity: experimental
+license: MIT
+author:
+  name: GPTomics
+  github: GPTomics
+links:
+  repo: https://github.com/GPTomics/bioSkills/tree/d91ed3d563019e649dc854c56ccd62551359488a/clinical-databases/acmg-classification
+  issues: https://github.com/GPTomics/bioSkills/issues
+tags:
+  - domain:genomics
+  - domain:clinical
+  - functionality:analysis
+  - acmg
+  - variant-interpretation
+  - source:lobehub

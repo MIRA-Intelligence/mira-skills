@@ -1,0 +1,16 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+slug: agent-browser
+version: 0.1.0
+maturity: stable
+license: Apache-2.0
+author:
+  name: MIRA Team
+  github: MIRA-Intelligence
+links:
+  repo: https://github.com/MIRA-Intelligence/mira-skills/tree/main/skills/agent-browser
+tags:
+  - domain:general
+  - functionality:integration
+  - functionality:automation
+  - browser
+  - automation

@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: clinvar-lookup
+version: 0.1.0
+maturity: beta
+license: MIT
+author:
+  name: GPTomics
+  github: GPTomics
+links:
+  repo: https://github.com/GPTomics/bioSkills/tree/d91ed3d563019e649dc854c56ccd62551359488a/clinical-databases/clinvar-lookup
+  issues: https://github.com/GPTomics/bioSkills/issues
+tags:
+  - domain:genomics
+  - domain:clinical
+  - functionality:search
+  - lang:python
+  - clinvar
+  - variants
+  - pathogenicity
+  - source:lobehub

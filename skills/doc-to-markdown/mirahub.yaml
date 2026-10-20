@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: doc-to-markdown
+version: 0.1.0
+maturity: beta
+license: MIT
+author:
+  name: daymade
+  github: daymade
+links:
+  repo: https://github.com/daymade/claude-code-skills/tree/965b50fc410f12bc0fc34b074237f1d0a4af5c27/daymade-docs/doc-to-markdown
+  issues: https://github.com/daymade/claude-code-skills/issues
+tags:
+  - domain:general
+  - functionality:documents
+  - lang:python
+  - docx
+  - pdf
+  - pptx
+  - pandoc
+  - markdown
+  - source:lobehub
