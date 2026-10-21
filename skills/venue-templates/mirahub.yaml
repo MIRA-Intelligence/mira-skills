@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: venue-templates
+version: 1.6.0
+maturity: beta
+license: MIT
+description:
+  zh: 借助针对具体期刊/会议的格式指南和内置 LaTeX
+    模板框架，准备期刊稿件、会议论文、学术海报和基金申请文件。支持选择官方模板、核对当前页数或匿名要求、按目标期刊/会议调整学术写作，以及检查投稿 PDF。
+author:
+  name: K-Dense Inc.
+  github: K-Dense-AI
+links:
+  repo: https://github.com/K-Dense-AI/scientific-agent-skills/tree/593377bb048752abb0152deab9fbb1083a6087df/skills/venue-templates
+  issues: https://github.com/K-Dense-AI/scientific-agent-skills/issues
+tags:
+  - domain:general
+  - functionality:documents
+  - functionality:writing
+  - latex
+  - journal
+  - conference
+  - source:lobehub

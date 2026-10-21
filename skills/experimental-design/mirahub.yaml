@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: experimental-design
+version: 1.5.0
+maturity: beta
+license: MIT
+description:
+  zh: 在数据收集之前设计实验和研究——选择设计方案、随机化、区组化及安排处理组合，使结果可被解释。适用于有人在规划研究、询问如何将受试者/样本分配到各组，或提及随机化、区组、分层、对照、析因或部分析因设计、实验设计（DOE）、多因素筛选、响应面优化、交叉设计、重复测量或裂区设计、整群/分组随机化、拉丁方、板布局、批次/运行顺序效应、真重复与伪重复，或序贯/适应性/成组序贯设计等情形。即使是非正式的表述也应触发，如
+    "how should I set up this experiment"、"how do I avoid confounding"、"what's
+    the best way to test these 6 factors" 或 "assign these mice to
+    conditions"。设计确定后计算样本量或检验效能请使用 statistical-power；分析已收集的数据请使用
+    statistical-analysis。
+author:
+  name: K-Dense Inc.
+  github: K-Dense-AI
+links:
+  repo: https://github.com/K-Dense-AI/scientific-agent-skills/tree/593377bb048752abb0152deab9fbb1083a6087df/skills/experimental-design
+  issues: https://github.com/K-Dense-AI/scientific-agent-skills/issues
+tags:
+  - domain:general
+  - domain:bio
+  - functionality:analysis
+  - lang:python
+  - doe
+  - randomization
+  - blocking
+  - source:lobehub

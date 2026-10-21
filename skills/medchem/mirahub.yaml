@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: medchem
+version: 1.4.0
+maturity: beta
+license: MIT
+description:
+  zh: 应用药物化学过滤规则进行化合物优先级筛选，涵盖类药性规则（Lipinski、Veber、CNS）、结构警示库（PAINS、NIBR、ChEMBL）、复杂度指标，以及用于化合物库过滤的
+    medchem 查询语言。
+author:
+  name: K-Dense Inc.
+  github: K-Dense-AI
+links:
+  repo: https://github.com/K-Dense-AI/scientific-agent-skills/tree/593377bb048752abb0152deab9fbb1083a6087df/skills/medchem
+  issues: https://github.com/K-Dense-AI/scientific-agent-skills/issues
+tags:
+  - domain:pharma
+  - functionality:analysis
+  - lang:python
+  - drug-likeness
+  - pains
+  - lipinski
+  - source:lobehub

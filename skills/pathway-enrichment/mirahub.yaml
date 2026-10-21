@@ -1,0 +1,30 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: pathway-enrichment
+version: 1.3.0
+maturity: beta
+license: MIT
+description:
+  zh: 对基因列表或排序后的基因数据进行通路与基因集富集分析，并解读结果。适用于用户拥有一组基因（来自 PyDESeq2/Scanpy
+    的差异表达基因、CRISPR 筛选命中基因、聚类标志基因、蛋白质组学命中蛋白），并希望了解哪些生物学通路、GO
+    条目或基因集呈过度代表或富集的场景。涵盖过度代表分析（ORA / Enrichr / Fisher / 超几何检验）、基于排序的基因集富集分析（GSEA
+    / preranked）、单样本评分（ssGSEA/GSVA），以及通过 gseapy、g:Profiler、Enrichr
+    库、MSigDB、GO、KEGG、Reactome 和 WikiPathways 进行功能注释——另含基因 ID
+    映射、选择合适的背景基因集、多重检验校正、冗余精简、点图/富集图谱以及可直接用于发表的表格。适用于 "pathway
+    analysis"、"enrichment analysis"、"GO enrichment"、"KEGG/Reactome
+    pathways"、"GSEA"、"over-representation"、"functional annotation" 或 "what
+    pathways are my genes in" 等请求。
+author:
+  name: K-Dense Inc.
+  github: K-Dense-AI
+links:
+  repo: https://github.com/K-Dense-AI/scientific-agent-skills/tree/593377bb048752abb0152deab9fbb1083a6087df/skills/pathway-enrichment
+  issues: https://github.com/K-Dense-AI/scientific-agent-skills/issues
+tags:
+  - domain:genomics
+  - functionality:analysis
+  - lang:python
+  - gsea
+  - go
+  - enrichment
+  - source:lobehub

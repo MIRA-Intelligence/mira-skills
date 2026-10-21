@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: hypothesis-generation
+version: 2.4.0
+maturity: beta
+license: MIT
+description:
+  zh: 在证据边界内构建科学问题、候选假设、竞争性解释、因果或关联性论断、可区分的预测、测量方案，以及可用于预注册的分析计划。适用于将观察结果或初步发现转化为透明、可检验的研究计划，且不把假设当作事实。
+author:
+  name: K-Dense Inc.
+  github: K-Dense-AI
+links:
+  repo: https://github.com/K-Dense-AI/scientific-agent-skills/tree/593377bb048752abb0152deab9fbb1083a6087df/skills/hypothesis-generation
+  issues: https://github.com/K-Dense-AI/scientific-agent-skills/issues
+tags:
+  - domain:general
+  - functionality:analysis
+  - functionality:writing
+  - hypothesis
+  - preregistration
+  - source:lobehub

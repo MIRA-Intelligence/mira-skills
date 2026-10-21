@@ -1,0 +1,20 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+slug: scientific-slides
+version: 0.1.0
+maturity: beta
+license: Apache-2.0
+description:
+  zh: "为学术报告制作幻灯片和演示文稿。适用于制作 PowerPoint 幻灯片、会议报告、研讨会讲座、科研汇报、论文答辩幻灯片或任何科学报告。提供幻灯片结构、设计模板、时间把控建议和视觉校验。支持 PowerPoint 和 LaTeX Beamer。"
+author:
+  name: MIRA Team
+  github: MIRA-Intelligence
+links:
+  repo: https://github.com/MIRA-Intelligence/mira-skills/tree/main/skills/scientific-slides
+tags:
+  - domain:general
+  - functionality:visualization
+  - functionality:writing
+  - powerpoint
+  - latex
+  - beamer
+  - presentation

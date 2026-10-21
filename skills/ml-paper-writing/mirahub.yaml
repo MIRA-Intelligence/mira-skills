@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: ml-paper-writing
+version: 1.0.0
+maturity: beta
+license: MIT
+description:
+  zh: 为 NeurIPS、ICML、ICLR、ACL、AAAI、COLM 撰写可发表水准的 ML/AI
+    论文。适用于基于研究代码仓库起草论文、开展文献综述、查找相关工作、核实引用或准备最终版（camera-ready）投稿。包含 LaTeX
+    模板、引用核查工作流以及论文检索/评估标准。
+author:
+  name: Gaorui Zhang
+  github: Galaxy-Dawn
+links:
+  repo: https://github.com/Galaxy-Dawn/claude-scholar/tree/d394fb599ed9e6ea2212a9e6daa864345fe97a26/skills/ml-paper-writing
+  issues: https://github.com/Galaxy-Dawn/claude-scholar/issues
+tags:
+  - domain:general
+  - functionality:writing
+  - latex
+  - neurips
+  - icml
+  - iclr
+  - paper-writing
+  - source:lobehub

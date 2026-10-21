@@ -1,0 +1,26 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: citation-management
+version: 2.3.0
+maturity: beta
+license: MIT
+description:
+  zh: 面向学术研究的全面引文管理。在 OpenAlex、PubMed 和 Google Scholar
+    中检索论文，提取准确的元数据，校验引文，并生成格式规范的 BibTeX 条目。适用于需要查找论文、核实引文信息、将 DOI 转换为
+    BibTeX，或确保科研写作中参考文献准确性的场景。
+author:
+  name: K-Dense Inc.
+  github: K-Dense-AI
+links:
+  repo: https://github.com/K-Dense-AI/scientific-agent-skills/tree/593377bb048752abb0152deab9fbb1083a6087df/skills/citation-management
+  issues: https://github.com/K-Dense-AI/scientific-agent-skills/issues
+tags:
+  - domain:general
+  - functionality:search
+  - functionality:writing
+  - lang:python
+  - bibtex
+  - openalex
+  - pubmed
+  - doi
+  - source:lobehub

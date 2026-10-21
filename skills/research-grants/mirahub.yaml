@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: research-grants
+version: 1.5.0
+maturity: beta
+license: MIT
+description:
+  zh: 支持面向 NSF、NIH、DOE、DARPA 及台湾 NSTC
+    的科研基金申请书撰写与评审，涵盖具体资助机会的要求、研究目标（aims）、评审标准、预算、更广泛影响（broader
+    impacts）、申请表格及重新申请。适用于由研究者本人主导的基金申请撰写、合规对照表制作以及申请书评析。
+author:
+  name: K-Dense Inc.
+  github: K-Dense-AI
+links:
+  repo: https://github.com/K-Dense-AI/scientific-agent-skills/tree/593377bb048752abb0152deab9fbb1083a6087df/skills/research-grants
+  issues: https://github.com/K-Dense-AI/scientific-agent-skills/issues
+tags:
+  - domain:general
+  - functionality:writing
+  - grants
+  - nih
+  - nsf
+  - proposal
+  - source:lobehub

@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: security-review
+version: 0.1.0
+maturity: beta
+license: CC-BY-SA-4.0
+description:
+  zh: 针对安全漏洞的代码安全评审。当被要求进行 "security review"、"find vulnerabilities"、"check for
+    security issues"、"audit security"、"OWASP
+    review"，或评审代码中的注入、XSS、认证、授权、密码学问题时使用。提供系统化评审，并按置信度报告结果。
+author:
+  name: Sentry
+  github: getsentry
+links:
+  repo: https://github.com/getsentry/skills/tree/f57ada2d0b640406ea7e25b11d636c530e77c58b/skills/security-review
+  issues: https://github.com/getsentry/skills/issues
+tags:
+  - domain:software
+  - functionality:coding
+  - security
+  - owasp
+  - code-review
+  - source:lobehub

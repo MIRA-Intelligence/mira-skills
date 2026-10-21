@@ -1,0 +1,37 @@
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  schema:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout mira-skills
+        uses: actions/checkout@v4
+        with:
+          path: mira-skills
+
+      - name: Checkout mira-hub (builder)
+        uses: actions/checkout@v4
+        with:
+          repository: MIRA-Intelligence/mira-hub
+          ref: main
+          path: mira-hub
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: mira-hub/package-lock.json
+
+      - name: Install builder deps
+        working-directory: mira-hub
+        run: npm ci
+
+      - name: Validate skills
+        working-directory: mira-hub
+        run: npm run check:registry -- --skills-dir ../mira-skills/skills

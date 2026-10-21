@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: neurokit2
+version: 1.4.0
+maturity: beta
+license: MIT
+description:
+  zh: 构建并审核可复现的 NeuroKit2 研究工作流，用于生理时间序列预处理、事件/区间分析、多模态对齐、变异性及复杂度分析。适用于代码导入
+    neurokit2 或需要使用其当前 API、数据结构及方法相关验证的场景——不适用于临床诊断或设备验证。
+author:
+  name: K-Dense Inc.
+  github: K-Dense-AI
+links:
+  repo: https://github.com/K-Dense-AI/scientific-agent-skills/tree/593377bb048752abb0152deab9fbb1083a6087df/skills/neurokit2
+  issues: https://github.com/K-Dense-AI/scientific-agent-skills/issues
+tags:
+  - domain:neuroscience
+  - functionality:analysis
+  - lang:python
+  - ecg
+  - eda
+  - hrv
+  - physiology
+  - source:lobehub

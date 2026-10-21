@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: pathml
+version: 1.4.0
+maturity: beta
+license: MIT
+description:
+  zh: 使用 PathML 支持本地计算病理学研究：切片加载与切块、预处理与质控、h5path 存储、多重标记定量、空间图，以及限定范围的模型推理。适用于全切片
+    H&E、CODEX、Vectra、Mesmer、HoVer-Net 和 HACTNet 工作流。
+author:
+  name: K-Dense Inc.
+  github: K-Dense-AI
+links:
+  repo: https://github.com/K-Dense-AI/scientific-agent-skills/tree/593377bb048752abb0152deab9fbb1083a6087df/skills/pathml
+  issues: https://github.com/K-Dense-AI/scientific-agent-skills/issues
+tags:
+  - domain:pathology
+  - functionality:analysis
+  - functionality:modeling
+  - lang:python
+  - wsi
+  - multiplex
+  - source:lobehub

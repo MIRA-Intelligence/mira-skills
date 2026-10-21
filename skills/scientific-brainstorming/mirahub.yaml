@@ -1,0 +1,20 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: scientific-brainstorming
+version: 1.4.0
+maturity: beta
+license: MIT
+description:
+  zh: 引导基于证据的科学构思，包括独立产出想法、结构化讨论、明确假设、透明评估、对抗式审视和决策记录。适用于早期科研头脑风暴或候选研究方向的优先级排序；实证验证、研究设计、伦理或监管审查以及临床问题应转交相应的专家或技能处理。
+author:
+  name: K-Dense Inc.
+  github: K-Dense-AI
+links:
+  repo: https://github.com/K-Dense-AI/scientific-agent-skills/tree/593377bb048752abb0152deab9fbb1083a6087df/skills/scientific-brainstorming
+  issues: https://github.com/K-Dense-AI/scientific-agent-skills/issues
+tags:
+  - domain:general
+  - functionality:analysis
+  - ideation
+  - brainstorming
+  - source:lobehub

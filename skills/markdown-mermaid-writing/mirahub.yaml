@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: markdown-mermaid-writing
+version: 1.3.0
+maturity: beta
+license: MIT AND Apache-2.0
+description:
+  zh: 为工作流、关系、时间线和数据结构（schema）编写科学 Markdown 文档和 Mermaid
+    图表。提供语法参考、文档模板、无障碍指导以及区分版本的渲染检查。当用户需要 Markdown、Mermaid
+    或基于文本的结构图时使用；定量科学图表则需使用合适的绘图工具。
+author:
+  name: K-Dense Inc.
+  github: K-Dense-AI
+links:
+  repo: https://github.com/K-Dense-AI/scientific-agent-skills/tree/593377bb048752abb0152deab9fbb1083a6087df/skills/markdown-mermaid-writing
+  issues: https://github.com/K-Dense-AI/scientific-agent-skills/issues
+tags:
+  - domain:general
+  - functionality:documents
+  - functionality:writing
+  - markdown
+  - mermaid
+  - diagrams
+  - source:lobehub

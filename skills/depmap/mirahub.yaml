@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: depmap
+version: 1.2.0
+maturity: beta
+license: MIT
+description:
+  zh: 获取并分析癌症依赖性图谱（DepMap）发布数据，包括 CRISPR Chronos 基因效应、癌症模型注释、组学生物标志物及 PRISM
+    药物敏感性。支持癌症选择性依赖、共必需性以及候选合成致死分析，并使用与发布版本对应的标识符和统计检验。
+author:
+  name: K-Dense Inc.
+  github: K-Dense-AI
+links:
+  repo: https://github.com/K-Dense-AI/scientific-agent-skills/tree/593377bb048752abb0152deab9fbb1083a6087df/skills/depmap
+  issues: https://github.com/K-Dense-AI/scientific-agent-skills/issues
+tags:
+  - domain:genomics
+  - domain:pharma
+  - functionality:analysis
+  - lang:python
+  - cancer
+  - crispr
+  - dependency
+  - source:lobehub

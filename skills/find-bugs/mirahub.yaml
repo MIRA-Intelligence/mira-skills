@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: find-bugs
+version: 0.1.0
+maturity: beta
+license: Apache-2.0
+description:
+  zh: 在本地分支的改动中查找缺陷、安全漏洞和代码质量问题。适用于被要求评审改动、查找缺陷、进行安全评审或审计当前分支代码时。
+author:
+  name: Sentry
+  github: getsentry
+links:
+  repo: https://github.com/getsentry/skills/tree/f57ada2d0b640406ea7e25b11d636c530e77c58b/skills/find-bugs
+  issues: https://github.com/getsentry/skills/issues
+tags:
+  - domain:software
+  - functionality:coding
+  - code-review
+  - bugs
+  - git
+  - source:lobehub

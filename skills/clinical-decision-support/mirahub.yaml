@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: clinical-decision-support
+version: 2.4.0
+maturity: beta
+license: MIT
+description:
+  zh: 准备并校验仅限研究用途的临床决策支持相关材料，包括评估、证据概况、队列、生存分析、生物标志物/模型、隐私及治理等文档。支持汇总数据或合成数据的研究文档编写与可追溯性，不适用于患者诊疗及实际临床运行。
+author:
+  name: K-Dense Inc.
+  github: K-Dense-AI
+links:
+  repo: https://github.com/K-Dense-AI/scientific-agent-skills/tree/593377bb048752abb0152deab9fbb1083a6087df/skills/clinical-decision-support
+  issues: https://github.com/K-Dense-AI/scientific-agent-skills/issues
+tags:
+  - domain:clinical
+  - functionality:writing
+  - functionality:analysis
+  - cds
+  - evidence
+  - research-only
+  - source:lobehub

@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: pyhealth
+version: 1.3.0
+maturity: beta
+license: MIT
+description:
+  zh: 构建并验证基于 PyHealth 的临床机器学习流程，涵盖 EHR、生理信号、医学影像和医学编码。适用于 PyHealth
+    数据集加载、MIMIC-III/IV、eICU 或 OMOP 预测任务、患者层面的评估、死亡率/再入院/住院时长建模、用药推荐、睡眠分期、Trainer
+    检查点，以及 ICD/ATC/NDC/RxNorm 编码映射。
+author:
+  name: K-Dense Inc.
+  github: K-Dense-AI
+links:
+  repo: https://github.com/K-Dense-AI/scientific-agent-skills/tree/593377bb048752abb0152deab9fbb1083a6087df/skills/pyhealth
+  issues: https://github.com/K-Dense-AI/scientific-agent-skills/issues
+tags:
+  - domain:clinical
+  - functionality:modeling
+  - lang:python
+  - ehr
+  - mimic
+  - omop
+  - source:lobehub

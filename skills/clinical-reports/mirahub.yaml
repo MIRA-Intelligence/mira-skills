@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: clinical-reports
+version: 2.3.0
+maturity: beta
+license: MIT
+description:
+  zh: 为临床病例、诊断、试验、安全性及汇总研究报告生成有安全边界的草稿结构，并在本地运行确定性检查。仅可用于合成、已去标识化或汇总的输入数据及经核实的源事实清单；所有输出均须经具备资质的人员审核。
+author:
+  name: K-Dense Inc.
+  github: K-Dense-AI
+links:
+  repo: https://github.com/K-Dense-AI/scientific-agent-skills/tree/593377bb048752abb0152deab9fbb1083a6087df/skills/clinical-reports
+  issues: https://github.com/K-Dense-AI/scientific-agent-skills/issues
+tags:
+  - domain:clinical
+  - functionality:writing
+  - case-report
+  - care
+  - safety-report
+  - source:lobehub

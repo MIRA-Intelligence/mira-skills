@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: defuddle
+version: 0.1.0
+maturity: beta
+license: MIT
+description:
+  zh: 使用 Defuddle CLI 从 HTML 页面中提取干净的 Markdown。
+author:
+  name: Steph Ango
+  github: kepano
+links:
+  repo: https://github.com/kepano/obsidian-skills/tree/3ccff5338ea700537839b21900aa5358a0402c98/skills/defuddle
+  issues: https://github.com/kepano/obsidian-skills/issues
+tags:
+  - domain:general
+  - functionality:documents
+  - functionality:search
+  - web
+  - html
+  - markdown
+  - source:lobehub

@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=../../schemas/mirahub.schema.json
+# Generated from upstream.yaml by `mirahub-builder vendor`; do not edit by hand.
+slug: exa-search
+version: 1.4.0
+maturity: experimental
+license: MIT
+description:
+  zh: 使用 Exa 检索科学与技术类网络内容，并从 URL 批量提取网页或 PDF 文本。支持通过出版物类别和学术域名过滤进行学术文献发现。适用于使用 Exa
+    进行网络检索、查找最新研究、抓取网页或提取文章的请求。
+author:
+  name: K-Dense Inc.
+  github: K-Dense-AI
+links:
+  repo: https://github.com/K-Dense-AI/scientific-agent-skills/tree/593377bb048752abb0152deab9fbb1083a6087df/skills/exa-search
+  issues: https://github.com/K-Dense-AI/scientific-agent-skills/issues
+tags:
+  - domain:general
+  - functionality:search
+  - lang:python
+  - web-search
+  - literature
+  - requires:api-key
+  - source:lobehub
