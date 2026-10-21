@@ -145,7 +145,8 @@ Status of the backfill effort (work-in-progress, edit as you migrate):
 
 | State | Skills |
 | --- | --- |
-| Migrated | `agent-browser`, `pubmed-search`, `scientific-slides` |
+| Migrated | `pubmed-search`, `scientific-slides` |
+| Not listed (engine tools, not research skills) | `agent-browser` |
 | Queued for migration | `pyradiomics`, `radiomics`, `medical-image-dl-pipeline`, `survival-analysis`, `scikit-survival`, `monai`, `nibabel`, `pydicom`, `dicom2nifti`, `medical-imaging-review`, `scikit-learn`, `statistical-analysis`, `deep-research`, `multi-search-engine`, `peer-review`, `scientific-method`, `find-skills`, … |
 | Hub-only (no engine equivalent) | everything in [`upstream.yaml`](./upstream.yaml) (third-party, vendored) |
 
