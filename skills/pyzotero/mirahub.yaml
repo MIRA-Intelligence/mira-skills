@@ -4,6 +4,10 @@ slug: pyzotero
 version: 1.4.0
 maturity: beta
 license: MIT
+description:
+  zh: 使用 pyzotero Python 客户端管理 Zotero 文献库：通过 Zotero Web API v3 或本地 API
+    检索、创建、更新和删除条目、分类集合、标签与附件。适用于以编程方式操作 Zotero 文献库、管理参考文献、导出引文、搜索文献库内容、上传 PDF
+    附件，或构建与 Zotero 集成的科研自动化工作流。
 author:
   name: K-Dense Inc.
   github: K-Dense-AI

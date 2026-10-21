@@ -4,6 +4,9 @@ slug: venue-templates
 version: 1.6.0
 maturity: beta
 license: MIT
+description:
+  zh: 借助针对具体期刊/会议的格式指南和内置 LaTeX
+    模板框架，准备期刊稿件、会议论文、学术海报和基金申请文件。支持选择官方模板、核对当前页数或匿名要求、按目标期刊/会议调整学术写作，以及检查投稿 PDF。
 author:
   name: K-Dense Inc.
   github: K-Dense-AI

@@ -4,6 +4,10 @@ slug: liteparse
 version: 1.6.0
 maturity: beta
 license: MIT
+description:
+  zh: 本地文档与 PDF 解析，返回带边界框的空间文本。适用于从 PDF、DOCX、Office 文件和图像中提取文本；对扫描件进行 OCR；为 RAG
+    生成保留版面布局的 JSON；批量导入论文文件夹；或将页面渲染为 PNG 供多模态智能体使用。其特色能力包括空间文本框、Markdown
+    输出、页面栅格图输出，以及支持可选自定义 HTTP OCR 的本地解析。
 author:
   name: K-Dense Inc.
   github: K-Dense-AI

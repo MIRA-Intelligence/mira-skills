@@ -4,6 +4,10 @@ slug: rdkit
 version: 1.5.0
 maturity: beta
 license: MIT
+description:
+  zh: 用于精细分子操控的化学信息学工具包。支持 SMILES/SDF 解析、分子描述符（MW、LogP、TPSA）、分子指纹、子结构搜索、2D/3D
+    构象生成、相似性计算和化学反应。如需接口更简洁的标准工作流，请使用 datamol（RDKit 的封装库）；需要高级控制、自定义
+    sanitization 或专门算法时使用 rdkit。
 author:
   name: K-Dense Inc.
   github: K-Dense-AI

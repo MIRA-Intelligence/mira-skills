@@ -4,6 +4,19 @@ slug: pkpd-modeling
 version: 2.0.0
 maturity: beta
 license: MIT
+description:
+  zh: 药代动力学与药效动力学建模与模拟——非房室分析、房室模型与群体 PK、PK/PD 及暴露-效应分析、TMDD、PBPK
+    概览、生物等效性、异速放大与首次人体给药剂量、药物相互作用预测，以及贝叶斯治疗药物监测。适用于分析浓度-时间数据、推导暴露指标、拟合 PK 或 PD
+    模型或评估给药方案。触发词包括
+    "pharmacokinetics"、"pharmacodynamics"、"PK/PD"、"NCA"、"non-compartmental"、"AUC"、"Cmax"、"lambda
+    z"、"half-life"、"clearance"、"volume of distribution"、"compartmental
+    model"、"population
+    PK"、"popPK"、"NONMEM"、"nlmixr2"、"Pharmpy"、"Monolix"、"exposure-response"、"Emax"、"EC50"、"indirect
+    response"、"effect
+    compartment"、"TMDD"、"PBPK"、"bioequivalence"、"RSABE"、"ABEL"、"allometric
+    scaling"、"first-in-human"、"MABEL"、"drug-drug interaction"、"DDI"、"ICH
+    M12"、"concentration-QTc"、"therapeutic drug monitoring"、"MIPD" 和 "dosing
+    regimen"。
 author:
   name: K-Dense Inc.
   github: K-Dense-AI

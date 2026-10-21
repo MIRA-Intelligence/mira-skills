@@ -6,6 +6,8 @@
 #
 # Folders listed here are owned by this manifest: they are wiped and re-copied
 # on every run, and their mirahub.yaml is generated. Change tags/maturity here.
+# `description.zh` is the hub's Chinese abstract (upstream descriptions are
+# English); update it when a `ref` bump changes the upstream description.
 #
 # Selection rules: permissive license (MIT / Apache-2.0 / BSD) or CC-BY(-SA);
 # no overlap with MIRA engine built-ins (mira_engine/skills/builtin_skills).
@@ -62,126 +64,180 @@ sources:
 skills:
   # ── Document processing ────────────────────────────────────────────────
   - { slug: markitdown, source: k-dense, path: skills/markitdown,
-      tags: [domain:general, functionality:documents, functionality:data, lang:python, pdf, docx, pptx, xlsx, ocr, markdown] }
+      tags: [domain:general, functionality:documents, functionality:data, lang:python, pdf, docx, pptx, xlsx, ocr, markdown],
+      description: { zh: "使用 Microsoft MarkItDown 将各类文档及指定 URI 转换为 Markdown，用于文本分析、检索以及 LLM/RAG 数据导入。涵盖安全的本地转换、流式处理、Office/PDF/数据格式、批处理工作流、插件、视觉 OCR、Azure 提取以及官方 MCP 服务器。" } }
   - { slug: liteparse, source: k-dense, path: skills/liteparse,
-      tags: [domain:general, functionality:documents, lang:python, pdf, ocr, layout, rag] }
+      tags: [domain:general, functionality:documents, lang:python, pdf, ocr, layout, rag],
+      description: { zh: "本地文档与 PDF 解析，返回带边界框的空间文本。适用于从 PDF、DOCX、Office 文件和图像中提取文本；对扫描件进行 OCR；为 RAG 生成保留版面布局的 JSON；批量导入论文文件夹；或将页面渲染为 PNG 供多模态智能体使用。其特色能力包括空间文本框、Markdown 输出、页面栅格图输出，以及支持可选自定义 HTTP OCR 的本地解析。" } }
   - { slug: markdown-mermaid-writing, source: k-dense, path: skills/markdown-mermaid-writing, license: MIT AND Apache-2.0,
-      tags: [domain:general, functionality:documents, functionality:writing, markdown, mermaid, diagrams] }
+      tags: [domain:general, functionality:documents, functionality:writing, markdown, mermaid, diagrams],
+      description: { zh: "为工作流、关系、时间线和数据结构（schema）编写科学 Markdown 文档和 Mermaid 图表。提供语法参考、文档模板、无障碍指导以及区分版本的渲染检查。当用户需要 Markdown、Mermaid 或基于文本的结构图时使用；定量科学图表则需使用合适的绘图工具。" } }
   - { slug: venue-templates, source: k-dense, path: skills/venue-templates,
-      tags: [domain:general, functionality:documents, functionality:writing, latex, journal, conference] }
+      tags: [domain:general, functionality:documents, functionality:writing, latex, journal, conference],
+      description: { zh: "借助针对具体期刊/会议的格式指南和内置 LaTeX 模板框架，准备期刊稿件、会议论文、学术海报和基金申请文件。支持选择官方模板、核对当前页数或匿名要求、按目标期刊/会议调整学术写作，以及检查投稿 PDF。" } }
   - { slug: obsidian-markdown, source: kepano, path: skills/obsidian-markdown,
-      tags: [domain:general, functionality:documents, functionality:writing, obsidian, markdown, notes] }
+      tags: [domain:general, functionality:documents, functionality:writing, obsidian, markdown, notes],
+      description: { zh: "创建和编辑 Obsidian 风格的 Markdown，支持 wikilink、嵌入、callout、属性及其他 Obsidian 专有语法。适用于在 Obsidian 中处理 .md 文件，或当用户提到 wikilink、callout、frontmatter、标签、嵌入或 Obsidian 笔记时使用。" } }
   - { slug: defuddle, source: kepano, path: skills/defuddle,
-      tags: [domain:general, functionality:documents, functionality:search, web, html, markdown] }
+      tags: [domain:general, functionality:documents, functionality:search, web, html, markdown],
+      description: { zh: "使用 Defuddle CLI 从 HTML 页面中提取干净的 Markdown。" } }
   - { slug: doc-to-markdown, source: daymade, path: daymade-docs/doc-to-markdown,
-      tags: [domain:general, functionality:documents, lang:python, docx, pdf, pptx, pandoc, markdown] }
+      tags: [domain:general, functionality:documents, lang:python, docx, pdf, pptx, pandoc, markdown],
+      description: { zh: "将 DOCX/PDF/PPTX 及保存的 HTML/HTM 转换为高质量 Markdown，并自动进行后处理。修复 pandoc 网格表格、简单表格、图片路径、CJK 加粗间距、属性噪声和代码块；对于 PDF，还会清除 pymupdf4llm 输出中的 OCR 乱码块、重复的页眉/页脚/水印以及绝对图片路径。基准测试中与 Docling、MarkItDown、Pandoc 原始输出和 Mammoth 相比表现最佳（7.6/10）。当出现 \"convert document\"、\"docx to markdown\"、\"parse word\"、\"doc to markdown\"、\"解析word\"、\"转换文档\"、\"HTML to Markdown\" 等请求时使用。" } }
 
   # ── Research & scholarship ─────────────────────────────────────────────
   - { slug: citation-management, source: k-dense, path: skills/citation-management,
-      tags: [domain:general, functionality:search, functionality:writing, lang:python, bibtex, openalex, pubmed, doi] }
+      tags: [domain:general, functionality:search, functionality:writing, lang:python, bibtex, openalex, pubmed, doi],
+      description: { zh: "面向学术研究的全面引文管理。在 OpenAlex、PubMed 和 Google Scholar 中检索论文，提取准确的元数据，校验引文，并生成格式规范的 BibTeX 条目。适用于需要查找论文、核实引文信息、将 DOI 转换为 BibTeX，或确保科研写作中参考文献准确性的场景。" } }
   - { slug: paper-lookup, source: k-dense, path: skills/paper-lookup,
-      tags: [domain:general, functionality:search, lang:python, arxiv, pubmed, biorxiv, openalex, literature] }
+      tags: [domain:general, functionality:search, lang:python, arxiv, pubmed, biorxiv, openalex, literature],
+      description: { zh: "检索 18 个学术 API，获取论文、预印本、引用、开放获取全文、存储库记录及期刊 OA 状态，并返回带可复现来源信息的结果。覆盖 PubMed、PMC、Europe PMC、bioRxiv、medRxiv、arXiv、OpenAlex、Crossref、Semantic Scholar、CORE、Unpaywall、OpenCitations、PubTator3、Zenodo、Figshare、ROR、BioStudies 和 DOAJ。适用于检索论文和引用、按 DOI/PMID/arXiv 查找、获取摘要、全文、开放获取 PDF、预印本、引用网络、作者发表记录、生物医学实体注释、存储记录（Zenodo、Figshare、BioStudies）、机构 ROR ID，或任何学术文献查询。当提及任一受支持的数据库，或出现诸如 \"find papers on X\"、\"look up this DOI\"、\"who cites this paper\" 或 \"get me the PDF\" 之类的请求时触发。" } }
   - { slug: exa-search, source: k-dense, path: skills/exa-search, maturity: experimental,
-      tags: [domain:general, functionality:search, lang:python, web-search, literature, requires:api-key] }
+      tags: [domain:general, functionality:search, lang:python, web-search, literature, requires:api-key],
+      description: { zh: "使用 Exa 检索科学与技术类网络内容，并从 URL 批量提取网页或 PDF 文本。支持通过出版物类别和学术域名过滤进行学术文献发现。适用于使用 Exa 进行网络检索、查找最新研究、抓取网页或提取文章的请求。" } }
   - { slug: scientific-critical-thinking, source: k-dense, path: skills/scientific-critical-thinking,
-      tags: [domain:general, functionality:analysis, evidence, grade, bias, critical-appraisal] }
+      tags: [domain:general, functionality:analysis, evidence, grade, bias, critical-appraisal],
+      description: { zh: "评估科学论断及证据质量。适用于实验设计有效性、偏倚与混杂因素、统计结果解读、证据分级框架（GRADE、Cochrane Risk of Bias）以及批判性分析教学。支持证据评价和缺陷识别；正式的同行评审意见撰写请使用 peer-review。" } }
   - { slug: exploratory-data-analysis, source: k-dense, path: skills/exploratory-data-analysis,
-      tags: [domain:general, functionality:data, functionality:analysis, lang:python, eda, csv, hdf5] }
+      tags: [domain:general, functionality:data, functionality:analysis, lang:python, eda, csv, hdf5],
+      description: { zh: "对明确支持的科学数据文件进行有边界的本地探索性分析。支持已脱敏的 CSV/TSV/JSON 概况分析；可选的 NumPy、HDF5、FASTA/FASTQ 及基础图像元数据检查；缺失值/数据泄漏审查；离群值与变换敏感性分析；以及严谨的 EDA 报告框架。其他领域格式仅供参考，未知格式一律拒绝处理（fail closed）。" } }
   - { slug: peer-review, source: k-dense, path: skills/peer-review,
-      tags: [domain:general, functionality:writing, functionality:analysis, manuscript, reporting-guidelines] }
+      tags: [domain:general, functionality:writing, functionality:analysis, manuscript, reporting-guidelines],
+      description: { zh: "在证据边界内撰写建设性的同行评审意见草稿及结构化的稿件评估。支持对科学稿件、研究方案、预印本或研究提案进行经授权的评审；报告规范的选择；论断与证据一致性核查；对方法、统计、可复现性、伦理、图表及引用的评析；或修回答复的规划。" } }
   - { slug: hypothesis-generation, source: k-dense, path: skills/hypothesis-generation,
-      tags: [domain:general, functionality:analysis, functionality:writing, hypothesis, preregistration] }
+      tags: [domain:general, functionality:analysis, functionality:writing, hypothesis, preregistration],
+      description: { zh: "在证据边界内构建科学问题、候选假设、竞争性解释、因果或关联性论断、可区分的预测、测量方案，以及可用于预注册的分析计划。适用于将观察结果或初步发现转化为透明、可检验的研究计划，且不把假设当作事实。" } }
   - { slug: research-grants, source: k-dense, path: skills/research-grants,
-      tags: [domain:general, functionality:writing, grants, nih, nsf, proposal] }
+      tags: [domain:general, functionality:writing, grants, nih, nsf, proposal],
+      description: { zh: "支持面向 NSF、NIH、DOE、DARPA 及台湾 NSTC 的科研基金申请书撰写与评审，涵盖具体资助机会的要求、研究目标（aims）、评审标准、预算、更广泛影响（broader impacts）、申请表格及重新申请。适用于由研究者本人主导的基金申请撰写、合规对照表制作以及申请书评析。" } }
   - { slug: scientific-brainstorming, source: k-dense, path: skills/scientific-brainstorming,
-      tags: [domain:general, functionality:analysis, ideation, brainstorming] }
+      tags: [domain:general, functionality:analysis, ideation, brainstorming],
+      description: { zh: "引导基于证据的科学构思，包括独立产出想法、结构化讨论、明确假设、透明评估、对抗式审视和决策记录。适用于早期科研头脑风暴或候选研究方向的优先级排序；实证验证、研究设计、伦理或监管审查以及临床问题应转交相应的专家或技能处理。" } }
   - { slug: experimental-design, source: k-dense, path: skills/experimental-design,
-      tags: [domain:general, domain:bio, functionality:analysis, lang:python, doe, randomization, blocking] }
+      tags: [domain:general, domain:bio, functionality:analysis, lang:python, doe, randomization, blocking],
+      description: { zh: "在数据收集之前设计实验和研究——选择设计方案、随机化、区组化及安排处理组合，使结果可被解释。适用于有人在规划研究、询问如何将受试者/样本分配到各组，或提及随机化、区组、分层、对照、析因或部分析因设计、实验设计（DOE）、多因素筛选、响应面优化、交叉设计、重复测量或裂区设计、整群/分组随机化、拉丁方、板布局、批次/运行顺序效应、真重复与伪重复，或序贯/适应性/成组序贯设计等情形。即使是非正式的表述也应触发，如 \"how should I set up this experiment\"、\"how do I avoid confounding\"、\"what's the best way to test these 6 factors\" 或 \"assign these mice to conditions\"。设计确定后计算样本量或检验效能请使用 statistical-power；分析已收集的数据请使用 statistical-analysis。" } }
   - { slug: statistical-power, source: k-dense, path: skills/statistical-power,
-      tags: [domain:general, domain:clinical, functionality:analysis, lang:python, sample-size, power-analysis] }
+      tags: [domain:general, domain:clinical, functionality:analysis, lang:python, sample-size, power-analysis],
+      description: { zh: "为研究规划计算样本量和统计功效。适用于有人询问 \"how many subjects/samples/replicates do I need\"、需要事前（a priori）功效分析、最小可检测效应（MDE）、功效曲线，或需要为基金申请、IRB 方案或预注册论证样本量的情形。涵盖 t 检验、ANOVA、比例、相关、卡方检验和回归的解析式功效计算，以及针对复杂设计的基于模拟（Monte Carlo）的功效分析——包括 logistic/Poisson 回归、混合模型、整群随机试验、生存分析和交互作用。即使请求只提到效应量、alpha 或 \"80% power\" 而未明确说 \"power analysis\"，也可处理。如需规划研究设计（随机化、区组、析因/DOE、交叉设计、序贯设计），请使用 experimental-design；如需分析已收集的数据并报告结果，请使用 statistical-analysis。" } }
   - { slug: pyzotero, source: k-dense, path: skills/pyzotero,
-      tags: [domain:general, functionality:integration, functionality:search, lang:python, zotero, references] }
+      tags: [domain:general, functionality:integration, functionality:search, lang:python, zotero, references],
+      description: { zh: "使用 pyzotero Python 客户端管理 Zotero 文献库：通过 Zotero Web API v3 或本地 API 检索、创建、更新和删除条目、分类集合、标签与附件。适用于以编程方式操作 Zotero 文献库、管理参考文献、导出引文、搜索文献库内容、上传 PDF 附件，或构建与 Zotero 集成的科研自动化工作流。" } }
   - { slug: ml-paper-writing, source: claude-scholar, path: skills/ml-paper-writing,
-      tags: [domain:general, functionality:writing, latex, neurips, icml, iclr, paper-writing] }
+      tags: [domain:general, functionality:writing, latex, neurips, icml, iclr, paper-writing],
+      description: { zh: "为 NeurIPS、ICML、ICLR、ACL、AAAI、COLM 撰写可发表水准的 ML/AI 论文。适用于基于研究代码仓库起草论文、开展文献综述、查找相关工作、核实引用或准备最终版（camera-ready）投稿。包含 LaTeX 模板、引用核查工作流以及论文检索/评估标准。" } }
 
   # ── Programming ────────────────────────────────────────────────────────
   - { slug: systematic-debugging, source: obra, path: skills/systematic-debugging,
       exclude: [CREATION-LOG.md, test-academic.md, test-pressure-1.md, test-pressure-2.md, test-pressure-3.md],
-      tags: [domain:software, functionality:coding, debugging, root-cause] }
+      tags: [domain:software, functionality:coding, debugging, root-cause],
+      description: { zh: "在遇到任何 bug、测试失败或异常行为时，于提出修复方案之前使用。" } }
   - { slug: using-git-worktrees, source: obra, path: skills/using-git-worktrees,
-      tags: [domain:software, functionality:coding, git, worktree] }
+      tags: [domain:software, functionality:coding, git, worktree],
+      description: { zh: "在开始需要与当前工作区隔离的功能开发时，或在执行实施计划之前使用——通过原生工具或回退到 git worktree，确保存在一个隔离的工作区。" } }
   - { slug: verification-before-completion, source: obra, path: skills/verification-before-completion,
-      tags: [domain:software, functionality:coding, testing, verification] }
+      tags: [domain:software, functionality:coding, testing, verification],
+      description: { zh: "在即将宣称工作已完成、已修复或已通过，以及提交 commit 或创建 PR 之前使用——要求先运行验证命令并确认输出，再做出任何成功声明；始终先有证据，再下结论。" } }
   - { slug: receiving-code-review, source: obra, path: skills/receiving-code-review,
-      tags: [domain:software, functionality:coding, code-review] }
+      tags: [domain:software, functionality:coding, code-review],
+      description: { zh: "在收到代码评审反馈、动手实施建议之前使用，尤其是当反馈含义不清或技术上存疑时。要求以技术严谨性加以核实，而非表面附和或盲目照改。" } }
   - { slug: finishing-a-development-branch, source: obra, path: skills/finishing-a-development-branch,
-      tags: [domain:software, functionality:coding, git, pull-request] }
+      tags: [domain:software, functionality:coding, git, pull-request],
+      description: { zh: "当实现已完成、所有测试均已通过，需要决定如何集成这些工作时使用。" } }
   - { slug: security-review, source: sentry, path: skills/security-review, license: CC-BY-SA-4.0,
-      tags: [domain:software, functionality:coding, security, owasp, code-review] }
+      tags: [domain:software, functionality:coding, security, owasp, code-review],
+      description: { zh: "针对安全漏洞的代码安全评审。当被要求进行 \"security review\"、\"find vulnerabilities\"、\"check for security issues\"、\"audit security\"、\"OWASP review\"，或评审代码中的注入、XSS、认证、授权、密码学问题时使用。提供系统化评审，并按置信度报告结果。" } }
   - { slug: find-bugs, source: sentry, path: skills/find-bugs,
-      tags: [domain:software, functionality:coding, code-review, bugs, git] }
+      tags: [domain:software, functionality:coding, code-review, bugs, git],
+      description: { zh: "在本地分支的改动中查找缺陷、安全漏洞和代码质量问题。适用于被要求评审改动、查找缺陷、进行安全评审或审计当前分支代码时。" } }
   - { slug: webapp-testing, source: anthropic-skills, path: skills/webapp-testing,
-      tags: [domain:software, functionality:coding, lang:python, playwright, testing, frontend] }
+      tags: [domain:software, functionality:coding, lang:python, playwright, testing, frontend],
+      description: { zh: "使用 Playwright 与本地 Web 应用交互并进行测试的工具包。支持验证前端功能、调试 UI 行为、截取浏览器截图以及查看浏览器日志。" } }
   - { slug: uv-package-manager, source: claude-scholar, path: skills/uv-package-manager,
-      tags: [domain:software, functionality:coding, lang:python, uv, packaging] }
+      tags: [domain:software, functionality:coding, lang:python, uv, packaging],
+      description: { zh: "掌握 uv 包管理器，实现快速的 Python 依赖管理、虚拟环境管理和现代化 Python 项目工作流。适用于搭建 Python 项目、管理依赖，或使用 uv 优化 Python 开发工作流。" } }
   - { slug: optimize-for-gpu, source: k-dense, path: skills/optimize-for-gpu,
-      tags: [domain:software, domain:general, functionality:coding, functionality:modeling, lang:python, cuda, gpu, nvidia] }
+      tags: [domain:software, domain:general, functionality:coding, functionality:modeling, lang:python, cuda, gpu, nvidia],
+      description: { zh: "在 NVIDIA 硬件上对科学计算 Python 代码进行 GPU 加速，并验证结果正确且速度更快。适用于 CUDA/GPU 优化；受 CPU 限制的 NumPy、SciPy、pandas、scikit-learn、NetworkX、scikit-image、向量检索、图像处理、图计算、仿真或文件 I/O 负载；有关 CuPy、cuDF、cuML、cuGraph、cuVS、cuCIM、KvikIO、Warp、Newton、Numba-CUDA 或 RAFT 的问题；以及性能剖析、内存传输、内核或多 GPU 瓶颈。当大规模数据并行的 Python 代码运行缓慢且 GPU 加速可能可行时，即使用户未提及 CUDA，也可使用。" } }
 
   # ── Medical & clinical ─────────────────────────────────────────────────
   - { slug: database-lookup, source: k-dense, path: skills/database-lookup,
-      tags: [domain:clinical, domain:pharma, domain:genomics, functionality:search, functionality:integration, clinicaltrials, openfda, chembl, uniprot] }
+      tags: [domain:clinical, domain:pharma, domain:genomics, functionality:search, functionality:integration, clinicaltrials, openfda, chembl, uniprot],
+      description: { zh: "通过明确的端点、过滤条件、分页及来源追溯，查询有文档说明的公共数据库 API。适用于需要从指定来源可复现地获取科学、监管、金融或其他基于数据库的事实，而非凭一般知识推断的场景。" } }
   - { slug: clinical-decision-support, source: k-dense, path: skills/clinical-decision-support,
-      tags: [domain:clinical, functionality:writing, functionality:analysis, cds, evidence, research-only] }
+      tags: [domain:clinical, functionality:writing, functionality:analysis, cds, evidence, research-only],
+      description: { zh: "准备并校验仅限研究用途的临床决策支持相关材料，包括评估、证据概况、队列、生存分析、生物标志物/模型、隐私及治理等文档。支持汇总数据或合成数据的研究文档编写与可追溯性，不适用于患者诊疗及实际临床运行。" } }
   - { slug: treatment-plans, source: k-dense, path: skills/treatment-plans,
-      tags: [domain:clinical, functionality:writing, treatment-plan, documentation] }
+      tags: [domain:clinical, functionality:writing, treatment-plan, documentation],
+      description: { zh: "在临床决策已由有资质的执业专业人员提供并核实之后，对本地治疗计划文档进行格式整理和结构性校验。适用于来源可追溯性、临床医生撰写的干预记录、目标与检查节点、共同决策记录、核对交接以及发布把关——不用于临床决策。" } }
   - { slug: clinical-reports, source: k-dense, path: skills/clinical-reports,
-      tags: [domain:clinical, functionality:writing, case-report, care, safety-report] }
+      tags: [domain:clinical, functionality:writing, case-report, care, safety-report],
+      description: { zh: "为临床病例、诊断、试验、安全性及汇总研究报告生成有安全边界的草稿结构，并在本地运行确定性检查。仅可用于合成、已去标识化或汇总的输入数据及经核实的源事实清单；所有输出均须经具备资质的人员审核。" } }
   - { slug: pyhealth, source: k-dense, path: skills/pyhealth,
-      tags: [domain:clinical, functionality:modeling, lang:python, ehr, mimic, omop] }
+      tags: [domain:clinical, functionality:modeling, lang:python, ehr, mimic, omop],
+      description: { zh: "构建并验证基于 PyHealth 的临床机器学习流程，涵盖 EHR、生理信号、医学影像和医学编码。适用于 PyHealth 数据集加载、MIMIC-III/IV、eICU 或 OMOP 预测任务、患者层面的评估、死亡率/再入院/住院时长建模、用药推荐、睡眠分期、Trainer 检查点，以及 ICD/ATC/NDC/RxNorm 编码映射。" } }
 
   # ── Imaging & pathology ────────────────────────────────────────────────
   - { slug: pydicom, source: k-dense, path: skills/pydicom,
-      tags: [domain:radiology, functionality:data, lang:python, dicom] }
+      tags: [domain:radiology, functionality:data, lang:python, dicom],
+      description: { zh: "读取、检查、写入、转换并预检本地 DICOM 数据集及像素数据。适用于 DICOM 元数据、传输语法（transfer syntax）、压缩插件、多帧图像、私有元素、JSON，以及有限范围的去标识化审查。" } }
   - { slug: imaging-data-commons, source: k-dense, path: skills/imaging-data-commons,
-      tags: [domain:radiology, domain:pathology, functionality:search, functionality:data, lang:python, nci-idc, dicom, datasets] }
+      tags: [domain:radiology, domain:pathology, functionality:search, functionality:data, lang:python, nci-idc, dicom, datasets],
+      description: { zh: "从 NCI Imaging Data Commons 查询并下载公开的癌症影像数据。支持 IDC 数据集合发现、DICOM 访问、放射学（CT、MR、PET）和病理学 AI 数据集、元数据 SQL 查询、可视化、许可信息及引用。使用公开的元数据和下载途径，无需身份验证；可选的 BigQuery 和 Google Healthcare 途径需要 Google 凭据。" } }
   - { slug: histolab, source: k-dense, path: skills/histolab,
-      tags: [domain:pathology, functionality:data, lang:python, wsi, tiling, h-and-e] }
+      tags: [domain:pathology, functionality:data, lang:python, wsi, tiling, h-and-e],
+      description: { zh: "使用 Histolab 提取并预处理全切片组织病理图像（WSI）的图块。适用于 WSI 检查、组织掩膜、随机/网格/基于评分的图块提取、H&E 染色标准化以及图块数据集准备。如需多重成像或深度学习推理流程，请使用 pathml。" } }
   - { slug: pathml, source: k-dense, path: skills/pathml,
-      tags: [domain:pathology, functionality:analysis, functionality:modeling, lang:python, wsi, multiplex] }
+      tags: [domain:pathology, functionality:analysis, functionality:modeling, lang:python, wsi, multiplex],
+      description: { zh: "使用 PathML 支持本地计算病理学研究：切片加载与切块、预处理与质控、h5path 存储、多重标记定量、空间图，以及限定范围的模型推理。适用于全切片 H&E、CODEX、Vectra、Mesmer、HoVer-Net 和 HACTNet 工作流。" } }
 
   # ── Genomics & bioinformatics ──────────────────────────────────────────
   - { slug: gget, source: k-dense, path: skills/gget,
-      tags: [domain:genomics, functionality:search, lang:python, blast, ensembl, opentargets] }
+      tags: [domain:genomics, functionality:search, lang:python, blast, ensembl, opentargets],
+      description: { zh: "通过 CLI/Python 查询 20 多个生物信息学资源。支持快速查询基因信息、BLAST/BLAT、病毒序列下载、PDB/mmCIF 结构、G2P 残基注释、富集分析、OpenTargets、COSMIC、CELLxGENE 以及 8cube 小鼠特异性/表达数据。最适合交互式探索和简单查询。批量处理或高级 BLAST 请使用 biopython；多数据库 Python 工作流请使用 bioservices。" } }
   - { slug: biopython, source: k-dense, path: skills/biopython,
-      tags: [domain:genomics, domain:bio, functionality:data, lang:python, fasta, genbank, entrez] }
+      tags: [domain:genomics, domain:bio, functionality:data, lang:python, fasta, genbank, entrez],
+      description: { zh: "提供 Biopython 工作流，用于序列处理、文件解析（FASTA/GenBank/PDB）、系统发育分析，以及以编程方式访问 NCBI/PubMed（Bio.Entrez）。支持批量处理、自定义分子生物学流程、BLAST 自动化、结构分析和 motif 分析。" } }
   - { slug: scanpy, source: k-dense, path: skills/scanpy,
-      tags: [domain:genomics, functionality:analysis, functionality:visualization, lang:python, single-cell, scrna-seq] }
+      tags: [domain:genomics, functionality:analysis, functionality:visualization, lang:python, single-cell, scrna-seq],
+      description: { zh: "使用 Scanpy 执行单细胞 RNA-seq 的质控、标准化、高变基因（HVG）筛选、PCA/UMAP/t-SNE、聚类、探索性 marker 基因排序、pseudobulk 准备、可视化，以及将 Seurat 或 SingleCellExperiment 的 RDS 文件转换为 h5ad。适用于计数与表达数据来源明确的成熟探索性 scRNA-seq 工作流；scvi-tools 模型和 AnnData 格式细节由配套技能负责。" } }
   - { slug: pydeseq2, source: k-dense, path: skills/pydeseq2,
-      tags: [domain:genomics, functionality:analysis, lang:python, rna-seq, differential-expression] }
+      tags: [domain:genomics, functionality:analysis, lang:python, rna-seq, differential-expression],
+      description: { zh: "使用 PyDESeq2 进行 bulk RNA-seq 差异表达分析，包括计数数据校验、公式设计、显式对比、Wald 检验、FDR 校正、与系数匹配的 LFC 收缩以及结果可视化。适用于含生物学重复的 PyDESeq2 或 Python DESeq2 工作流。" } }
   - { slug: bulk-rnaseq, source: k-dense, path: skills/bulk-rnaseq,
-      tags: [domain:genomics, functionality:data, lang:python, rna-seq, salmon, star, nf-core] }
+      tags: [domain:genomics, functionality:data, lang:python, rna-seq, salmon, star, nf-core],
+      description: { zh: "将 bulk RNA-seq 的 FASTQ、Salmon、STAR 或 featureCounts 输出整理为可用于基因水平差异表达分析的数据。涵盖 nf-core/rnaseq 与独立定量、生物学重复、链特异性、参考基因组来源追溯、经校验的计数矩阵构建，以及向 PyDESeq2 的衔接。适用于从 FASTQ 到计数的分析、nf-core/rnaseq 配置、STAR/Salmon 定量，或为 DESeq2 构建计数矩阵。单细胞数据请使用 scanpy；仅做统计拟合请使用 pydeseq2。" } }
   - { slug: pathway-enrichment, source: k-dense, path: skills/pathway-enrichment,
-      tags: [domain:genomics, functionality:analysis, lang:python, gsea, go, enrichment] }
+      tags: [domain:genomics, functionality:analysis, lang:python, gsea, go, enrichment],
+      description: { zh: "对基因列表或排序后的基因数据进行通路与基因集富集分析，并解读结果。适用于用户拥有一组基因（来自 PyDESeq2/Scanpy 的差异表达基因、CRISPR 筛选命中基因、聚类标志基因、蛋白质组学命中蛋白），并希望了解哪些生物学通路、GO 条目或基因集呈过度代表或富集的场景。涵盖过度代表分析（ORA / Enrichr / Fisher / 超几何检验）、基于排序的基因集富集分析（GSEA / preranked）、单样本评分（ssGSEA/GSVA），以及通过 gseapy、g:Profiler、Enrichr 库、MSigDB、GO、KEGG、Reactome 和 WikiPathways 进行功能注释——另含基因 ID 映射、选择合适的背景基因集、多重检验校正、冗余精简、点图/富集图谱以及可直接用于发表的表格。适用于 \"pathway analysis\"、\"enrichment analysis\"、\"GO enrichment\"、\"KEGG/Reactome pathways\"、\"GSEA\"、\"over-representation\"、\"functional annotation\" 或 \"what pathways are my genes in\" 等请求。" } }
   - { slug: nextflow, source: k-dense, path: skills/nextflow,
-      tags: [domain:genomics, functionality:automation, nextflow, nf-core, pipelines] }
+      tags: [domain:genomics, functionality:automation, nextflow, nf-core, pipelines],
+      description: { zh: "构建、运行并调试 Nextflow DSL2 流程和 nf-core 工作流。适用于 Nextflow、nf-core、.nf 文件、nextflow.config、processes/channels/operators、samplesheet、nf-test、modules/subworkflows、容器与执行器配置、HPC/SLURM 或云端部署，以及失败或断点续跑（resume）的流程运行。" } }
   - { slug: depmap, source: k-dense, path: skills/depmap,
-      tags: [domain:genomics, domain:pharma, functionality:analysis, lang:python, cancer, crispr, dependency] }
+      tags: [domain:genomics, domain:pharma, functionality:analysis, lang:python, cancer, crispr, dependency],
+      description: { zh: "获取并分析癌症依赖性图谱（DepMap）发布数据，包括 CRISPR Chronos 基因效应、癌症模型注释、组学生物标志物及 PRISM 药物敏感性。支持癌症选择性依赖、共必需性以及候选合成致死分析，并使用与发布版本对应的标识符和统计检验。" } }
   - { slug: clinvar-lookup, source: bioskills, path: clinical-databases/clinvar-lookup,
-      tags: [domain:genomics, domain:clinical, functionality:search, lang:python, clinvar, variants, pathogenicity] }
+      tags: [domain:genomics, domain:clinical, functionality:search, lang:python, clinvar, variants, pathogenicity],
+      description: { zh: "通过 REST API、每周发布的 VCF 或批量 XML 查询 ClinVar 中的变异致病性分类、ClinGen VCEP 审编结果以及体细胞与胚系解读。适用于判定临床意义、对相互冲突的解读进行交叉核对，或依据 ACMG/AMP 框架及 ClinGen SVI 细则汇总证据。" } }
   - { slug: acmg-classification, source: bioskills, path: clinical-databases/acmg-classification, maturity: experimental,
-      tags: [domain:genomics, domain:clinical, functionality:analysis, acmg, variant-interpretation] }
+      tags: [domain:genomics, domain:clinical, functionality:analysis, acmg, variant-interpretation],
+      description: { zh: "应用 ACMG/AMP 2015 框架及 ClinGen SVI 细则、Tavtigian 2018/2020 贝叶斯计分体系、Abou Tayoun 2018 PVS1 决策树、Pejaver 2022 与 Bergquist 2025 针对 REVEL/BayesDel/AlphaMissense 校准的 PP3/BP4 阈值、Brnich 2020 PS3/BS3 OddsPath、Walker 2023 SpliceAI 剪接框架，以及 AMP/ASCO/CAP 2017 肿瘤变异分级。适用于将胚系变异分类为 P / LP / VUS / LB / B、应用特定 VCEP 的 CSpec 规则、计算 Whiffin BS1，或按 Li 2017 划分肿瘤 Tier I-IV。" } }
   - { slug: entrez-search, source: bioskills, path: database-access/entrez-search,
-      tags: [domain:genomics, domain:general, functionality:search, lang:python, ncbi, entrez] }
+      tags: [domain:genomics, domain:general, functionality:search, lang:python, ncbi, entrez],
+      description: { zh: "使用 Biopython 的 Bio.Entrez（ESearch、EInfo、EGQuery、ESpell）检索 NCBI 数据库。适用于按关键词查找记录、构建可复现的字段限定查询、使用 Entrez Query Translator、利用 history server 处理大型结果集、应对 retmax 上限，或理解每周索引延迟。涵盖 PubMed、Nucleotide、Protein、Gene、SRA、GEO、Assembly、Taxonomy、ClinVar、dbSNP。" } }
 
   # ── Pharma & physiology ────────────────────────────────────────────────
   - { slug: medchem, source: k-dense, path: skills/medchem,
-      tags: [domain:pharma, functionality:analysis, lang:python, drug-likeness, pains, lipinski] }
+      tags: [domain:pharma, functionality:analysis, lang:python, drug-likeness, pains, lipinski],
+      description: { zh: "应用药物化学过滤规则进行化合物优先级筛选，涵盖类药性规则（Lipinski、Veber、CNS）、结构警示库（PAINS、NIBR、ChEMBL）、复杂度指标，以及用于化合物库过滤的 medchem 查询语言。" } }
   - { slug: rdkit, source: k-dense, path: skills/rdkit,
-      tags: [domain:pharma, functionality:data, functionality:analysis, lang:python, cheminformatics, smiles] }
+      tags: [domain:pharma, functionality:data, functionality:analysis, lang:python, cheminformatics, smiles],
+      description: { zh: "用于精细分子操控的化学信息学工具包。支持 SMILES/SDF 解析、分子描述符（MW、LogP、TPSA）、分子指纹、子结构搜索、2D/3D 构象生成、相似性计算和化学反应。如需接口更简洁的标准工作流，请使用 datamol（RDKit 的封装库）；需要高级控制、自定义 sanitization 或专门算法时使用 rdkit。" } }
   - { slug: pkpd-modeling, source: k-dense, path: skills/pkpd-modeling,
-      tags: [domain:pharma, functionality:modeling, lang:python, pharmacokinetics, nca, dose] }
+      tags: [domain:pharma, functionality:modeling, lang:python, pharmacokinetics, nca, dose],
+      description: { zh: "药代动力学与药效动力学建模与模拟——非房室分析、房室模型与群体 PK、PK/PD 及暴露-效应分析、TMDD、PBPK 概览、生物等效性、异速放大与首次人体给药剂量、药物相互作用预测，以及贝叶斯治疗药物监测。适用于分析浓度-时间数据、推导暴露指标、拟合 PK 或 PD 模型或评估给药方案。触发词包括 \"pharmacokinetics\"、\"pharmacodynamics\"、\"PK/PD\"、\"NCA\"、\"non-compartmental\"、\"AUC\"、\"Cmax\"、\"lambda z\"、\"half-life\"、\"clearance\"、\"volume of distribution\"、\"compartmental model\"、\"population PK\"、\"popPK\"、\"NONMEM\"、\"nlmixr2\"、\"Pharmpy\"、\"Monolix\"、\"exposure-response\"、\"Emax\"、\"EC50\"、\"indirect response\"、\"effect compartment\"、\"TMDD\"、\"PBPK\"、\"bioequivalence\"、\"RSABE\"、\"ABEL\"、\"allometric scaling\"、\"first-in-human\"、\"MABEL\"、\"drug-drug interaction\"、\"DDI\"、\"ICH M12\"、\"concentration-QTc\"、\"therapeutic drug monitoring\"、\"MIPD\" 和 \"dosing regimen\"。" } }
   - { slug: neurokit2, source: k-dense, path: skills/neurokit2,
-      tags: [domain:neuroscience, functionality:analysis, lang:python, ecg, eda, hrv, physiology] }
+      tags: [domain:neuroscience, functionality:analysis, lang:python, ecg, eda, hrv, physiology],
+      description: { zh: "构建并审核可复现的 NeuroKit2 研究工作流，用于生理时间序列预处理、事件/区间分析、多模态对齐、变异性及复杂度分析。适用于代码导入 neurokit2 或需要使用其当前 API、数据结构及方法相关验证的场景——不适用于临床诊断或设备验证。" } }
 
 # Considered and skipped (keep so future reviews don't redo the work):
 #   anthropics/skills docx|pdf|pptx|xlsx (+ re-hosted copies) — proprietary license; MIRA has built-ins

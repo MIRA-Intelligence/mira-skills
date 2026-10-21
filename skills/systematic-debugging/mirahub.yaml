@@ -4,6 +4,8 @@ slug: systematic-debugging
 version: 0.1.0
 maturity: beta
 license: MIT
+description:
+  zh: 在遇到任何 bug、测试失败或异常行为时，于提出修复方案之前使用。
 author:
   name: Jesse Vincent
   github: obra

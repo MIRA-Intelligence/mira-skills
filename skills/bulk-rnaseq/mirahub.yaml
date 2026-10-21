@@ -4,6 +4,11 @@ slug: bulk-rnaseq
 version: 2.0.0
 maturity: beta
 license: MIT
+description:
+  zh: 将 bulk RNA-seq 的 FASTQ、Salmon、STAR 或 featureCounts 输出整理为可用于基因水平差异表达分析的数据。涵盖
+    nf-core/rnaseq 与独立定量、生物学重复、链特异性、参考基因组来源追溯、经校验的计数矩阵构建，以及向 PyDESeq2 的衔接。适用于从
+    FASTQ 到计数的分析、nf-core/rnaseq 配置、STAR/Salmon 定量，或为 DESeq2 构建计数矩阵。单细胞数据请使用
+    scanpy；仅做统计拟合请使用 pydeseq2。
 author:
   name: K-Dense Inc.
   github: K-Dense-AI

@@ -4,6 +4,8 @@ slug: peer-review
 version: 2.4.0
 maturity: beta
 license: MIT
+description:
+  zh: 在证据边界内撰写建设性的同行评审意见草稿及结构化的稿件评估。支持对科学稿件、研究方案、预印本或研究提案进行经授权的评审；报告规范的选择；论断与证据一致性核查；对方法、统计、可复现性、伦理、图表及引用的评析；或修回答复的规划。
 author:
   name: K-Dense Inc.
   github: K-Dense-AI

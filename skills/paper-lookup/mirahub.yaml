@@ -4,6 +4,14 @@ slug: paper-lookup
 version: 2.4.0
 maturity: beta
 license: MIT
+description:
+  zh: 检索 18 个学术 API，获取论文、预印本、引用、开放获取全文、存储库记录及期刊 OA 状态，并返回带可复现来源信息的结果。覆盖
+    PubMed、PMC、Europe PMC、bioRxiv、medRxiv、arXiv、OpenAlex、Crossref、Semantic
+    Scholar、CORE、Unpaywall、OpenCitations、PubTator3、Zenodo、Figshare、ROR、BioStudies
+    和 DOAJ。适用于检索论文和引用、按 DOI/PMID/arXiv 查找、获取摘要、全文、开放获取
+    PDF、预印本、引用网络、作者发表记录、生物医学实体注释、存储记录（Zenodo、Figshare、BioStudies）、机构 ROR
+    ID，或任何学术文献查询。当提及任一受支持的数据库，或出现诸如 "find papers on X"、"look up this DOI"、"who
+    cites this paper" 或 "get me the PDF" 之类的请求时触发。
 author:
   name: K-Dense Inc.
   github: K-Dense-AI

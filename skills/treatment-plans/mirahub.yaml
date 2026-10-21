@@ -4,6 +4,8 @@ slug: treatment-plans
 version: 2.4.0
 maturity: beta
 license: MIT
+description:
+  zh: 在临床决策已由有资质的执业专业人员提供并核实之后，对本地治疗计划文档进行格式整理和结构性校验。适用于来源可追溯性、临床医生撰写的干预记录、目标与检查节点、共同决策记录、核对交接以及发布把关——不用于临床决策。
 author:
   name: K-Dense Inc.
   github: K-Dense-AI

@@ -4,6 +4,8 @@ slug: defuddle
 version: 0.1.0
 maturity: beta
 license: MIT
+description:
+  zh: 使用 Defuddle CLI 从 HTML 页面中提取干净的 Markdown。
 author:
   name: Steph Ango
   github: kepano

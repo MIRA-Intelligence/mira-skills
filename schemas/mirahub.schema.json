@@ -26,6 +26,16 @@
       "type": "string",
       "description": "SPDX identifier preferred (e.g. MIT, Apache-2.0, GPL-3.0-or-later)."
     },
+    "description": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "en": { "type": "string", "minLength": 1 },
+        "zh": { "type": "string", "minLength": 1 }
+      },
+      "description": "Hub listing abstract per site language. Defaults to SKILL.md `description` for the language it is written in; the other language must be given here."
+    },
     "author": {
       "type": "object",
       "additionalProperties": false,

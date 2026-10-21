@@ -52,6 +52,8 @@ slug: my-skill
 version: 0.1.0
 maturity: beta                 # stable | beta | experimental
 license: MIT
+description:                    # hub abstract in the language SKILL.md isn't written in
+  zh: 一句话说明这个技能做什么、何时使用。
 author:
   name: Your Name
   github: yourhandle
@@ -69,6 +71,11 @@ tags:
   - lang:python
   - dicom                       # free-form tags are fine too
 ```
+
+The hub is bilingual (English / 中文), so every skill needs its abstract in
+both. The `SKILL.md` `description` covers the language it's written in; put
+the other one under `description` (`zh` for an English SKILL.md, `en` for a
+Chinese one). The validator fails if either is missing.
 
 Validate against [`schemas/mirahub.schema.json`](./schemas/mirahub.schema.json)
 in your editor (VS Code's YAML extension picks it up automatically) or via
@@ -98,7 +105,8 @@ mirrored here instead of rewritten:
    times) and check its license: MIT / Apache-2.0 / BSD / CC-BY(-SA) only.
 2. Read the whole `SKILL.md` and every bundled script before adding it.
 3. Add the repo under `sources:` in [`upstream.yaml`](./upstream.yaml) with a
-   pinned commit `ref`, and the skill under `skills:` with its tags.
+   pinned commit `ref`, and the skill under `skills:` with its tags and a
+   `description: { zh: "..." }` translation of the upstream description.
 4. From a sibling `mira-hub` checkout run
    `npm run vendor:upstream -- --skills-dir ../mira-skills/skills`
    (add `--only <slug>` for one skill), then the usual `check`. Use

@@ -4,6 +4,8 @@ slug: hypothesis-generation
 version: 2.4.0
 maturity: beta
 license: MIT
+description:
+  zh: 在证据边界内构建科学问题、候选假设、竞争性解释、因果或关联性论断、可区分的预测、测量方案，以及可用于预注册的分析计划。适用于将观察结果或初步发现转化为透明、可检验的研究计划，且不把假设当作事实。
 author:
   name: K-Dense Inc.
   github: K-Dense-AI

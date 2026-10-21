@@ -4,6 +4,9 @@ slug: pydicom
 version: 1.4.0
 maturity: beta
 license: MIT
+description:
+  zh: 读取、检查、写入、转换并预检本地 DICOM 数据集及像素数据。适用于 DICOM 元数据、传输语法（transfer
+    syntax）、压缩插件、多帧图像、私有元素、JSON，以及有限范围的去标识化审查。
 author:
   name: K-Dense Inc.
   github: K-Dense-AI

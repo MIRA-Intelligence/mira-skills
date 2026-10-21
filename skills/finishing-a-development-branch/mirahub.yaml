@@ -4,6 +4,8 @@ slug: finishing-a-development-branch
 version: 0.1.0
 maturity: beta
 license: MIT
+description:
+  zh: 当实现已完成、所有测试均已通过，需要决定如何集成这些工作时使用。
 author:
   name: Jesse Vincent
   github: obra

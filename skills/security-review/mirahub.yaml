@@ -4,6 +4,10 @@ slug: security-review
 version: 0.1.0
 maturity: beta
 license: CC-BY-SA-4.0
+description:
+  zh: 针对安全漏洞的代码安全评审。当被要求进行 "security review"、"find vulnerabilities"、"check for
+    security issues"、"audit security"、"OWASP
+    review"，或评审代码中的注入、XSS、认证、授权、密码学问题时使用。提供系统化评审，并按置信度报告结果。
 author:
   name: Sentry
   github: getsentry

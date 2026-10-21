@@ -4,6 +4,11 @@ slug: entrez-search
 version: 0.1.0
 maturity: beta
 license: MIT
+description:
+  zh: 使用 Biopython 的 Bio.Entrez（ESearch、EInfo、EGQuery、ESpell）检索 NCBI
+    数据库。适用于按关键词查找记录、构建可复现的字段限定查询、使用 Entrez Query Translator、利用 history server
+    处理大型结果集、应对 retmax 上限，或理解每周索引延迟。涵盖
+    PubMed、Nucleotide、Protein、Gene、SRA、GEO、Assembly、Taxonomy、ClinVar、dbSNP。
 author:
   name: GPTomics
   github: GPTomics

@@ -4,6 +4,9 @@ slug: clinvar-lookup
 version: 0.1.0
 maturity: beta
 license: MIT
+description:
+  zh: 通过 REST API、每周发布的 VCF 或批量 XML 查询 ClinVar 中的变异致病性分类、ClinGen VCEP
+    审编结果以及体细胞与胚系解读。适用于判定临床意义、对相互冲突的解读进行交叉核对，或依据 ACMG/AMP 框架及 ClinGen SVI 细则汇总证据。
 author:
   name: GPTomics
   github: GPTomics

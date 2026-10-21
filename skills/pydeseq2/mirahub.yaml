@@ -4,6 +4,9 @@ slug: pydeseq2
 version: 1.7.0
 maturity: beta
 license: MIT
+description:
+  zh: 使用 PyDESeq2 进行 bulk RNA-seq 差异表达分析，包括计数数据校验、公式设计、显式对比、Wald 检验、FDR 校正、与系数匹配的
+    LFC 收缩以及结果可视化。适用于含生物学重复的 PyDESeq2 或 Python DESeq2 工作流。
 author:
   name: K-Dense Inc.
   github: K-Dense-AI

@@ -4,6 +4,12 @@ slug: doc-to-markdown
 version: 0.1.0
 maturity: beta
 license: MIT
+description:
+  zh: 将 DOCX/PDF/PPTX 及保存的 HTML/HTM 转换为高质量 Markdown，并自动进行后处理。修复 pandoc
+    网格表格、简单表格、图片路径、CJK 加粗间距、属性噪声和代码块；对于 PDF，还会清除 pymupdf4llm 输出中的 OCR
+    乱码块、重复的页眉/页脚/水印以及绝对图片路径。基准测试中与 Docling、MarkItDown、Pandoc 原始输出和 Mammoth
+    相比表现最佳（7.6/10）。当出现 "convert document"、"docx to markdown"、"parse word"、"doc
+    to markdown"、"解析word"、"转换文档"、"HTML to Markdown" 等请求时使用。
 author:
   name: daymade
   github: daymade

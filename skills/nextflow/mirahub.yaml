@@ -4,6 +4,10 @@ slug: nextflow
 version: 1.4.0
 maturity: beta
 license: MIT
+description:
+  zh: 构建、运行并调试 Nextflow DSL2 流程和 nf-core 工作流。适用于 Nextflow、nf-core、.nf
+    文件、nextflow.config、processes/channels/operators、samplesheet、nf-test、modules/subworkflows、容器与执行器配置、HPC/SLURM
+    或云端部署，以及失败或断点续跑（resume）的流程运行。
 author:
   name: K-Dense Inc.
   github: K-Dense-AI

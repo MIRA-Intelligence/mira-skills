@@ -4,6 +4,9 @@ slug: markitdown
 version: 2.5.0
 maturity: beta
 license: MIT
+description:
+  zh: 使用 Microsoft MarkItDown 将各类文档及指定 URI 转换为 Markdown，用于文本分析、检索以及 LLM/RAG
+    数据导入。涵盖安全的本地转换、流式处理、Office/PDF/数据格式、批处理工作流、插件、视觉 OCR、Azure 提取以及官方 MCP 服务器。
 author:
   name: K-Dense Inc.
   github: K-Dense-AI

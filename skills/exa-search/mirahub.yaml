@@ -4,6 +4,9 @@ slug: exa-search
 version: 1.4.0
 maturity: experimental
 license: MIT
+description:
+  zh: 使用 Exa 检索科学与技术类网络内容，并从 URL 批量提取网页或 PDF 文本。支持通过出版物类别和学术域名过滤进行学术文献发现。适用于使用 Exa
+    进行网络检索、查找最新研究、抓取网页或提取文章的请求。
 author:
   name: K-Dense Inc.
   github: K-Dense-AI

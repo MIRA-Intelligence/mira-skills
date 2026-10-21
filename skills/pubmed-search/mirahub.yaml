@@ -3,6 +3,8 @@ slug: pubmed-search
 version: 0.1.0
 maturity: stable
 license: Apache-2.0
+description:
+  zh: "在 PubMed 中检索科学文献。当用户要求查找论文、检索文献、查阅研究、查找出版物或询问近期研究时使用。触发词包括 \"pubmed\"、\"papers\"、\"literature\"、\"publications\"、\"research on\"、\"studies about\"。"
 author:
   name: MIRA Team
   github: MIRA-Intelligence

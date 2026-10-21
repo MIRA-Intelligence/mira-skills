@@ -4,6 +4,8 @@ slug: find-bugs
 version: 0.1.0
 maturity: beta
 license: Apache-2.0
+description:
+  zh: 在本地分支的改动中查找缺陷、安全漏洞和代码质量问题。适用于被要求评审改动、查找缺陷、进行安全评审或审计当前分支代码时。
 author:
   name: Sentry
   github: getsentry

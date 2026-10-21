@@ -4,6 +4,9 @@ slug: database-lookup
 version: 1.8.0
 maturity: beta
 license: MIT
+description:
+  zh: 通过明确的端点、过滤条件、分页及来源追溯，查询有文档说明的公共数据库
+    API。适用于需要从指定来源可复现地获取科学、监管、金融或其他基于数据库的事实，而非凭一般知识推断的场景。
 author:
   name: K-Dense Inc.
   github: K-Dense-AI

@@ -4,6 +4,12 @@ slug: acmg-classification
 version: 0.1.0
 maturity: experimental
 license: MIT
+description:
+  zh: 应用 ACMG/AMP 2015 框架及 ClinGen SVI 细则、Tavtigian 2018/2020 贝叶斯计分体系、Abou Tayoun
+    2018 PVS1 决策树、Pejaver 2022 与 Bergquist 2025 针对 REVEL/BayesDel/AlphaMissense
+    校准的 PP3/BP4 阈值、Brnich 2020 PS3/BS3 OddsPath、Walker 2023 SpliceAI 剪接框架，以及
+    AMP/ASCO/CAP 2017 肿瘤变异分级。适用于将胚系变异分类为 P / LP / VUS / LB / B、应用特定 VCEP 的 CSpec
+    规则、计算 Whiffin BS1，或按 Li 2017 划分肿瘤 Tier I-IV。
 author:
   name: GPTomics
   github: GPTomics

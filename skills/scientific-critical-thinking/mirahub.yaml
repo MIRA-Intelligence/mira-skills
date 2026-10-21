@@ -4,6 +4,9 @@ slug: scientific-critical-thinking
 version: 1.5.0
 maturity: beta
 license: MIT
+description:
+  zh: 评估科学论断及证据质量。适用于实验设计有效性、偏倚与混杂因素、统计结果解读、证据分级框架（GRADE、Cochrane Risk of
+    Bias）以及批判性分析教学。支持证据评价和缺陷识别；正式的同行评审意见撰写请使用 peer-review。
 author:
   name: K-Dense Inc.
   github: K-Dense-AI

@@ -4,6 +4,9 @@ slug: histolab
 version: 1.5.0
 maturity: beta
 license: MIT
+description:
+  zh: 使用 Histolab 提取并预处理全切片组织病理图像（WSI）的图块。适用于 WSI 检查、组织掩膜、随机/网格/基于评分的图块提取、H&E
+    染色标准化以及图块数据集准备。如需多重成像或深度学习推理流程，请使用 pathml。
 author:
   name: K-Dense Inc.
   github: K-Dense-AI

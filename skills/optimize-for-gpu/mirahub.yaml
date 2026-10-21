@@ -4,6 +4,12 @@ slug: optimize-for-gpu
 version: 1.6.0
 maturity: beta
 license: MIT
+description:
+  zh: 在 NVIDIA 硬件上对科学计算 Python 代码进行 GPU 加速，并验证结果正确且速度更快。适用于 CUDA/GPU 优化；受 CPU 限制的
+    NumPy、SciPy、pandas、scikit-learn、NetworkX、scikit-image、向量检索、图像处理、图计算、仿真或文件
+    I/O 负载；有关 CuPy、cuDF、cuML、cuGraph、cuVS、cuCIM、KvikIO、Warp、Newton、Numba-CUDA 或
+    RAFT 的问题；以及性能剖析、内存传输、内核或多 GPU 瓶颈。当大规模数据并行的 Python 代码运行缓慢且 GPU
+    加速可能可行时，即使用户未提及 CUDA，也可使用。
 author:
   name: K-Dense Inc.
   github: K-Dense-AI

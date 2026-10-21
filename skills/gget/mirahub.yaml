@@ -4,6 +4,11 @@ slug: gget
 version: 1.7.0
 maturity: beta
 license: MIT
+description:
+  zh: 通过 CLI/Python 查询 20 多个生物信息学资源。支持快速查询基因信息、BLAST/BLAT、病毒序列下载、PDB/mmCIF 结构、G2P
+    残基注释、富集分析、OpenTargets、COSMIC、CELLxGENE 以及 8cube
+    小鼠特异性/表达数据。最适合交互式探索和简单查询。批量处理或高级 BLAST 请使用 biopython；多数据库 Python 工作流请使用
+    bioservices。
 author:
   name: K-Dense Inc.
   github: K-Dense-AI

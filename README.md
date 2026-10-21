@@ -76,6 +76,10 @@ filters in the hub UI:
   but does not show up as a filter checkbox.
 - `source:lobehub` — vendored third-party skill (see below).
 
+The hub site is bilingual: each skill's abstract comes from `SKILL.md`
+`description` plus a translation in `mirahub.yaml` `description` (`zh` or
+`en`); see [`CONTRIBUTING.md`](./CONTRIBUTING.md).
+
 Adding new namespace values is a one-line PR to `mira-hub/taxonomy.yaml`.
 
 ### Third-party skills

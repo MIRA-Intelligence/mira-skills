@@ -4,6 +4,9 @@ slug: biopython
 version: 1.5.0
 maturity: beta
 license: MIT
+description:
+  zh: 提供 Biopython 工作流，用于序列处理、文件解析（FASTA/GenBank/PDB）、系统发育分析，以及以编程方式访问
+    NCBI/PubMed（Bio.Entrez）。支持批量处理、自定义分子生物学流程、BLAST 自动化、结构分析和 motif 分析。
 author:
   name: K-Dense Inc.
   github: K-Dense-AI

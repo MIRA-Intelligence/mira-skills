@@ -4,6 +4,13 @@ slug: statistical-power
 version: 1.3.0
 maturity: beta
 license: MIT
+description:
+  zh: 为研究规划计算样本量和统计功效。适用于有人询问 "how many subjects/samples/replicates do I
+    need"、需要事前（a priori）功效分析、最小可检测效应（MDE）、功效曲线，或需要为基金申请、IRB 方案或预注册论证样本量的情形。涵盖 t
+    检验、ANOVA、比例、相关、卡方检验和回归的解析式功效计算，以及针对复杂设计的基于模拟（Monte Carlo）的功效分析——包括
+    logistic/Poisson 回归、混合模型、整群随机试验、生存分析和交互作用。即使请求只提到效应量、alpha 或 "80% power"
+    而未明确说 "power analysis"，也可处理。如需规划研究设计（随机化、区组、析因/DOE、交叉设计、序贯设计），请使用
+    experimental-design；如需分析已收集的数据并报告结果，请使用 statistical-analysis。
 author:
   name: K-Dense Inc.
   github: K-Dense-AI

@@ -4,6 +4,10 @@ slug: obsidian-markdown
 version: 0.1.0
 maturity: beta
 license: MIT
+description:
+  zh: 创建和编辑 Obsidian 风格的 Markdown，支持 wikilink、嵌入、callout、属性及其他 Obsidian 专有语法。适用于在
+    Obsidian 中处理 .md 文件，或当用户提到 wikilink、callout、frontmatter、标签、嵌入或 Obsidian
+    笔记时使用。
 author:
   name: Steph Ango
   github: kepano

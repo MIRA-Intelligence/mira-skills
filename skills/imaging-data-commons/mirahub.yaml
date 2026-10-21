@@ -4,6 +4,10 @@ slug: imaging-data-commons
 version: 1.8.0
 maturity: beta
 license: MIT
+description:
+  zh: 从 NCI Imaging Data Commons 查询并下载公开的癌症影像数据。支持 IDC 数据集合发现、DICOM
+    访问、放射学（CT、MR、PET）和病理学 AI 数据集、元数据 SQL 查询、可视化、许可信息及引用。使用公开的元数据和下载途径，无需身份验证；可选的
+    BigQuery 和 Google Healthcare 途径需要 Google 凭据。
 author:
   name: K-Dense Inc.
   github: K-Dense-AI

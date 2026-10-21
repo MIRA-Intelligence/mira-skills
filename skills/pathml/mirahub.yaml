@@ -4,6 +4,9 @@ slug: pathml
 version: 1.4.0
 maturity: beta
 license: MIT
+description:
+  zh: 使用 PathML 支持本地计算病理学研究：切片加载与切块、预处理与质控、h5path 存储、多重标记定量、空间图，以及限定范围的模型推理。适用于全切片
+    H&E、CODEX、Vectra、Mesmer、HoVer-Net 和 HACTNet 工作流。
 author:
   name: K-Dense Inc.
   github: K-Dense-AI

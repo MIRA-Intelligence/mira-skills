@@ -4,6 +4,8 @@ slug: receiving-code-review
 version: 0.1.0
 maturity: beta
 license: MIT
+description:
+  zh: 在收到代码评审反馈、动手实施建议之前使用，尤其是当反馈含义不清或技术上存疑时。要求以技术严谨性加以核实，而非表面附和或盲目照改。
 author:
   name: Jesse Vincent
   github: obra
