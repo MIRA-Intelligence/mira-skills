@@ -37,7 +37,7 @@ When skills reference large local documentation or logs, MIRA utilizes built-in 
 
 `skills/` is the source of truth for skills published on **MIRA Hub** — the
 research-focused skill marketplace at
-<https://mira-intelligence.github.io/mira-hub/>.
+<https://hub.mira-intelligence.com/>.
 
 Each skill is a single folder under [`skills/`](./skills) shaped like:
 
