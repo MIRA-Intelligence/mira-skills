@@ -10,16 +10,16 @@ jobs:
     steps:
       - name: Trigger mira-hub deploy
         env:
-          # Personal access token (or fine-grained GITHUB token) with
-          # `Contents: write` on MIRA-Intelligence/mira-hub. Stored as a
-          # repository secret on mira-skills.
+          # Fine-grained personal access token scoped to
+          # MIRA-Intelligence/mira-hub only, with `Contents: Read and write`
+          # (what POST /dispatches requires). Repository secret on mira-skills.
           GH_PAT: ${{ secrets.MIRAHUB_DISPATCH_TOKEN }}
         run: |
           if [ -z "$GH_PAT" ]; then
-            echo "MIRAHUB_DISPATCH_TOKEN not configured; skipping dispatch."
+            echo "::warning::MIRAHUB_DISPATCH_TOKEN is not set on mira-skills; MIRA Hub was not rebuilt. Run mira-hub's deploy workflow by hand."
             exit 0
           fi
-          curl -sS -X POST \
+          curl -sS --fail-with-body -X POST \
             -H "Authorization: Bearer $GH_PAT" \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
