@@ -8,7 +8,7 @@ description:
 author:
   name: MIRA Team
   github: MIRA-Intelligence
-homepage: https://mira-intelligence.github.io/mira-hub/skills/pubmed-search
+homepage: https://hub.mira-intelligence.com/skills/pubmed-search
 links:
   repo: https://github.com/MIRA-Intelligence/mira-skills/tree/main/skills/pubmed-search
   issues: https://github.com/MIRA-Intelligence/mira-skills/issues

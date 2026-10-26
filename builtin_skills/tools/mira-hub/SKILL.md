@@ -1,14 +1,14 @@
 ---
 name: mira-hub
-description: Find and install skills from MIRA Hub, MIRA's own skill marketplace (research, medical, bioinformatics, document and coding skills). Use when the user asks to install a skill "from MIRA Hub", pastes a mira-intelligence.github.io/mira-hub link or a hub install prompt, or asks whether a skill exists for a research task. 从 MIRA Hub 搜索、安装技能。
-homepage: https://mira-intelligence.github.io/mira-hub/
+description: Find and install skills from MIRA Hub, MIRA's own skill marketplace (research, medical, bioinformatics, document and coding skills). Use when the user asks to install a skill "from MIRA Hub", pastes a hub.mira-intelligence.com (or mira-intelligence.github.io/mira-hub) link or a hub install prompt, or asks whether a skill exists for a research task. 从 MIRA Hub 搜索、安装技能。
+homepage: https://hub.mira-intelligence.com/
 metadata:
   aliases: ["MIRA Hub", "mirahub", "skill marketplace", "install skill", "安装技能", "技能市场"]
 ---
 
 # MIRA Hub
 
-MIRA Hub (<https://mira-intelligence.github.io/mira-hub/>) publishes curated,
+MIRA Hub (<https://hub.mira-intelligence.com/>) publishes curated,
 checksummed skills. Two tools cover it — don't download or unpack hub archives
 with `exec` or `web_fetch`.
 
@@ -17,7 +17,8 @@ with `exec` or `web_fetch`.
 Call `hub_install` once with the slug or the hub page URL:
 
 - "Install the "scanpy" skill from MIRA Hub" → `hub_install(slug="scanpy")`
-- `https://mira-intelligence.github.io/mira-hub/skills/scanpy/` → `hub_install(slug="<that URL>")`
+- `https://hub.mira-intelligence.com/skills/scanpy/` → `hub_install(slug="<that URL>")`
+  (links from the older `mira-intelligence.github.io/mira-hub/` site work the same way)
 
 It downloads the zip, verifies its sha256 and installs it as a custom plugin
 for all projects (Settings → Skills & Plugins). Reinstalling updates the skill.
