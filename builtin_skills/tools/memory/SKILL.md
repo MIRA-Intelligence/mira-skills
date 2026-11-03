@@ -1,7 +1,6 @@
 ---
 name: memory
-description: Two-layer memory system with Dream-managed knowledge files.
-always: true
+description: Search past conversations (memory/history.jsonl) and recall long-term memory; explains which memory files Dream manages and must not be edited.
 metadata:
   aliases: ["knowledge base", "remember", "store information", "recall"]
 ---
