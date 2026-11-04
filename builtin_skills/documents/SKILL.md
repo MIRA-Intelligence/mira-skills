@@ -1,3 +1,4 @@
+---
 name: documents
 description: "Use this skill as an orchestrator for any task involving office documents, PDFs, or scientific writing. This includes Word (.docx), Excel (.xlsx), PowerPoint (.pptx), PDF files, research posters, and academic manuscripts. Trigger this skill whenever a user wants to create, read, edit, or convert documents. This skill will guide you to the correct specialized sub-skill based on the format or workflow."
 metadata:
